@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# runtime data (form submissions, local uploads)
+data/
+public/uploads/
+
+# tooling
+.tools/
+.claude/
+.policy-src/
+.freebuff/
+eng.traineddata
+
+# env
+.env
+.env.local
+.env.*.local
+
+# logs / os
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# typescript
+*.tsbuildinfo

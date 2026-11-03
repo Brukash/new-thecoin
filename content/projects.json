@@ -1,0 +1,117 @@
+{
+  "intro": "The Society's property portfolio spans Abuja and other Nigerian cities, delivered with appointed developers under project agreements. Pricing, availability and delivery schedules are confirmed by the Secretariat on enquiry.",
+  "projects": [
+    {
+      "slug": "ag-mortgage-homes-asaba",
+      "name": "AG Mortgage Homes, Asaba",
+      "city": "Asaba",
+      "state": "Delta State",
+      "location": "Asaba, Delta State",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "A home ownership project in Asaba, Delta State, offered to members under the Coop Home Ownership and Asset Acquisition Scheme.",
+      "description": [
+        "AG Mortgage Homes is one of the Society's property projects and is offered to members through the Coop Home Ownership and Asset Acquisition Scheme.",
+        "The scheme provides affordable housing and financial assistance under flexible payment plans which may extend to the end of the project.",
+        "Members interested in this project should request the current schedule, payment plan and title documentation position from the Secretariat before committing funds."
+      ],
+      "image": null
+    },
+    {
+      "slug": "kaduna",
+      "name": "Kaduna Project",
+      "city": "Kaduna",
+      "state": "Kaduna State",
+      "location": "Kaduna State",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "A residential project in Kaduna State delivered through the Society's developer partnerships.",
+      "description": [
+        "The Kaduna project forms part of the Society's property portfolio and is delivered with an appointed developer under a project agreement.",
+        "Members are advised to confirm unit availability, pricing and delivery timelines with the Secretariat, as these are project-specific and confirmed in writing.",
+        "Finance for qualifying members may be arranged through the Society's home ownership scheme."
+      ],
+      "image": null
+    },
+    {
+      "slug": "baden-moyet-okota",
+      "name": "Baden Moyet, Okota",
+      "city": "Okota",
+      "state": "Lagos State",
+      "location": "Okota, Lagos State",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "A residential development at Okota, Lagos State, available to members of the Society.",
+      "description": [
+        "Baden Moyet is a Society property project located at Okota in Lagos State.",
+        "The project is offered to members through the home ownership scheme, with payment plans structured across the life of the project.",
+        "Current availability, pricing and documentation are provided by the Secretariat on enquiry."
+      ],
+      "image": null
+    },
+    {
+      "slug": "katampe",
+      "name": "Katampe Project",
+      "city": "Abuja",
+      "state": "Federal Capital Territory",
+      "location": "Katampe, Abuja (FCT)",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "A residential project at Katampe in the Federal Capital Territory.",
+      "description": [
+        "The Katampe project is part of the Society's Abuja property portfolio.",
+        "Members should request the current project schedule and payment plan from the Secretariat before subscribing.",
+        "Delivery timelines and title documentation are confirmed per project in the project agreement."
+      ],
+      "image": null
+    },
+    {
+      "slug": "jikwoyi",
+      "name": "Jikwoyi Project",
+      "city": "Abuja",
+      "state": "Federal Capital Territory",
+      "location": "Jikwoyi, Abuja (FCT)",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "A residential project at Jikwoyi in the Federal Capital Territory.",
+      "description": [
+        "The Jikwoyi project is offered to members under the Society's home ownership scheme.",
+        "Members interested in the project should contact the Secretariat for the current availability, pricing and payment plan.",
+        "Where applicable, access to the National Housing Fund is facilitated by the developer as contained in the project agreement."
+      ],
+      "image": null
+    },
+    {
+      "slug": "asokoro",
+      "name": "Asokoro Project",
+      "city": "Abuja",
+      "state": "Federal Capital Territory",
+      "location": "Asokoro, Abuja (FCT)",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "A residential project at Asokoro in the Federal Capital Territory.",
+      "description": [
+        "The Asokoro project sits within the Society's Abuja portfolio and is available to members on enquiry.",
+        "Pricing, unit types and delivery schedules are confirmed by the Secretariat.",
+        "Members should review the project documentation before committing funds."
+      ],
+      "image": null
+    },
+    {
+      "slug": "guzape",
+      "name": "Guzape Project",
+      "city": "Abuja",
+      "state": "Federal Capital Territory",
+      "location": "Guzape, Abuja (FCT)",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "A residential project at Guzape in the Federal Capital Territory.",
+      "description": [
+        "The Guzape project forms part of the Society's property portfolio in Abuja.",
+        "Members should request the current project schedule, payment plan and documentation from the Secretariat.",
+        "The Society confirms all terms in writing before any subscription is made."
+      ],
+      "image": null
+    }
+  ]
+}

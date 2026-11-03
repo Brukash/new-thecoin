@@ -1,0 +1,113 @@
+{
+  "categories": [
+    {
+      "slug": "announcements",
+      "name": "Announcement / Notice Board"
+    },
+    {
+      "slug": "general-news",
+      "name": "General Cooperative News"
+    },
+    {
+      "slug": "investment",
+      "name": "Investment Notices"
+    },
+    {
+      "slug": "project-updates",
+      "name": "Project Updates"
+    },
+    {
+      "slug": "events",
+      "name": "Events"
+    },
+    {
+      "slug": "newsletter",
+      "name": "Newsletter"
+    }
+  ],
+  "articles": [
+    {
+      "slug": "44th-cbn-coop-agm-2025",
+      "title": "44th CBN Coop AGM 2025",
+      "category": "announcements",
+      "date": "2025-05-29",
+      "excerpt": "CBN Coop's 44th Annual General Meeting holds on Friday, 30 May 2025 at 2:00 pm. Let your voice be heard.",
+      "featured": true,
+      "image": "/images/hero/p9.jpg",
+      "imageAlt": "Members gathered in a conference room",
+      "body": [
+        "The 44th Annual General Meeting of the CBN Staff Multipurpose Cooperative Society holds as follows.",
+        "Date: Friday, 30th May 2025. Time: 2:00 pm.",
+        "Members are encouraged to attend. Let your voice be heard. Let's build the future together.",
+        "Further details, including the venue and the business to be transacted, are communicated to members through the Secretariat and the member portal."
+      ],
+      "sourceUrl": "https://www.thecbncoop.com/news/view/12"
+    },
+    {
+      "slug": "edc-partnership",
+      "title": "CBN Cooperative expands its transformative journey with EDC partnership",
+      "category": "general-news",
+      "date": "2025-02-20",
+      "excerpt": "A Memorandum of Understanding with the Enterprise Development Centre of Pan-Atlantic University and Pro-Serve Integrated Services Limited to strengthen the cooperative as an economic tool for national development.",
+      "featured": true,
+      "image": "/images/hero/p10.jpg",
+      "imageAlt": "Two representatives shaking hands at a partnership signing",
+      "body": [
+        "The Central Bank of Nigeria (CBN) Staff Multi-Purpose Cooperative Society Limited has signed a Memorandum of Understanding (MoU) with the Enterprise Development Centre of Pan-Atlantic University and Pro-Serve Integrated Services Limited to strengthen the cooperative as an economic tool for national development.",
+        "The partnership extends the Society's work in enterprise development, member empowerment and institutional collaboration.",
+        "Further details of the collaboration are published to members as the programme is rolled out."
+      ],
+      "sourceUrl": "https://www.thecbncoop.com/news/view/11"
+    },
+    {
+      "slug": "investment-fund-classic-diamond-2024-2028",
+      "title": "CBN Cooperative Society Investment Fund Classic Diamond: Series 2024–2028",
+      "category": "investment",
+      "date": "2024-04-08",
+      "excerpt": "The Management Committee notifies members of the new Classic Diamond series following the closure of Series D.",
+      "featured": false,
+      "image": "/images/hero/p8.jpg",
+      "imageAlt": "Financial documents and a calculator on a desk",
+      "body": [
+        "This is to inform members that the \"Series D\" CBN Cooperative Investment Fund Series marked its 4th year anniversary on the 31st of January 2024, signifying the closure of the series.",
+        "A new series, the Classic Diamond Series (2024–2028), has been created exclusively for investors in the closed series.",
+        "The Management Committee appreciates members for their continued confidence in the Coop Investment Fund. The fund has been a source of financing cooperative activities, bringing value to both contributors and beneficiaries.",
+        "Members who wish to participate should contact the Secretariat for the current series documentation."
+      ],
+      "sourceUrl": "https://www.thecbncoop.com/news/view/10"
+    },
+    {
+      "slug": "investment-fund-2021-2025-classic",
+      "title": "CBN Cooperative Society Investment Fund 2021–2025 Classic",
+      "category": "investment",
+      "date": "2021-02-17",
+      "excerpt": "The Management Committee approves the Coop Investment Fund 2021–2025 Classic.",
+      "featured": false,
+      "image": "/images/hero/p7.jpg",
+      "imageAlt": "A meeting in progress around a boardroom table",
+      "body": [
+        "This is to inform all esteemed members that the Management Committee of the Society has approved the Coop Investment Fund 2021–2025 Classic.",
+        "The fund runs for an initial four years, after which it may be continued or discontinued.",
+        "Members requiring the series documentation should contact the Secretariat."
+      ],
+      "sourceUrl": "https://www.thecbncoop.com/news/view/7"
+    },
+    {
+      "slug": "national-housing-fund",
+      "title": "National Housing Fund (NHF)",
+      "category": "project-updates",
+      "date": "2021-02-16",
+      "excerpt": "The Management Committee's notice to members on accessing the National Housing Fund through the Society's housing projects.",
+      "featured": false,
+      "image": "/images/hero/p12.jpg",
+      "imageAlt": "A residential development",
+      "body": [
+        "Dear Esteemed Cooperators,",
+        "The Management Committee has observed that most of the Society's existing housing projects include access to the National Housing Fund (NHF) through facilitation by the developers, as contained in the agreements.",
+        "However, that has not always been the case in practice. Available statistics showed that a majority of members who are contributors to the scheme have not benefited.",
+        "The Management Committee's notice sets out how members can access the scheme through the Society's projects. Members should contact the Secretariat for the current position on any specific project."
+      ],
+      "sourceUrl": "https://www.thecbncoop.com/news/view/6"
+    }
+  ]
+}
