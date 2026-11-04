@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { AlertTriangle, ArrowLeft, CheckCircle2, FileText } from "lucide-react";
-import { isSignedIn } from "@/lib/admin-auth";
+import { requireStaff } from "@/lib/cms/auth";
 import { readPolicyStore } from "@/lib/credit-admin";
 import { formatNaira } from "@/content/credit-policy";
 import {
@@ -35,7 +34,7 @@ export default async function AdminCreditPage({
 }: {
   searchParams: Promise<{ saved?: string; error?: string; previous?: string }>;
 }) {
-  if (!(await isSignedIn())) redirect("/admin");
+  await requireStaff();
 
   const params = await searchParams;
   const store = readPolicyStore();

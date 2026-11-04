@@ -3,7 +3,7 @@ import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
-import { getProjects, getProjectsIntro } from "@/lib/content";
+import { getProjectsIntro, listProjects } from "@/content/queries";
 import { CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -13,15 +13,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/projects" },
 };
 
-export default function ProjectsPage() {
-  const projects = getProjects();
+export default async function ProjectsPage() {
+  const projects = await listProjects();
+  const intro = await getProjectsIntro();
 
   return (
     <>
       <PageHero
         eyebrow="Property & investment"
         title="Homes and land offered to members."
-        intro={getProjectsIntro()}
+        intro={intro}
         crumbs={[{ label: "Projects" }]}
         image="/images/hero/p3.jpg"
         imageAlt="Residential property exterior"

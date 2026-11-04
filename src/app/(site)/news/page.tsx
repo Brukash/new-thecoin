@@ -4,7 +4,8 @@ import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Reveal } from "@/components/Reveal";
-import { getArticles, getNewsCategories } from "@/lib/content";
+import { getNewsCategories } from "@/lib/content";
+import { listArticles } from "@/content/queries";
 
 export const metadata: Metadata = {
   title: "News & announcements",
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/news" },
 };
 
-export default function NewsPage() {
-  const articles = getArticles();
+export default async function NewsPage() {
+  const articles = await listArticles();
   const categories = getNewsCategories();
   const [featured, ...rest] = articles;
 

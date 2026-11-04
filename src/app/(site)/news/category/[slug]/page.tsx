@@ -5,6 +5,9 @@ import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { ArticleCard } from "@/components/ArticleCard";
 import { getArticles, getCategory, getNewsCategories } from "@/lib/content";
+import { listArticles } from "@/content/queries";
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   return getNewsCategories().map((category) => ({ slug: category.slug }));
@@ -31,7 +34,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const category = getCategory(slug);
   if (!category) notFound();
 
-  const articles = getArticles().filter((article) => article.category === category.slug);
+  const articles = (await listArticles()).filter((article) => article.category === category.slug);
 
   return (
     <>

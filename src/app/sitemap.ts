@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
-import { getArticles, getNewsCategories, getProjects } from "@/lib/content";
-import { services } from "@/content/services";
+import { getNewsCategories } from "@/lib/content";
+import { listArticles, listProjects, listServices, getCreditPolicy, isPolicyApproved } from "@/content/queries";
 import { creditNav } from "@/content/credit-nav";
-import { getCreditPolicy, isPolicyApproved } from "@/content/credit-policy";
+
+export const revalidate = 3600;
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.thecbncoop.com";
 
@@ -15,7 +16,15 @@ function url(path: string, priority: number, changeFrequency: "weekly" | "monthl
   };
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [services, projects, articles, approved, policy] = await Promise.all([
+    listServices(),
+    listProjects(),
+    listArticles(),
+    isPolicyApproved(),
+    getCreditPolicy(),
+  ]);
+
   const staticRoutes = [
     url("/", 1, "weekly"),
     url("/services", 0.9, "monthly"),
@@ -31,10 +40,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const serviceRoutes = services.map((service) => url(`/services/${service.slug}`, 0.7, "monthly"));
-  const projectRoutes = getProjects().map((project) =>
-    url(`/projects/${project.slug}`, 0.7, "monthly"),
-  );
-  const articleRoutes = getArticles().map((article) => ({
+  const projectRoutes = projects.map((project) => url(`/projects/${project.slug}`, 0.7, "monthly"));
+  const articleRoutes = articles.map((article) => ({
     url: `${BASE}/news/${article.slug}`,
     lastModified: new Date(`${article.date}T00:00:00Z`),
     changeFrequency: "yearly" as const,
@@ -45,10 +52,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   // Credit pages are only listed once the policy extract has been approved.
-  const creditRoutes = isPolicyApproved()
+  const creditRoutes = approved
     ? [
         ...creditNav.map((entry) => url(entry.href, 0.7, "monthly")),
-        ...getCreditPolicy().facilities.map((facility) =>
+        ...policy.facilities.map((facility) =>
           url(`/services/credit/loans/${facility.slug}`, 0.6, "monthly"),
         ),
       ]

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { isSignedIn } from "@/lib/admin-auth";
+import { requireStaff } from "@/lib/cms/auth";
 import { readPolicyStore } from "@/lib/credit-admin";
 import { saveFacilityDetails } from "../actions";
 
@@ -14,7 +14,7 @@ export default async function AdminFacilityPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ saved?: string }>;
 }) {
-  if (!(await isSignedIn())) redirect("/admin");
+  await requireStaff();
 
   const { slug } = await params;
   const { saved } = await searchParams;

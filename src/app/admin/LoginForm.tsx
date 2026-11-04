@@ -1,16 +1,33 @@
 "use client";
 
 import { useActionState } from "react";
-import { login } from "./actions";
+import { signIn } from "./actions";
 
-export function LoginForm() {
-  const [state, formAction, pending] = useActionState(login, null);
+export function LoginForm({ emailMode = false }: { emailMode?: boolean }) {
+  const [state, formAction, pending] = useActionState(signIn, null);
 
   return (
     <form action={formAction} className="mt-8 space-y-5">
+      {emailMode ? (
+        <div>
+          <label htmlFor="email" className="field-label">
+            Work email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="username"
+            required
+            className="field mt-2"
+            placeholder="name@cbn.gov.ng"
+          />
+        </div>
+      ) : null}
+
       <div>
         <label htmlFor="password" className="field-label">
-          Staff password
+          {emailMode ? "Password" : "Staff password"}
         </label>
         <input
           id="password"
@@ -34,7 +51,8 @@ export function LoginForm() {
       </button>
 
       <p className="text-xs leading-relaxed text-slate">
-        Authorised staff only. Sessions last eight hours and are limited to this browser.
+        Authorised staff only. Sessions are held in secure, HttpOnly cookies and end when you sign
+        out or the session expires.
       </p>
     </form>
   );

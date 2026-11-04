@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { randomBytes } from "node:crypto";
 import { appendRecord, clientKey, rateLimit } from "@/lib/security";
+import { saveEnquiry } from "@/lib/cms/store";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -26,6 +28,13 @@ const enquirySchema = z.object({
   // Explicit consent is implied by submitting, but we reject missing consent flags silently.
   consent: z.string().optional(),
 });
+
+const SUBJECT_LABELS = {
+  membership: "Membership",
+  property: "Property",
+  advisory: "Advisory",
+  general: "General enquiry",
+} as const;
 
 export async function POST(request: Request) {
   const key = clientKey(request);
@@ -63,16 +72,34 @@ export async function POST(request: Request) {
   const reference = `ENQ-${randomBytes(3).toString("hex").toUpperCase()}`;
 
   try {
-    await appendRecord("enquiries", {
+    // Supabase is the inbox in production; the JSON line file is only a
+    // fallback for preview builds without credentials.
+    const saved = await saveEnquiry({
       reference,
-      receivedAt: new Date().toISOString(),
       name: data.name,
       email: data.email,
       phone: data.phone ?? "",
       staffId: data.staffId ?? "",
-      type: data.type,
+      subject: SUBJECT_LABELS[data.type],
       message: data.message,
     });
+
+    if (!saved) {
+      if (isSupabaseConfigured()) {
+        throw new Error("The enquiry inbox rejected the submission.");
+      }
+
+      await appendRecord("enquiries", {
+        reference,
+        receivedAt: new Date().toISOString(),
+        name: data.name,
+        email: data.email,
+        phone: data.phone ?? "",
+        staffId: data.staffId ?? "",
+        type: data.type,
+        message: data.message,
+      });
+    }
   } catch (error) {
     console.error("Failed to store enquiry", error);
     return NextResponse.json(

@@ -6,11 +6,10 @@ import { ArrowUpRight, CheckCircle2, MapPin } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { EnquiryForm } from "@/components/EnquiryForm";
-import { getProject, getProjects } from "@/lib/content";
+import { findProject, listProjects } from "@/content/queries";
 
-export function generateStaticParams() {
-  return getProjects().map((project) => ({ slug: project.slug }));
-}
+// Projects render on demand so newly published entries do not need a rebuild.
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -18,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await findProject(slug);
   if (!project) return { title: "Project not found" };
 
   return {
@@ -35,10 +34,10 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await findProject(slug);
   if (!project) notFound();
 
-  const others = getProjects()
+  const others = (await listProjects())
     .filter((entry) => entry.slug !== project.slug)
     .slice(0, 3);
 

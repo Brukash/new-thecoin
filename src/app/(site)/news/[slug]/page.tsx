@@ -4,18 +4,13 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
-import {
-  categoryName,
-  formatDate,
-  getArticle,
-  getArticles,
-  getNewsCategories,
-} from "@/lib/content";
+import { categoryName, formatDate, getNewsCategories } from "@/lib/content";
+import { findArticle, listArticles } from "@/content/queries";
 import { site } from "@/content/site";
 
-export async function generateStaticParams() {
-  return getArticles().map((article) => ({ slug: article.slug }));
-}
+// Articles are rendered on demand so a newly published notice appears without
+// a rebuild. The 60 second window keeps repeat visits fast.
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -23,7 +18,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = await findArticle(slug);
   if (!article) return { title: "Article not found" };
 
   return {
@@ -42,10 +37,10 @@ export async function generateMetadata({
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = await findArticle(slug);
   if (!article) notFound();
 
-  const recent = getArticles()
+  const recent = (await listArticles())
     .filter((entry) => entry.slug !== article.slug)
     .slice(0, 3);
 

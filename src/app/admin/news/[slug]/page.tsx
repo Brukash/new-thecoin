@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { isSignedIn } from "@/lib/admin-auth";
-import { readNews } from "@/lib/admin-content";
-import { getArticle } from "@/lib/content";
+import { notFound } from "next/navigation";
+import { requireStaff } from "@/lib/cms/auth";
+import { getEntry } from "@/lib/cms/store";
+import { getNewsCategories } from "@/lib/content";
+import type { ArticleDocument } from "@/lib/cms/schemas";
 import { saveArticle } from "../../actions";
 
 export const dynamic = "force-dynamic";
@@ -12,13 +13,14 @@ export default async function EditArticlePage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  if (!(await isSignedIn())) redirect("/admin");
+  await requireStaff();
 
   const { slug } = await params;
-  const article = getArticle(slug);
-  if (!article) notFound();
+  const entry = await getEntry<ArticleDocument>("news", slug, { includeDrafts: true });
+  if (!entry) notFound();
+  const article = entry.data;
 
-  const categories = readNews().categories;
+  const categories = getNewsCategories();
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -128,8 +130,11 @@ export default async function EditArticlePage({
         </label>
 
         <div className="flex gap-3 border-t border-line pt-5">
-          <button type="submit" className="btn btn-primary">
-            Save and publish
+          <button type="submit" name="intent" value="publish" className="btn btn-primary">
+            Publish
+          </button>
+          <button type="submit" name="intent" value="draft" className="btn btn-outline">
+            Save draft
           </button>
           <Link href="/admin" className="btn btn-outline">
             Cancel

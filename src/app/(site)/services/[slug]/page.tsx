@@ -5,11 +5,10 @@ import { ArrowRight, ArrowUpRight, Info } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { EnquiryForm } from "@/components/EnquiryForm";
-import { getService, services } from "@/content/services";
+import { PublishedRates } from "@/components/PublishedRates";
+import { findService, listServices } from "@/content/queries";
 
-export function generateStaticParams() {
-  return services.map((service) => ({ slug: service.slug }));
-}
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -17,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = getService(slug);
+  const service = await findService(slug);
   if (!service) return { title: "Service not found" };
 
   return {
@@ -34,11 +33,12 @@ export default async function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = getService(slug);
+  const service = await findService(slug);
   if (!service) notFound();
 
+  const services = await listServices();
   const related = service.related
-    .map((relatedSlug) => getService(relatedSlug))
+    .map((relatedSlug) => services.find((entry) => entry.slug === relatedSlug))
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
 
   return (
@@ -74,6 +74,8 @@ export default async function ServiceDetailPage({
                 </section>
               ))}
             </div>
+
+            {service.rates && <PublishedRates kind={service.rates} />}
 
             {service.reviewNote && (
               <div className="mt-10 flex gap-3 border border-line bg-bone p-4">

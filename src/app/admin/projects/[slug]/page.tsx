@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { isSignedIn } from "@/lib/admin-auth";
-import { getProject } from "@/lib/content";
+import { notFound } from "next/navigation";
+import { requireStaff } from "@/lib/cms/auth";
+import { getEntry } from "@/lib/cms/store";
+import type { ProjectDocument } from "@/lib/cms/schemas";
 import { saveProject } from "../../actions";
 
 export const dynamic = "force-dynamic";
@@ -11,11 +12,12 @@ export default async function EditProjectPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  if (!(await isSignedIn())) redirect("/admin");
+  await requireStaff();
 
   const { slug } = await params;
-  const project = getProject(slug);
-  if (!project) notFound();
+  const entry = await getEntry<ProjectDocument>("projects", slug, { includeDrafts: true });
+  if (!entry) notFound();
+  const project = entry.data;
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -120,8 +122,11 @@ export default async function EditProjectPage({
         </div>
 
         <div className="flex gap-3 border-t border-line pt-5">
-          <button type="submit" className="btn btn-primary">
-            Save and publish
+          <button type="submit" name="intent" value="publish" className="btn btn-primary">
+            Publish
+          </button>
+          <button type="submit" name="intent" value="draft" className="btn btn-outline">
+            Save draft
           </button>
           <Link href="/admin" className="btn btn-outline">
             Cancel

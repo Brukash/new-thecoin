@@ -122,8 +122,8 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-NG" className={`${inter.variable} ${serif.variable}`}>
-      <body className="min-h-screen bg-paper antialiased">
+    <html lang="en-NG" className={`${inter.variable} ${serif.variable}`} suppressHydrationWarning>
+      <body className="min-h-screen bg-paper antialiased" suppressHydrationWarning>
         {children}
 
         <script

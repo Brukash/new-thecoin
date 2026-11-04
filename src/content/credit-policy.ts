@@ -195,27 +195,30 @@ const EMPTY: CreditPolicyStore = {
   updatedAt: "",
 };
 
+/** Fills missing sections so a partial document can never break a page. */
+export function normalisePolicy(store: Partial<CreditPolicyStore>): CreditPolicyStore {
+  return {
+    ...EMPTY,
+    ...store,
+    version: { ...EMPTY.version, ...(store.version ?? {}) },
+    overview: { ...EMPTY.overview, ...(store.overview ?? {}) },
+    application: { ...EMPTY.application, ...(store.application ?? {}) },
+    repayment: { ...EMPTY.repayment, ...(store.repayment ?? {}) },
+    administration: { ...EMPTY.administration, ...(store.administration ?? {}) },
+    internalCredits: { ...EMPTY.internalCredits, ...(store.internalCredits ?? {}) },
+    review: { ...EMPTY.review, ...(store.review ?? {}) },
+    globalLimits: { ...EMPTY.globalLimits, ...(store.globalLimits ?? {}) },
+    facilities: store.facilities ?? [],
+    faqs: store.faqs ?? [],
+    flags: store.flags ?? [],
+    versions: store.versions ?? [],
+  };
+}
+
 export function getCreditPolicy(): CreditPolicyStore {
   try {
     const full = path.join(process.cwd(), "content", "credit-policy.json");
-    const store = JSON.parse(fs.readFileSync(full, "utf8")) as Partial<CreditPolicyStore>;
-
-    return {
-      ...EMPTY,
-      ...store,
-      version: { ...EMPTY.version, ...(store.version ?? {}) },
-      overview: { ...EMPTY.overview, ...(store.overview ?? {}) },
-      application: { ...EMPTY.application, ...(store.application ?? {}) },
-      repayment: { ...EMPTY.repayment, ...(store.repayment ?? {}) },
-      administration: { ...EMPTY.administration, ...(store.administration ?? {}) },
-      internalCredits: { ...EMPTY.internalCredits, ...(store.internalCredits ?? {}) },
-      review: { ...EMPTY.review, ...(store.review ?? {}) },
-      globalLimits: { ...EMPTY.globalLimits, ...(store.globalLimits ?? {}) },
-      facilities: store.facilities ?? [],
-      faqs: store.faqs ?? [],
-      flags: store.flags ?? [],
-      versions: store.versions ?? [],
-    };
+    return normalisePolicy(JSON.parse(fs.readFileSync(full, "utf8")) as Partial<CreditPolicyStore>);
   } catch {
     return EMPTY;
   }

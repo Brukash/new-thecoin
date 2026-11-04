@@ -2,10 +2,11 @@
  * Service catalogue.
  *
  * Bodies are drawn from the Society's existing published service pages
- * (thecbncoop.com/service/view/1,2,5,8) and the Bye-Laws summary on the
- * membership pages. No rate, eligibility rule or financial term has been
- * added. Where the Society has not published terms, the copy says so and
- * routes the reader to an enquiry.
+ * (thecbncoop.com/service/view/1,2,5,8), the Bye-Laws summary on the
+ * membership pages and the rate notice of 24 September 2026. No rate,
+ * eligibility rule or financial term is derived here: published figures are
+ * reproduced from the Society's own notices, and anything unpublished is
+ * confirmed by the Secretariat before a member commits.
  */
 
 export type Service = {
@@ -20,6 +21,8 @@ export type Service = {
   facts?: { label: string; value: string }[];
   /** Set when copy must be confirmed by the Society before launch. */
   reviewNote?: string;
+  /** Which published rate schedule belongs on the page, if any. */
+  rates?: "bond" | "loans";
   related: string[];
   cta: { label: string; href: string };
 };
@@ -110,7 +113,7 @@ export const services: Service[] = [
       {
         heading: "Terms are confirmed in writing",
         paragraphs: [
-          "The Society publishes the principle of member credit but not a standing rate card. Current interest, tenor and security requirements are confirmed by the Secretariat in writing at the point of application.",
+          "The Society publishes its lending rates. The Management Committee approved revised rates on 24 September 2026, effective 1 October 2026, and they are set out below. Tenor and security requirements are confirmed by the Secretariat in writing at the point of application.",
         ],
       },
     ],
@@ -120,7 +123,8 @@ export const services: Service[] = [
       { label: "Repayment", value: "Structured deduction" },
     ],
     reviewNote:
-      "Interest rates, maximum amounts and tenors are not published by the Society and are therefore not stated here.",
+      "Rates are as published in the notice of 24 September 2026. Maximum amounts and tenors follow the Credit Policy and are confirmed in writing.",
+    rates: "loans",
     related: ["credit-and-thrift", "savings", "home-ownership"],
     cta: { label: "Request lending terms", href: "/contact" },
   },
@@ -138,7 +142,9 @@ export const services: Service[] = [
         heading: "How a series works",
         paragraphs: [
           "The fund runs for an initial four years, after which it may be continued or discontinued. Series open and close on published dates. The Classic Diamond Series (2024–2028) followed the closure of Series D, which marked its fourth anniversary on 31 January 2024.",
+          "Members invest on a 4-year, 2-year or 1-year (Tripple) plan. Within each plan the rate depends on the payment option: monthly, quarterly, half yearly, up-front or backend.",
           "Investors in a closed series are invited into the succeeding series, and the terms of each series are communicated to members directly.",
+          "Rates for the 4-year, 2-year and 1-year plans were reviewed by the Management Committee on 24 September 2026 and apply from 1 October 2026. They are published below.",
         ],
       },
       {
@@ -150,9 +156,11 @@ export const services: Service[] = [
     ],
     facts: [
       { label: "Initial tenor", value: "4 years" },
+      { label: "Plans", value: "1, 2 or 4 years" },
       { label: "Current series", value: "Classic Diamond 2024–2028" },
       { label: "Approval", value: "Management Committee" },
     ],
+    rates: "bond",
     related: ["financial-advisory", "savings", "credit-and-thrift"],
     cta: { label: "Ask about the current series", href: "/contact" },
   },
@@ -175,7 +183,7 @@ export const services: Service[] = [
       {
         heading: "The Coop Investment Funds",
         paragraphs: [
-          "The fund runs for an initial four years, after which it can be continued or discontinued. It is structured to provide guaranteed cash flow from periodic interest payments: monthly, quarterly, half-yearly, yearly or up-front.",
+          "The fund runs for an initial four years, after which it can be continued or discontinued. It is structured to provide guaranteed cash flow from periodic interest payments: monthly, quarterly, half-yearly, yearly, up-front or backend.",
         ],
         bullets: [
           "Guaranteed cash flow from periodic interest payments",
@@ -192,7 +200,7 @@ export const services: Service[] = [
     ],
     facts: [
       { label: "Products", value: "Special Savings · Investment Fund" },
-      { label: "Payout options", value: "Monthly to up-front" },
+      { label: "Payout options", value: "Monthly to backend" },
       { label: "Guidance", value: "One-to-one with the Secretariat" },
     ],
     related: ["investment-services", "savings", "home-ownership"],

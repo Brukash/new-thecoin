@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { isSignedIn } from "@/lib/admin-auth";
+import { requireStaff } from "@/lib/cms/auth";
 import {
   approvePolicy,
   archivePolicy,
@@ -15,7 +15,7 @@ import {
 import type { LimitRow } from "@/content/credit-policy";
 
 async function requireAdmin(): Promise<void> {
-  if (!(await isSignedIn())) redirect("/admin");
+  await requireStaff();
 }
 
 function text(form: FormData, key: string): string {

@@ -17,9 +17,10 @@ import { Reveal } from "@/components/Reveal";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ArticleCard } from "@/components/ArticleCard";
 import { EnquiryForm } from "@/components/EnquiryForm";
-import { services } from "@/content/services";
 import { site, verifiedFacts } from "@/content/site";
-import { getArticles, getProjects } from "@/lib/content";
+import { listArticles, listProjects, listServices } from "@/content/queries";
+
+export const revalidate = 60;
 
 const pillars = [
   {
@@ -59,9 +60,12 @@ const digital = [
   },
 ];
 
-export default function HomePage() {
-  const articles = getArticles().slice(0, 3);
-  const projects = getProjects().slice(0, 3);
+export default async function HomePage() {
+  const [services, articles, projects] = await Promise.all([
+    listServices(),
+    listArticles().then((entries) => entries.slice(0, 3)),
+    listProjects().then((entries) => entries.slice(0, 3)),
+  ]);
   const featured = articles[0];
   const rest = articles.slice(1);
 

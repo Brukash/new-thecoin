@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { EnquiryForm } from "@/components/EnquiryForm";
-import { site } from "@/content/site";
+import { getContactSettings } from "@/content/queries";
 
 export const metadata: Metadata = {
   title: "Contact us",
@@ -12,7 +12,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const site = await getContactSettings();
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
     site.contact.mapQuery,
   )}&output=embed`;

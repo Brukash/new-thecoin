@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
-import { services } from "@/content/services";
+import { listServices } from "@/content/queries";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -13,7 +13,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/services" },
 };
 
-export default function ServicesPage() {
+export const revalidate = 60;
+
+export default async function ServicesPage() {
+  const services = await listServices();
+
   return (
     <>
       <PageHero
@@ -78,8 +82,9 @@ export default function ServicesPage() {
           </div>
 
           <p className="mt-8 max-w-3xl text-xs leading-relaxed text-slate">
-            Interest rates, eligibility thresholds and project pricing are not published on this
-            website. They are confirmed in writing by the Secretariat so that members rely on
+            Lending and investment bond rates are published on the Loans and Investments pages,
+            following the Management Committee review of 24 September 2026. Eligibility thresholds
+            and project pricing are confirmed in writing by the Secretariat so that members rely on
             approved terms rather than assumptions.
           </p>
         </div>
