@@ -3,11 +3,21 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { getStaffUser, requireStaff } from "@/lib/cms/auth";
-import { deleteEntry, deleteMedia, getEntry, listEntries, saveEntry, uploadMedia } from "@/lib/cms/store";
+import {
+  deleteEntry,
+  deleteMedia,
+  getEntry,
+  listEntries,
+  saveEntry,
+  setEnquiryHandled,
+  setMediaAlt,
+  uploadMedia,
+} from "@/lib/cms/store";
 import {
   articleSchema,
   contactSettingsSchema,
   faqSchema,
+  partnerSchema,
   projectSchema,
   ratesSchema,
   serviceSchema,
@@ -17,6 +27,14 @@ import {
   type RatesDocument,
   type ServiceDocument,
 } from "@/lib/cms/schemas";
+import {
+  deletePartner,
+  listPartners,
+  movePartner,
+  savePartner,
+  setPartnerActive,
+  uploadPartnerLogo,
+} from "@/lib/cms/partners";
 import { createSessionClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSession, destroySession, isAdminConfigured, verifyPassword } from "@/lib/admin-auth";
@@ -431,6 +449,122 @@ export async function deleteMediaAction(form: FormData): Promise<void> {
   await deleteMedia(text(form, "path"), actor);
   refresh();
   redirect("/admin/media?deleted=1");
+}
+
+export async function updateMediaAltAction(form: FormData): Promise<void> {
+  const actor = await requireStaff();
+  await setMediaAlt(text(form, "path"), text(form, "alt"), actor);
+  refresh();
+  redirect("/admin/media?saved=alt");
+}
+
+/* -------------------------------- partners ------------------------------- */
+
+export async function createPartner(form: FormData): Promise<void> {
+  const actor = await requireStaff();
+  const name = text(form, "name");
+  if (!name) redirect("/admin/partners?error=name");
+
+  const base = slugify(name) || "partner";
+  const existing = await listPartners({ includeInactive: true });
+  let slug = base;
+  let suffix = 2;
+  while (existing.some((partner) => partner.slug === slug)) {
+    slug = `${base}-${suffix}`;
+    suffix += 1;
+  }
+
+  const displayOrder = existing.reduce((max, partner) => Math.max(max, partner.displayOrder), 0) + 10;
+
+  await savePartner(
+    {
+      organisationName: name,
+      slug,
+      logoUrl: "",
+      websiteUrl: "",
+      description: "",
+      category: "Financial Services Partners",
+      displayOrder,
+      active: false,
+    },
+    actor,
+  );
+
+  refresh();
+  redirect(`/admin/partners/${slug}?created=1`);
+}
+
+export async function savePartnerAction(form: FormData): Promise<void> {
+  const actor = await requireStaff();
+  const slug = text(form, "slug");
+  if (!slug) redirect("/admin/partners?error=name");
+
+  let logoUrl = text(form, "logoUrl");
+
+  const file = form.get("logo");
+  if (file instanceof File && file.size > 0) {
+    try {
+      logoUrl = await uploadPartnerLogo(file, slug);
+    } catch {
+      redirect(`/admin/partners/${slug}?error=upload`);
+    }
+  }
+
+  if (text(form, "removeLogo") === "on") logoUrl = "";
+
+  const parsed = partnerSchema.safeParse({
+    organisationName: text(form, "organisationName"),
+    slug,
+    logoUrl,
+    websiteUrl: text(form, "websiteUrl"),
+    description: text(form, "description"),
+    category: text(form, "category"),
+    displayOrder: text(form, "displayOrder") || 0,
+    active: text(form, "active") === "on",
+  });
+
+  if (!parsed.success) redirect(`/admin/partners/${slug}?error=invalid`);
+
+  try {
+    await savePartner(parsed.data, actor);
+  } catch {
+    redirect(`/admin/partners/${slug}?error=save`);
+  }
+
+  refresh();
+  redirect(`/admin/partners/${slug}?saved=1`);
+}
+
+export async function togglePartnerAction(form: FormData): Promise<void> {
+  const actor = await requireStaff();
+  await setPartnerActive(text(form, "slug"), text(form, "active") === "true", actor);
+  refresh();
+  redirect("/admin/partners?toggled=1");
+}
+
+export async function movePartnerAction(form: FormData): Promise<void> {
+  const actor = await requireStaff();
+  await movePartner(text(form, "slug"), text(form, "direction") === "up" ? "up" : "down", actor);
+  refresh();
+  redirect("/admin/partners?moved=1");
+}
+
+export async function deletePartnerAction(form: FormData): Promise<void> {
+  const actor = await requireStaff();
+  await deletePartner(text(form, "slug"), actor);
+  refresh();
+  redirect("/admin/partners?deleted=1");
+}
+
+/* ------------------------------- enquiries ------------------------------- */
+
+export async function setEnquiryStatus(form: FormData): Promise<void> {
+  const actor = await requireStaff();
+  const handled = text(form, "handled") === "true";
+
+  await setEnquiryHandled(text(form, "id"), handled, actor);
+  refresh();
+  redirect(handled ? "/admin/enquiries?handled=1" : "/admin/enquiries?reopened=1");
 }
 
 /* -------------------------------- settings ------------------------------- */

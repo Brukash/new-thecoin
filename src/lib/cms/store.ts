@@ -273,6 +273,23 @@ export async function uploadMedia(
   return publicUrl(path);
 }
 
+export async function setMediaAlt(
+  path: string,
+  alt: string,
+  actor: StaffUser,
+): Promise<void> {
+  const client = db();
+  if (!client) throw new Error("Supabase is not configured, so the change was not saved.");
+
+  const { error } = await client
+    .from("media")
+    .update({ alt: alt.slice(0, 300) })
+    .eq("path", path);
+  if (error) throw new Error(error.message);
+
+  await logAudit({ actor, action: "media-edit", collection: "media", slug: path });
+}
+
 export async function deleteMedia(path: string, actor: StaffUser): Promise<void> {
   const client = db();
   if (!client) throw new Error("Supabase is not configured, so nothing was deleted.");
@@ -313,6 +330,81 @@ export async function saveEnquiry(record: {
   });
   if (error) console.error("Failed to store enquiry in Supabase", error.message);
   return !error;
+}
+
+export type Enquiry = {
+  id: string;
+  reference: string;
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  handled: boolean;
+  createdAt: string;
+};
+
+/** Newest first. Read with the service role, so callers must gate on staff. */
+export async function listEnquiries(limit = 200): Promise<Enquiry[]> {
+  const client = db();
+  if (!client) return [];
+
+  const { data, error } = await client
+    .from("enquiries")
+    .select("id, reference, name, email, phone, subject, message, handled, created_at")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) return [];
+
+  return data.map((row) => ({
+    id: row.id as string,
+    reference: (row.reference as string) ?? "",
+    name: row.name as string,
+    email: row.email as string,
+    phone: (row.phone as string) ?? "",
+    subject: (row.subject as string) ?? "",
+    message: row.message as string,
+    handled: Boolean(row.handled),
+    createdAt: row.created_at as string,
+  }));
+}
+
+export async function countUnhandledEnquiries(): Promise<number> {
+  const client = db();
+  if (!client) return 0;
+
+  const { count } = await client
+    .from("enquiries")
+    .select("id", { count: "exact", head: true })
+    .eq("handled", false);
+
+  return count ?? 0;
+}
+
+export async function setEnquiryHandled(
+  id: string,
+  handled: boolean,
+  actor: StaffUser,
+): Promise<void> {
+  const client = db();
+  if (!client) throw new Error("Supabase is not configured, so the enquiry was not updated.");
+
+  const { data, error } = await client
+    .from("enquiries")
+    .update({ handled })
+    .eq("id", id)
+    .select("reference")
+    .maybeSingle();
+
+  if (error) throw new Error(error.message);
+
+  await logAudit({
+    actor,
+    action: handled ? "enquiry-handled" : "enquiry-reopened",
+    collection: "enquiries",
+    slug: (data?.reference as string) || id,
+  });
 }
 
 export async function listAudit(limit = 40) {

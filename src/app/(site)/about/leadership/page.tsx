@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
@@ -27,14 +28,25 @@ export default function LeadershipPage() {
           <div className="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
             {leadership.map((officer, index) => (
               <Reveal key={officer.name} delay={index * 35} as="article">
-                <div className="h-full bg-white p-6 transition-colors hover:bg-bone">
-                  <div className="flex size-11 items-center justify-center border border-line font-serif text-lg text-gold-600">
-                    {officer.name
-                      .split(" ")
-                      .slice(0, 2)
-                      .map((part) => part[0])
-                      .join("")}
-                  </div>
+                <div className="h-full bg-white p-6">
+                  {officer.photo ? (
+                    <Image
+                      src={officer.photo}
+                      alt={`${officer.name}, ${officer.role}`}
+                      width={400}
+                      height={400}
+                      sizes="160px"
+                      className="size-40 object-cover object-top"
+                    />
+                  ) : (
+                    <div className="flex size-40 items-center justify-center bg-bone font-serif text-3xl text-gold-600">
+                      {officer.name
+                        .split(" ")
+                        .slice(0, 2)
+                        .map((part) => part[0])
+                        .join("")}
+                    </div>
+                  )}
                   <h2 className="mt-5 font-serif text-lg leading-snug text-navy">{officer.name}</h2>
                   <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold-600">
                     {officer.role}

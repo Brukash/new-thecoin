@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, ChevronDown, Menu, Phone, X } from "lucide-react";
 import { primaryNav, site } from "@/content/site";
 import { services } from "@/content/services";
 
@@ -14,6 +14,13 @@ const aboutLinks = [
   { label: "Organisational structure", href: "/about/structure" },
   { label: "Membership", href: "/membership" },
   { label: "Frequently asked questions", href: "/faq" },
+];
+
+const eventLinks = [
+  { label: "Upcoming events", href: "/events" },
+  { label: "Past events", href: "/events/past" },
+  { label: "Announcements", href: "/events/announcements" },
+  { label: "Event gallery", href: "/events/gallery" },
 ];
 
 const creditLinks = [
@@ -50,11 +57,30 @@ export function Header() {
     };
   }, [open]);
 
+  const headerRef = useRef<HTMLElement | null>(null);
+  const [panelTop, setPanelTop] = useState(0);
+
+  useEffect(() => {
+    if (!open) return;
+    const el = headerRef.current;
+    const measure = () => {
+      if (el) setPanelTop(el.getBoundingClientRect().bottom);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [open]);
+
+  const toggleMenu = () => {
+    if (!open) setPanelTop(headerRef.current?.getBoundingClientRect().bottom ?? 0);
+    setOpen((v) => !v);
+  };
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50">
+    <>
       {/* Utility bar — the portals members actually use */}
       <div className="bg-ink text-white/70">
         <div className="shell flex h-10 items-center justify-between gap-6 text-[11px] tracking-wide">
@@ -91,8 +117,9 @@ export function Header() {
         </div>
       </div>
 
-      <div
-        className={`border-b bg-white/95 backdrop-blur transition-all duration-300 ${
+      <header
+        ref={headerRef}
+        className={`sticky top-0 z-50 border-b bg-white transition-all duration-300 ${
           scrolled ? "border-line shadow-[0_10px_30px_-24px_rgba(8,16,31,0.5)]" : "border-line/70"
         }`}
       >
@@ -114,10 +141,12 @@ export function Header() {
             </Link>
           </div>
 
-          <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex xl:gap-5">
             {primaryNav.map((item) => {
-              const hasMenu = item.label === "About" || item.label === "Services";
-              const menu = item.label === "About" ? aboutLinks : null;
+              const hasMenu =
+                item.label === "About" || item.label === "Services" || item.label === "Events";
+              const menu =
+                item.label === "About" ? aboutLinks : item.label === "Events" ? eventLinks : null;
 
               return (
                 <div key={item.href} className="group relative">
@@ -204,14 +233,15 @@ export function Header() {
               href={site.registration.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary hidden xl:inline-flex"
+              className="btn btn-primary hidden shrink-0 xl:inline-flex"
             >
               Become a member
+              <ArrowUpRight className="size-4" aria-hidden />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <button
               type="button"
-              onClick={() => setOpen((v) => !v)}
+              onClick={toggleMenu}
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
@@ -221,13 +251,13 @@ export function Header() {
             </button>
           </div>
         </div>
-      </div>
 
       {/* Mobile navigation */}
       <div
         id="mobile-nav"
         hidden={!open}
-        className="fixed inset-x-0 top-[6.5rem] bottom-0 z-40 overflow-y-auto border-t border-line bg-white lg:hidden"
+        style={{ top: panelTop }}
+        className="fixed inset-x-0 bottom-0 z-40 overflow-y-auto border-t border-line bg-white lg:hidden"
       >
         <div className="shell py-6">
           <ul className="divide-y divide-line">
@@ -235,9 +265,11 @@ export function Header() {
               const menu =
                 item.label === "About"
                   ? aboutLinks
-                  : item.label === "Services"
-                    ? creditLinks
-                    : null;
+                  : item.label === "Events"
+                    ? eventLinks
+                    : item.label === "Services"
+                      ? creditLinks
+                      : null;
               const expanded = section === item.label;
 
               return (
@@ -293,6 +325,7 @@ export function Header() {
               onClick={() => setOpen(false)}
             >
               Become a member
+              <ArrowUpRight className="size-4" aria-hidden />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <a
@@ -317,5 +350,6 @@ export function Header() {
         </div>
       </div>
     </header>
+    </>
   );
 }

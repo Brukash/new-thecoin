@@ -14,9 +14,11 @@ export const metadata: Metadata = {
 };
 
 const eligibility = [
-  "CBN Staff",
-  "Retired Staff of the CBN",
-  "CBN Staff on secondment to other institutions",
+  "CBN active staff",
+  "CBN retired staff",
+  "CBN pensioners",
+  "CBN staff on secondment to other institutions",
+  "Coop staff",
 ];
 
 const benefits = [
@@ -32,7 +34,7 @@ const steps = [
   {
     step: "01",
     title: "Confirm your eligibility",
-    body: "Membership is open to CBN staff, retired CBN staff, and CBN staff on secondment. If your category is unclear, ask the Secretariat before paying anything.",
+    body: "Membership is open to CBN active staff, retired staff, pensioners and staff on secondment, and to Coop staff. If your category is unclear, ask the Secretariat before paying anything.",
   },
   {
     step: "02",

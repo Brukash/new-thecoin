@@ -80,11 +80,13 @@
     border-radius: 2px;
   }
 
-  /* Never allow horizontal overflow on small screens */
+  /* Never allow horizontal overflow on small screens.
+     `clip` rather than `hidden`: `hidden` makes the body a scroll container,
+     which stops the navigation bar from sticking to the top of the page. */
   html,
   body {
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   img,
@@ -174,25 +176,54 @@
     text-transform: uppercase;
     transition: all 220ms var(--ease-out-soft);
     border: 1px solid transparent;
+    border-radius: 2px;
+    white-space: nowrap;
     cursor: pointer;
   }
 
   .btn-primary {
     background-color: var(--color-gold);
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, #fff 16%, var(--color-gold)) 0%,
+      var(--color-gold) 58%,
+      color-mix(in srgb, var(--color-ink) 9%, var(--color-gold)) 100%
+    );
     color: var(--color-ink);
+    border-color: color-mix(in srgb, var(--color-ink) 24%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, #fff 32%, transparent),
+      0 10px 22px -14px color-mix(in srgb, var(--color-ink) 80%, transparent);
   }
 
   .btn-primary:hover {
     background-color: var(--color-gold-200);
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, #fff 26%, var(--color-gold-200)) 0%,
+      var(--color-gold-200) 58%,
+      color-mix(in srgb, var(--color-ink) 8%, var(--color-gold-200)) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, #fff 40%, transparent),
+      0 14px 26px -14px color-mix(in srgb, var(--color-ink) 86%, transparent);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: inset 0 2px 6px color-mix(in srgb, var(--color-ink) 30%, transparent);
   }
 
   .btn-ink {
     background-color: var(--color-ink);
     color: #fff;
+    box-shadow: 0 10px 22px -14px color-mix(in srgb, var(--color-ink) 78%, transparent);
   }
 
   .btn-ink:hover {
     background-color: var(--color-navy-700);
+    transform: translateY(-1px);
   }
 
   .btn-outline {
@@ -243,6 +274,58 @@
 
   .link-underline:hover::after {
     transform: scaleX(1);
+  }
+
+  /* Form controls — used by the console and every public form */
+  .field {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--color-line);
+    background-color: var(--color-paper);
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-charcoal);
+    outline: none;
+    transition: border-color 200ms var(--ease-out-soft), box-shadow 200ms var(--ease-out-soft);
+  }
+
+  .field:focus {
+    border-color: var(--color-gold-600);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 18%, transparent);
+  }
+
+  .field::placeholder {
+    color: color-mix(in srgb, var(--color-slate) 70%, transparent);
+  }
+
+  .field:disabled,
+  .field[readonly] {
+    background-color: var(--color-bone);
+  }
+
+  textarea.field {
+    min-height: 4.5rem;
+    resize: vertical;
+  }
+
+  select.field {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--color-slate) 50%),
+      linear-gradient(135deg, var(--color-slate) 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% + 1px), calc(100% - 13px) calc(50% + 1px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 2rem;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-slate);
   }
 
   /* Cards */

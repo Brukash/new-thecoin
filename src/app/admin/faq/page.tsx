@@ -7,7 +7,7 @@ import { saveFaq } from "../actions";
 
 export const dynamic = "force-dynamic";
 
-const GROUP_SLOTS = 8;
+const GROUP_SLOTS = 9;
 
 export default async function FaqAdminPage({
   searchParams,
@@ -73,7 +73,8 @@ export default async function FaqAdminPage({
             />
             <p className="mt-2 text-xs text-slate">
               One question per line: <code>question | answer</code>. Empty sections are removed on
-              save.
+              save. Start a new line inside an answer with <code>\n</code>, and a bullet with{" "}
+              <code>• </code>.
             </p>
           </fieldset>
         ))}

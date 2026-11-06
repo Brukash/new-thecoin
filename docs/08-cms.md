@@ -46,6 +46,7 @@ and local development never depend on the database.
 | FAQ | `/admin/faq` | Questions and answers, grouped into sections. |
 | Rates | `/admin/rates` | Bond and loan rates, reproduced from the latest approved notice. |
 | Media | `/admin/media` | Upload and remove images in the Supabase storage bucket. |
+| Enquiries | `/admin/enquiries` | Read messages sent from the website forms and mark each one handled. |
 | Credit policy | `/admin/credit` | Existing approval workflow, including the typed `APPROVE` confirmation. |
 
 Every public page that reads a collection uses the database when it is seeded

@@ -3,6 +3,7 @@ import { AlertTriangle, ArrowLeft, CheckCircle2, FileText } from "lucide-react";
 import { requireStaff } from "@/lib/cms/auth";
 import { readPolicyStore } from "@/lib/credit-admin";
 import { formatNaira } from "@/content/credit-policy";
+import { EditButton } from "../EditButton";
 import {
   publishPolicy,
   saveDetails,
@@ -368,6 +369,7 @@ export default async function AdminCreditPage({
                 {facility.name}
               </Link>
               <span className="text-[10px] uppercase tracking-[0.1em] text-slate">{facility.kind}</span>
+              <EditButton href={`/admin/credit/${facility.slug}`} />
             </li>
           ))}
         </ul>

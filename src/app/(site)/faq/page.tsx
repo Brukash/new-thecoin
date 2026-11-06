@@ -84,7 +84,9 @@ export default async function FaqPage() {
                           +
                         </span>
                       </summary>
-                      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate">{item.a}</p>
+                      <p className="mt-3 max-w-2xl whitespace-pre-line text-sm leading-relaxed text-slate">
+                        {item.a}
+                      </p>
                     </details>
                   ))}
                 </div>

@@ -19,6 +19,8 @@ export type RateRow = {
   current: string;
   /** Set where the notice shows the same rate on both sides. */
   unchanged?: boolean;
+  /** Terms the Credit Policy attaches to the product, shown under the label. */
+  note?: string;
 };
 
 export type RatePlan = {
@@ -66,9 +68,12 @@ export const bondPlans: RatePlan[] = [
 export const loanRates: RateRow[] = [
   { label: "Normal loan", previous: "13.00%", current: "11.50%" },
   { label: "Special loan", previous: "20.50%", current: "19.00%" },
-  { label: "Short term loan (1 month)", previous: "11.00%", current: "9.50%" },
-  { label: "Short term loan (3 months)", previous: "13.00%", current: "11.50%" },
-  { label: "Short term loan (6 months)", previous: "14.50%", current: "13.00%" },
+  {
+    label: "Quick loan (up to 3 months)",
+    previous: "11.00% – 13.00%",
+    current: "9.50% – 11.50%",
+    note: "Quick Credit under the Credit Policy: up to 20% of savings, capped by grade, and repayable within three months. The rate follows the month chosen — 9.50% at one month, 11.50% at three months.",
+  },
   { label: "Seasonal sales loan", previous: "20.50%", current: "19.00%" },
   { label: "Investment loan", previous: "20.50%", current: "19.00%" },
   { label: "LPO Finance", previous: "11% flat", current: "11% flat", unchanged: true },

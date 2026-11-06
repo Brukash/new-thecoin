@@ -126,21 +126,56 @@ export const site = {
   ],
 };
 
+export type Officer = {
+  name: string;
+  role: string;
+  /** Portrait in /public/images/leadership, once one has been supplied. */
+  photo?: string;
+};
+
 /** Management Committee — names and offices as published on thecbncoop.com/team. */
-export const leadership = [
-  { name: "Thaddeus Samuel Ukehe", role: "President" },
-  { name: "Aliyu Abubakar", role: "Vice President I" },
-  { name: "Aliyu Abdulaziz", role: "Vice President II" },
-  { name: "Christiana Ebere Ako", role: "General Secretary" },
-  { name: "Dauda Abdulmalik", role: "Assistant Secretary I" },
-  { name: "Peter Ebirim Ikenga", role: "Assistant Secretary II" },
-  { name: "Osita Osunwa Nwachukwu", role: "Compliance Officer" },
-  { name: "Aminu Ozemoya Unuane", role: "Financial Secretary" },
-  { name: "Ishaku Hassan", role: "Treasurer" },
-  { name: "Adekunle Adejumo", role: "Assistant Treasurer" },
-  { name: "Umar Muhammad Garba", role: "Public Relations Officer" },
-  { name: "Pius Okezie Obianyor", role: "General Manager" },
-] as const;
+export const leadership: readonly Officer[] = [
+  { name: "Thaddeus Samuel Ukehe", role: "President", photo: "/images/leadership/president.jpg" },
+  { name: "Aliyu Abubakar", role: "Vice President I", photo: "/images/leadership/vice-president-1.jpg" },
+  { name: "Aliyu Abdulaziz", role: "Vice President II", photo: "/images/leadership/vice-president-2.jpg" },
+  {
+    name: "Christiana Ebere Ako",
+    role: "General Secretary",
+    photo: "/images/leadership/general-secretary.jpg",
+  },
+  {
+    name: "Dauda Abdulmalik",
+    role: "Assistant Secretary I",
+    photo: "/images/leadership/assistant-secretary-1.jpg",
+  },
+  {
+    name: "Peter Ebirim Ikenga",
+    role: "Assistant Secretary II",
+    photo: "/images/leadership/assistant-secretary-2.jpg",
+  },
+  {
+    name: "Osita Osunwa Nwachukwu",
+    role: "Compliance Officer",
+    photo: "/images/leadership/compliance-officer.jpg",
+  },
+  {
+    name: "Aminu Ozemoya Unuane",
+    role: "Financial Secretary",
+    photo: "/images/leadership/financial-secretary.jpg",
+  },
+  { name: "Ishaku Hassan", role: "Treasurer", photo: "/images/leadership/treasurer.jpg" },
+  {
+    name: "Adekunle Adejumo",
+    role: "Assistant Treasurer",
+    photo: "/images/leadership/assistant-treasurer.jpg",
+  },
+  {
+    name: "Umar Muhammad Garba",
+    role: "Public Relations Officer",
+    photo: "/images/leadership/public-relations-officer.jpg",
+  },
+  { name: "Pius Okezie Obianyor", role: "General Manager", photo: "/images/leadership/general-manager.jpg" },
+];
 
 /**
  * Verified figures only.
@@ -161,6 +196,7 @@ export const primaryNav = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
+  { label: "Events", href: "/events" },
   { label: "Membership", href: "/membership" },
   { label: "News", href: "/news" },
   { label: "Partners", href: "/partners" },

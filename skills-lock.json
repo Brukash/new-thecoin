@@ -103,6 +103,12 @@
       "skillPath": ".agents/skills/rea-tool-design/SKILL.md",
       "computedHash": "0aa008d4057dc70be7ace5645107d725fe3c76d20c88b3fe4b8571d43fbdf116"
     },
+    "remove-ai-marks": {
+      "source": "guillaumemeyer/watermarks-remover",
+      "sourceType": "github",
+      "skillPath": "skills/remove-ai-marks/SKILL.md",
+      "computedHash": "b83e5d953c9cab48230b3b6969498285403185b8c4feddd757b319a02b5a749c"
+    },
     "reverse-engineer-anything": {
       "source": "morluto/rea",
       "sourceType": "github",

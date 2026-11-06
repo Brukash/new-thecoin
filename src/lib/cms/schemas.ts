@@ -96,7 +96,7 @@ export const faqSchema = z.object({
         items: z.array(z.object({ q: paragraph, a: paragraph })).max(30),
       }),
     )
-    .max(8),
+    .max(9),
 });
 
 export type FaqDocument = z.infer<typeof faqSchema>;
@@ -115,6 +115,20 @@ export const articleSchema = z.object({
 });
 
 export type ArticleDocument = z.infer<typeof articleSchema>;
+
+export const partnerSchema = z.object({
+  organisationName: line.min(1),
+  slug: z.string().regex(/^[a-z0-9-]+$/).max(80),
+  logoUrl: z.string().max(500),
+  websiteUrl: url,
+  description: paragraph,
+  category: line,
+  displayOrder: z.coerce.number().int().min(0).max(999),
+  active: z.boolean(),
+  logoBackground: z.enum(["light", "dark"]).default("light"),
+});
+
+export type PartnerDocument = z.infer<typeof partnerSchema>;
 
 export const projectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/).max(80),

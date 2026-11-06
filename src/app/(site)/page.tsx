@@ -19,6 +19,11 @@ import { ArticleCard } from "@/components/ArticleCard";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { site, verifiedFacts } from "@/content/site";
 import { listArticles, listProjects, listServices } from "@/content/queries";
+import { listPartners } from "@/lib/cms/partners";
+import { PartnerMark } from "@/components/PartnerMark";
+import { HomepageEvent } from "@/components/events/HomepageEvent";
+import { listAnnouncements, listEvents } from "@/lib/cms/events";
+import { featuredEventOf } from "@/lib/events/format";
 
 export const revalidate = 60;
 
@@ -61,6 +66,13 @@ const digital = [
 ];
 
 export default async function HomePage() {
+  const partners = await listPartners();
+  const [events, notices] = await Promise.all([listEvents(), listAnnouncements({ limit: 6 })]);
+
+  const featuredEvent = featuredEventOf(events);
+
+  const urgentNotice = notices.find((notice) => notice.urgent) ?? null;
+
   const [services, articles, projects] = await Promise.all([
     listServices(),
     listArticles().then((entries) => entries.slice(0, 3)),
@@ -71,6 +83,28 @@ export default async function HomePage() {
 
   return (
     <>
+      {urgentNotice ? (
+        <div className="border-b border-gold/40 bg-gold-50">
+          <div className="shell flex flex-wrap items-center justify-between gap-3 py-3">
+            <p className="text-[12px] leading-relaxed text-navy">
+              <span className="mr-2 bg-red-700 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white">
+                Urgent
+              </span>
+              <Link href={`/events/announcements/${urgentNotice.slug}`} className="underline-offset-2 hover:underline">
+                {urgentNotice.title}
+                {urgentNotice.shortDescription ? ` — ${urgentNotice.shortDescription}` : ""}
+              </Link>
+            </p>
+            <Link
+              href={`/events/announcements/${urgentNotice.slug}`}
+              className="text-[10px] font-semibold uppercase tracking-[0.12em] text-navy"
+            >
+              Read the notice
+            </Link>
+          </div>
+        </div>
+      ) : null}
+
       {/* ---------------------------------------------------------------- hero */}
       <section className="relative overflow-hidden bg-ink text-white">
         <div className="hairline-grid pointer-events-none absolute inset-0 opacity-25" aria-hidden />
@@ -126,8 +160,8 @@ export default async function HomePage() {
 
           <div className="relative min-h-[300px] lg:min-h-[560px]">
             <Image
-              src="/images/hero/p1.jpg"
-              alt="Modern institutional architecture at dusk"
+              src="/images/hero/head-office.jpg"
+              alt="Sam Olabanji House, the CBN Staff Multipurpose Cooperative Society Secretariat"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 48vw"
@@ -164,6 +198,8 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      {featuredEvent ? <HomepageEvent event={featuredEvent} /> : null}
 
       {/* ------------------------------------------------------------ about */}
       <section className="bg-white py-16 md:py-24">
@@ -425,23 +461,14 @@ export default async function HomePage() {
           </div>
 
           <ul className="mt-9 grid grid-cols-2 items-center gap-px bg-line sm:grid-cols-3 lg:grid-cols-5">
-            {[
-              { src: "/images/partners/gtb.jpg", alt: "Guaranty Trust Bank" },
-              { src: "/images/partners/zenith.png", alt: "Zenith Bank" },
-              { src: "/images/partners/fbn.png", alt: "First Bank of Nigeria" },
-              { src: "/images/partners/heritage.jpg", alt: "Heritage Bank" },
-              { src: "/images/partners/cordros.jpg", alt: "Cordros" },
-            ].map((partner) => (
-              <li key={partner.src} className="flex h-24 items-center justify-center bg-bone px-5">
-                <Image
-                  src={partner.src}
-                  alt={partner.alt}
-                  width={200}
-                  height={80}
-                  className="max-h-12 w-auto object-contain opacity-60 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
-                />
-              </li>
-            ))}
+            {partners
+              .filter((partner) => partner.logoUrl)
+              .slice(0, 5)
+              .map((partner) => (
+                <li key={partner.slug} className="flex h-24 items-center justify-center bg-bone px-5">
+                  <PartnerMark src={partner.logoUrl} alt={`${partner.organisationName} logo`} />
+                </li>
+              ))}
           </ul>
         </div>
       </section>

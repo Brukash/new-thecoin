@@ -1,28 +1,20 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { Info } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
-import { Info } from "lucide-react";
+import { PartnerMark } from "@/components/PartnerMark";
+import { listPartners, type Partner } from "@/lib/cms/partners";
+import { PARTNER_CATEGORIES } from "@/content/partners";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Our partners",
+  title: "Fund managers and financial partners",
   description:
-    "Institutions the CBN Staff Multipurpose Cooperative Society works with, including its banking partners and its enterprise development partnership.",
+    "The banks, fund managers and financial institutions listed in the CBN Staff Multipurpose Cooperative Society's partner directory.",
   alternates: { canonical: "/partners" },
 };
-
-/**
- * Only marks the Society already publishes on its own website are used here.
- * No partnership is implied beyond what the Society has announced.
- */
-const banks = [
-  { src: "/images/partners/gtb.jpg", alt: "Guaranty Trust Bank", name: "Guaranty Trust Bank" },
-  { src: "/images/partners/zenith.png", alt: "Zenith Bank", name: "Zenith Bank" },
-  { src: "/images/partners/fbn.png", alt: "First Bank of Nigeria", name: "First Bank of Nigeria" },
-  { src: "/images/partners/heritage.jpg", alt: "Heritage Bank", name: "Heritage Bank" },
-  { src: "/images/partners/cordros.jpg", alt: "Cordros", name: "Cordros" },
-];
 
 const institutional = [
   {
@@ -42,47 +34,112 @@ const institutional = [
   },
 ];
 
-export default function PartnersPage() {
+const CATEGORY_ORDER: string[] = [...PARTNER_CATEGORIES];
+
+function PartnerTile({ partner }: { partner: Partner }) {
+  const darkTile = partner.logoBackground === "dark";
+
+  const frame = `flex h-full min-h-[6.5rem] w-full items-center justify-center border border-line px-4 py-5 transition duration-300 hover:border-gold/70 hover:shadow-[0_1px_0_0_rgba(0,0,0,0.04)] sm:min-h-[7.5rem] ${
+    darkTile ? "bg-navy" : "bg-white"
+  }`;
+
+  const mark = partner.logoUrl ? (
+    <PartnerMark src={partner.logoUrl} alt={`${partner.organisationName} logo`} />
+  ) : (
+    <span className="flex flex-col items-center gap-1 text-center">
+      <span className={`font-serif text-sm leading-tight ${darkTile ? "text-white" : "text-navy"}`}>
+        {partner.organisationName}
+      </span>
+      <span
+        className={`text-[9px] uppercase tracking-[0.12em] ${
+          darkTile ? "text-white/60" : "text-slate/60"
+        }`}
+      >
+        Logo pending
+      </span>
+    </span>
+  );
+
+  const title = partner.description
+    ? `${partner.organisationName} — ${partner.description}`
+    : partner.organisationName;
+
+  return (
+    <li className="h-full">
+      {partner.websiteUrl ? (
+        <a
+          href={partner.websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={title}
+          className={frame}
+        >
+          {mark}
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      ) : (
+        <div className={frame} title={title}>
+          {mark}
+        </div>
+      )}
+    </li>
+  );
+}
+
+export default async function PartnersPage() {
+  const partners = await listPartners();
+
+  const groups = CATEGORY_ORDER.map((category) => ({
+    category,
+    items: partners.filter((partner) => partner.category === category),
+  })).filter((group) => group.items.length > 0);
+
+  const other = partners.filter((partner) => !CATEGORY_ORDER.includes(partner.category));
+  if (other.length) groups.push({ category: "Other institutions", items: other });
+
   return (
     <>
       <PageHero
         eyebrow="Institutional relationships"
-        title="Institutions the Society works with."
-        intro="The Society works with banks, developers and enterprise institutions. Every relationship on this page has been announced publicly by the Society."
+        title="Our Fund Managers and Financial Partners"
+        intro="We work with established financial institutions and investment management organisations to support responsible financial management, investment opportunities and sustainable wealth creation."
         crumbs={[{ label: "Partners" }]}
       />
 
       <section className="bg-white py-14 md:py-20">
         <div className="shell">
           <div className="max-w-2xl">
-            <p className="eyebrow">Banking & financial</p>
+            <p className="eyebrow">The directory</p>
             <h2 className="display mt-5 text-[1.9rem] leading-tight text-navy md:text-[2.4rem]">
-              Financial institutions.
+              The institutions on our panel.
             </h2>
+            <p className="mt-4 text-sm leading-relaxed text-slate md:text-base">
+              Organisations are grouped by the role they play. Select a logo to open the
+              institution&rsquo;s own website.
+            </p>
           </div>
 
-          <ul className="mt-10 grid grid-cols-2 gap-px bg-line sm:grid-cols-3 lg:grid-cols-5">
-            {banks.map((bank) => (
-              <li
-                key={bank.src}
-                className="flex h-32 flex-col items-center justify-center gap-3 bg-white px-5"
-              >
-                <Image
-                  src={bank.src}
-                  alt={bank.alt}
-                  width={200}
-                  height={80}
-                  className="max-h-12 w-auto object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
-                />
-                <span className="text-center text-[10px] uppercase tracking-[0.12em] text-slate">
-                  {bank.name}
-                </span>
-              </li>
-            ))}
-          </ul>
+          {groups.length === 0 ? (
+            <p className="mt-10 border border-line bg-bone px-5 py-6 text-sm text-slate">
+              The directory is being updated. Please check back shortly.
+            </p>
+          ) : null}
 
-          <div className="mt-16 max-w-2xl">
-            <p className="eyebrow">Institutional & delivery</p>
+          {groups.map((group) => (
+            <div key={group.category} className="mt-12">
+              <h3 className="border-b border-line pb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+                {group.category}
+              </h3>
+              <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+                {group.items.map((partner) => (
+                  <PartnerTile key={partner.slug} partner={partner} />
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div className="mt-14 max-w-2xl">
+            <p className="eyebrow">Institutional &amp; delivery</p>
             <h2 className="display mt-5 text-[1.9rem] leading-tight text-navy md:text-[2.4rem]">
               Institutions and developers.
             </h2>
@@ -105,9 +162,10 @@ export default function PartnersPage() {
           <div className="mt-10 flex gap-3 border border-line bg-bone p-5">
             <Info className="mt-0.5 size-4 shrink-0 text-gold-600" aria-hidden />
             <p className="text-xs leading-relaxed text-slate">
-              Partner marks are reproduced from the Society's existing website and appear here for
-              identification only. No partnership beyond those announced by the Society is implied.
-              The directory is updated as new relationships are approved for publication.
+              Each logo is the trademark of its owner and is reproduced here for identification
+              only. The directory lists institutions supplied by the Society; inclusion does not by
+              itself imply an endorsement or an active partnership beyond those the Society has
+              announced. Contact the Secretariat to confirm the current status of any relationship.
             </p>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { requireStaff } from "@/lib/cms/auth";
 import { listEntries } from "@/lib/cms/store";
 import { createService } from "../actions";
 import { ConfirmSubmit } from "../ConfirmSubmit";
+import { EditButton } from "../EditButton";
 import { deleteService } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -60,6 +61,7 @@ export default async function ServicesAdminPage() {
             <span className="text-[10px] uppercase tracking-[0.1em] text-slate/70">
               {entry.status}
             </span>
+            <EditButton href={`/admin/services/${entry.slug}`} />
             <form action={deleteService}>
               <input type="hidden" name="slug" value={entry.slug} />
               <ConfirmSubmit>Delete</ConfirmSubmit>

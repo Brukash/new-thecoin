@@ -1,10 +1,12 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { getStaffUser } from "@/lib/cms/auth";
-import { listEntries, listAudit } from "@/lib/cms/store";
+import { countUnhandledEnquiries, listEntries, listAudit } from "@/lib/cms/store";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { LoginForm } from "./LoginForm";
 import { signOut, createArticle, createProject, deleteArticle, deleteProject } from "./actions";
 import { ConfirmSubmit } from "./ConfirmSubmit";
+import { EditButton } from "./EditButton";
 
 export const dynamic = "force-dynamic";
 
@@ -42,9 +44,10 @@ export default async function AdminPage({
     );
   }
 
-  const [news, projects] = await Promise.all([
+  const [news, projects, openEnquiries] = await Promise.all([
     listEntries<{ title: string; date: string; category: string }>("news", { includeDrafts: true }),
     listEntries<{ name: string; city: string; status: string }>("projects", { includeDrafts: true }),
+    countUnhandledEnquiries(),
   ]);
 
   // The audit query uses the service role, which bypasses row level security,
@@ -94,6 +97,41 @@ export default async function AdminPage({
         </p>
       ) : null}
 
+      <section className="grid gap-4 sm:grid-cols-2">
+        <Link
+          href="/admin/events"
+          className="group border border-line bg-white p-5 transition-colors hover:border-navy"
+        >
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+            Programme
+          </p>
+          <h2 className="mt-2 font-serif text-xl text-navy">Events</h2>
+          <p className="mt-2 text-xs leading-relaxed text-slate">
+            Create events, set the homepage promotion, manage galleries, registrations and
+            enquiries.
+          </p>
+          <span className="mt-4 inline-block text-[10px] uppercase tracking-[0.12em] text-navy">
+            Open events →
+          </span>
+        </Link>
+
+        <Link
+          href="/admin/announcements"
+          className="group border border-line bg-white p-5 transition-colors hover:border-navy"
+        >
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+            Notices
+          </p>
+          <h2 className="mt-2 font-serif text-xl text-navy">Announcements</h2>
+          <p className="mt-2 text-xs leading-relaxed text-slate">
+            Publish official notices with expiry dates, attachments and the urgent banner.
+          </p>
+          <span className="mt-4 inline-block text-[10px] uppercase tracking-[0.12em] text-navy">
+            Open announcements →
+          </span>
+        </Link>
+      </section>
+
       <section>
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-3">
           <h2 className="font-serif text-xl text-navy">
@@ -129,6 +167,7 @@ export default async function AdminPage({
                 {entry.data.title}
               </Link>
               <StatusTag status={entry.status} />
+              <EditButton href={`/admin/news/${entry.slug}`} />
               <form action={deleteArticle}>
                 <input type="hidden" name="slug" value={entry.slug} />
                 <ConfirmSubmit>Delete</ConfirmSubmit>
@@ -176,6 +215,7 @@ export default async function AdminPage({
                 {entry.data.name}
               </Link>
               <StatusTag status={entry.status} />
+              <EditButton href={`/admin/projects/${entry.slug}`} />
               <form action={deleteProject}>
                 <input type="hidden" name="slug" value={entry.slug} />
                 <ConfirmSubmit>Delete</ConfirmSubmit>
@@ -190,6 +230,23 @@ export default async function AdminPage({
 
       <section className="grid gap-4 md:grid-cols-3">
         <Link
+          href="/admin/enquiries"
+          className="border border-line bg-white p-5 transition-colors hover:border-gold/60"
+        >
+          <p className="flex items-center gap-2 font-serif text-lg text-navy">
+            Enquiries
+            {openEnquiries > 0 ? (
+              <span className="rounded-full bg-gold px-2 py-0.5 text-[10px] font-semibold tabular-nums text-navy">
+                {openEnquiries}
+              </span>
+            ) : null}
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-slate">
+            Messages sent from the website, with a handled marker.
+          </p>
+          <CardAction>Open inbox →</CardAction>
+        </Link>
+        <Link
           href="/admin/services"
           className="border border-line bg-white p-5 transition-colors hover:border-gold/60"
         >
@@ -197,6 +254,17 @@ export default async function AdminPage({
           <p className="mt-1 text-xs leading-relaxed text-slate">
             The seven service pages, their summaries, facts and linked rates.
           </p>
+          <CardAction>Edit →</CardAction>
+        </Link>
+        <Link
+          href="/admin/partners"
+          className="border border-line bg-white p-5 transition-colors hover:border-gold/60"
+        >
+          <p className="font-serif text-lg text-navy">Partners</p>
+          <p className="mt-1 text-xs leading-relaxed text-slate">
+            Organisations on the public directory, with their logos, links and display order.
+          </p>
+          <CardAction>Edit →</CardAction>
         </Link>
         <Link
           href="/admin/faq"
@@ -206,6 +274,7 @@ export default async function AdminPage({
           <p className="mt-1 text-xs leading-relaxed text-slate">
             Questions and answers grouped into sections.
           </p>
+          <CardAction>Edit →</CardAction>
         </Link>
         <Link
           href="/admin/rates"
@@ -215,6 +284,7 @@ export default async function AdminPage({
           <p className="mt-1 text-xs leading-relaxed text-slate">
             Bond and loan rates from the latest approved notice.
           </p>
+          <CardAction>Edit →</CardAction>
         </Link>
         <Link
           href="/admin/media"
@@ -224,6 +294,7 @@ export default async function AdminPage({
           <p className="mt-1 text-xs leading-relaxed text-slate">
             Upload and remove images used across the website.
           </p>
+          <CardAction>Manage images →</CardAction>
         </Link>
         <Link
           href="/admin/settings"
@@ -233,6 +304,7 @@ export default async function AdminPage({
           <p className="mt-1 text-xs leading-relaxed text-slate">
             Telephone, email, office address, opening hours, portals and social channels.
           </p>
+          <CardAction>Edit →</CardAction>
         </Link>
         <Link
           href="/admin/credit"
@@ -242,6 +314,7 @@ export default async function AdminPage({
           <p className="mt-1 text-xs leading-relaxed text-slate">
             Facilities, limits, effective dates and the policy document.
           </p>
+          <CardAction>Edit →</CardAction>
         </Link>
       </section>
 
@@ -280,6 +353,14 @@ export default async function AdminPage({
         </p>
       </aside>
     </div>
+  );
+}
+
+function CardAction({ children }: { children: ReactNode }) {
+  return (
+    <span className="mt-3 block text-[10px] font-semibold uppercase tracking-[0.12em] text-gold-600">
+      {children}
+    </span>
   );
 }
 

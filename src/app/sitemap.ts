@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getNewsCategories } from "@/lib/content";
+import { listAnnouncements, listEvents } from "@/lib/cms/events";
 import { listArticles, listProjects, listServices, getCreditPolicy, isPolicyApproved } from "@/content/queries";
 import { creditNav } from "@/content/credit-nav";
 
@@ -17,12 +18,14 @@ function url(path: string, priority: number, changeFrequency: "weekly" | "monthl
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [services, projects, articles, approved, policy] = await Promise.all([
+  const [services, projects, articles, approved, policy, events, announcements] = await Promise.all([
     listServices(),
     listProjects(),
     listArticles(),
     isPolicyApproved(),
     getCreditPolicy(),
+    listEvents(),
+    listAnnouncements(),
   ]);
 
   const staticRoutes = [
@@ -34,6 +37,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url("/about/leadership", 0.6, "yearly"),
     url("/about/structure", 0.6, "yearly"),
     url("/news", 0.8, "weekly"),
+    url("/events", 0.9, "weekly"),
+    url("/events/past", 0.6, "monthly"),
+    url("/events/announcements", 0.8, "weekly"),
+    url("/events/gallery", 0.5, "monthly"),
     url("/partners", 0.5, "yearly"),
     url("/faq", 0.6, "monthly"),
     url("/contact", 0.7, "yearly"),
@@ -61,6 +68,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ]
     : [];
 
+  const publicEventRoutes = events.map((event) => ({
+    url: `${BASE}/events/${event.slug}`,
+    lastModified: new Date(event.updatedAt),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  const announcementRoutes = announcements.map((announcement) => ({
+    url: `${BASE}/events/announcements/${announcement.slug}`,
+    lastModified: new Date(announcement.updatedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes,
     ...serviceRoutes,
@@ -68,5 +89,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...projectRoutes,
     ...articleRoutes,
     ...categoryRoutes,
+    ...publicEventRoutes,
+    ...announcementRoutes,
   ];
 }

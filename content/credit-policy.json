@@ -161,8 +161,8 @@
       "name": "Quick Credit Loan",
       "clause": "2.4.0",
       "ref": "Cl. 2.4.1 to 2.4.5, p. 6",
-      "kind": "Short-term loan",
-      "summary": "Short-term credit of up to 20% of savings, capped by grade, repayable within three months at a flat 2% monthly charge.",
+      "kind": "Quick loan",
+      "summary": "Quick credit of up to 20% of savings, capped by grade, repayable within three months at a flat 2% monthly charge.",
       "description": "Quick Credit is granted provided that the loan amount does not exceed twenty per cent (20%) of the member's savings balance, subject to a maximum of ₦500,000 for Junior Staff, ₦1,000,000 for Senior Staff and ₦2,000,000.00 for Executives. It runs for a maximum of three months and is granted only on satisfactory evidence of the member's ability to repay within the stipulated period.",
       "eligibility": [
         "The loan does not exceed 20% of the member's savings balance (2.4.1).",

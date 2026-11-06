@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireStaff } from "@/lib/cms/auth";
 import { listMedia } from "@/lib/cms/store";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { uploadMediaAction, deleteMediaAction } from "../actions";
+import { uploadMediaAction, deleteMediaAction, updateMediaAltAction } from "../actions";
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +33,9 @@ export default async function MediaAdminPage({
 
       {params.saved ? (
         <p className="mt-5 border-l-2 border-gold bg-white px-4 py-3 text-sm text-navy">
-          Image uploaded. Use its address in an article or project.
+          {params.saved === "alt"
+            ? "Description saved."
+            : "Image uploaded. Use its address in an article or project."}
         </p>
       ) : null}
       {params.deleted ? (
@@ -96,6 +98,22 @@ export default async function MediaAdminPage({
               <p className="truncate text-[11px] text-slate" title={item.path}>
                 {item.path}
               </p>
+              <form action={updateMediaAltAction} className="flex items-center gap-2">
+                <input type="hidden" name="path" value={item.path} />
+                <label htmlFor={`alt-${item.id}`} className="sr-only">
+                  Description for {item.path}
+                </label>
+                <input
+                  id={`alt-${item.id}`}
+                  name="alt"
+                  defaultValue={item.alt}
+                  placeholder="Description"
+                  className="field h-8 min-w-0 flex-1 text-[11px]"
+                />
+                <button type="submit" className="btn btn-outline h-8 px-3 text-[10px]">
+                  Save
+                </button>
+              </form>
               <div className="flex items-center justify-between gap-2">
                 <span className="text-[10px] uppercase tracking-[0.1em] text-slate/70">
                   {Math.max(1, Math.round(item.sizeBytes / 1024))} KB

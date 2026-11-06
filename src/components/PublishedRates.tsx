@@ -32,6 +32,11 @@ function RateTable({ caption, rows, effectiveFrom }: { caption: string; rows: Ra
           <tr key={row.label}>
             <th scope="row" className="py-2.5 pr-4 text-sm font-normal text-slate">
               {row.label}
+              {row.note && (
+                <span className="mt-1 block max-w-md text-xs leading-relaxed text-slate/70">
+                  {row.note}
+                </span>
+              )}
             </th>
             <td className="py-2.5 pr-4 font-mono text-sm tabular-nums text-navy">
               {row.current}
