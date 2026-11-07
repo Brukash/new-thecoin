@@ -186,7 +186,7 @@ export const leadership: readonly Officer[] = [
  * see docs/01-audit-report.md, finding F-04.
  */
 export const verifiedFacts = [
-  { value: "44th", label: "Annual General Meeting held in 2025" },
+  { value: "45th", label: "Annual General Meeting held in 2026" },
   { value: "2,000+", label: "Members supported into home ownership" },
   { value: "15", label: "Years of facilitated home acquisition schemes" },
   { value: "2016", label: "Year the annual consumer exhibition began" },

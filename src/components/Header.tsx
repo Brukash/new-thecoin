@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, Phone, Search, X } from "lucide-react";
 import { primaryNav, site } from "@/content/site";
 import { services } from "@/content/services";
 
@@ -81,12 +81,15 @@ export function Header() {
 
   return (
     <>
-      {/* Utility bar — the portals members actually use */}
-      <div className="bg-ink text-white/70">
-        <div className="shell flex h-10 items-center justify-between gap-6 text-[11px] tracking-wide">
+      {/* Utility bar — the portals members actually use.
+          It sits outside <header>: wrapping it and the nav in one <header> would
+          bound the sticky nav to the wrapper's height and stop it sticking. So the
+          bar carries its own named landmark to keep its content discoverable. */}
+      <div role="region" aria-label="Contact and member portals" className="bg-ink text-white/70">
+        <div className="shell flex h-9 items-center justify-between gap-4 text-[11px] tracking-wide sm:h-10 sm:gap-6 sm:text-[12px]">
           <div className="flex items-center gap-5">
             <a
-              className="hidden items-center gap-2 transition-colors hover:text-gold-200 sm:inline-flex"
+              className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap transition-colors hover:text-gold-200"
               href={`tel:${site.contact.phones[0].value.replace(/\s/g, "")}`}
             >
               <Phone className="size-3" aria-hidden />
@@ -98,17 +101,19 @@ export function Header() {
             >
               {site.contact.emails[0].value}
             </a>
-            <span className="sm:hidden">Member-owned. Member-focused.</span>
+            <span className="hidden lg:inline">Member-owned. Member-focused.</span>
           </div>
 
-          <nav aria-label="Member portals" className="flex items-center gap-5">
-            {site.portals.map((portal) => (
+          <nav aria-label="Member portals" className="flex items-center gap-3 sm:gap-5">
+            {site.portals.map((portal, index) => (
               <a
                 key={portal.href}
                 href={portal.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-gold-200"
+                className={`shrink-0 whitespace-nowrap transition-colors hover:text-gold-200 ${
+                  index === 2 ? "hidden sm:inline" : ""
+                }`}
               >
                 {portal.name}
               </a>
@@ -152,7 +157,7 @@ export function Header() {
                 <div key={item.href} className="group relative">
                   <Link
                     href={item.href}
-                    className={`inline-flex items-center gap-1 py-2 text-[12.5px] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                    className={`inline-flex items-center gap-1 py-2 text-[13px] font-semibold uppercase tracking-[0.1em] transition-colors ${
                       isActive(item.href) ? "text-navy" : "text-slate hover:text-navy"
                     }`}
                   >
@@ -177,9 +182,9 @@ export function Header() {
                           <li key={service.slug}>
                             <Link
                               href={`/services/${service.slug}`}
-                              className="block px-3 py-2.5 text-[13px] text-slate transition-colors hover:bg-bone hover:text-navy"
+                              className="block px-3 py-2.5 text-[14px] text-slate transition-colors hover:bg-bone hover:text-navy"
                             >
-                              <span className="mr-2 font-mono text-[10px] text-gold-600">
+                              <span className="mr-2 font-sans text-[11px] text-gold-600">
                                 {service.index}
                               </span>
                               {service.shortTitle}
@@ -188,7 +193,7 @@ export function Header() {
                         ))}
                       </ul>
                       <div className="border-t border-line p-2">
-                        <p className="px-1 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-600">
+                        <p className="px-1 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold-600">
                           Credit policy
                         </p>
                         <ul className="grid grid-cols-2 gap-0.5">
@@ -214,7 +219,7 @@ export function Header() {
                           <li key={entry.href}>
                             <Link
                               href={entry.href}
-                              className="block px-3 py-2.5 text-[13px] text-slate transition-colors hover:bg-bone hover:text-navy"
+                              className="block px-3 py-2.5 text-[14px] text-slate transition-colors hover:bg-bone hover:text-navy"
                             >
                               {entry.label}
                             </Link>
@@ -229,6 +234,13 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <Link
+              href="/search"
+              aria-label="Search the website"
+              className="hidden size-11 shrink-0 items-center justify-center border border-line text-navy transition-colors hover:border-navy xl:inline-flex"
+            >
+              <Search className="size-4" aria-hidden />
+            </Link>
             <a
               href={site.registration.href}
               target="_blank"

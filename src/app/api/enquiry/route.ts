@@ -4,6 +4,7 @@ import { randomBytes } from "node:crypto";
 import { appendRecord, clientKey, rateLimit } from "@/lib/security";
 import { saveEnquiry } from "@/lib/cms/store";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { ensureCase, sendAcknowledgement, updateCase } from "@/lib/crm/cases";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -106,6 +107,26 @@ export async function POST(request: Request) {
       { ok: false, message: "We could not record your enquiry. Please call the office instead." },
       { status: 500 },
     );
+  }
+
+  // Every enquiry opens a case so it can be assigned, timed against an SLA and
+  // tracked by the customer. A failure here must not lose the message itself,
+  // which is already stored, so it is logged rather than returned.
+  const entry = await ensureCase(reference, data.type);
+
+  if (entry) {
+    const sent = await sendAcknowledgement({
+      reference,
+      email: data.email,
+      name: data.name,
+      department: entry.department,
+    });
+
+    if (sent) {
+      await updateCase(reference, {
+        acknowledgement: { sent: true, at: new Date().toISOString() },
+      }).catch(() => undefined);
+    }
   }
 
   return NextResponse.json({

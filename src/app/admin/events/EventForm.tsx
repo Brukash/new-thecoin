@@ -20,7 +20,7 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
   return (
     <section className="border-t border-line pt-6 first:border-t-0 first:pt-0">
       <h2 className="font-serif text-lg text-navy">{title}</h2>
-      {hint ? <p className="mt-1 text-[11px] leading-relaxed text-slate">{hint}</p> : null}
+      {hint ? <p className="mt-1 text-[12px] leading-relaxed text-slate">{hint}</p> : null}
       <div className="mt-5 space-y-5">{children}</div>
     </section>
   );
@@ -43,7 +43,7 @@ function Field({
         {label}
       </label>
       {children}
-      {hint ? <p className="mt-1 text-[11px] leading-relaxed text-slate">{hint}</p> : null}
+      {hint ? <p className="mt-1 text-[12px] leading-relaxed text-slate">{hint}</p> : null}
     </div>
   );
 }
@@ -66,9 +66,9 @@ function AssetField({
       <p className="field-label">{label}</p>
       <input type="hidden" name={`${name}Url`} value={current} />
       {current ? (
-        <p className="mt-2 break-all text-[11px] text-slate">{current}</p>
+        <p className="mt-2 break-all text-[12px] text-slate">{current}</p>
       ) : (
-        <p className="mt-2 text-[11px] text-slate">Nothing uploaded yet.</p>
+        <p className="mt-2 text-[12px] text-slate">Nothing uploaded yet.</p>
       )}
       <input
         id={name}
@@ -77,9 +77,9 @@ function AssetField({
         accept={accept}
         className="field mt-3 py-2 text-sm"
       />
-      <p className="mt-1 text-[11px] leading-relaxed text-slate">{hint}</p>
+      <p className="mt-1 text-[12px] leading-relaxed text-slate">{hint}</p>
       {current ? (
-        <label className="mt-2 flex items-center gap-2 text-[11px] text-slate">
+        <label className="mt-2 flex items-center gap-2 text-[12px] text-slate">
           <input type="checkbox" name={`${name}Remove`} value="1" className="size-4" />
           Remove this file
         </label>

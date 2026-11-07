@@ -51,7 +51,7 @@ function PartnerTile({ partner }: { partner: Partner }) {
         {partner.organisationName}
       </span>
       <span
-        className={`text-[9px] uppercase tracking-[0.12em] ${
+        className={`text-[10px] uppercase tracking-[0.12em] ${
           darkTile ? "text-white/60" : "text-slate/60"
         }`}
       >
@@ -127,7 +127,7 @@ export default async function PartnersPage() {
 
           {groups.map((group) => (
             <div key={group.category} className="mt-12">
-              <h3 className="border-b border-line pb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <h3 className="border-b border-line pb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 {group.category}
               </h3>
               <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
@@ -149,7 +149,7 @@ export default async function PartnersPage() {
             {institutional.map((partner, index) => (
               <Reveal key={partner.name} delay={index * 60} as="article">
                 <div className="card h-full p-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold-600">
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-gold-600">
                     {partner.role}
                   </p>
                   <h3 className="mt-4 font-serif text-xl leading-snug text-navy">{partner.name}</h3>

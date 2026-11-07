@@ -9,7 +9,7 @@ export function PolicyDownload({ version }: { version: PolicyVersion }) {
       <div className="flex items-start gap-4">
         <FileText className="mt-1 size-8 shrink-0 text-gold-600" aria-hidden />
         <div className="min-w-0">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
             Official document
           </p>
           <h2 className="mt-2 font-serif text-2xl leading-snug text-navy">
@@ -24,7 +24,7 @@ export function PolicyDownload({ version }: { version: PolicyVersion }) {
           <dl className="mt-5 grid gap-3 text-xs sm:grid-cols-2">
             <div>
               <dt className="uppercase tracking-[0.08em] text-slate">Reference</dt>
-              <dd className="mt-1 font-mono text-navy">{version.documentReference}</dd>
+              <dd className="mt-1 font-sans text-navy">{version.documentReference}</dd>
             </div>
             <div>
               <dt className="uppercase tracking-[0.08em] text-slate">Pages</dt>

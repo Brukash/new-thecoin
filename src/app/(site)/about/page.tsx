@@ -42,6 +42,11 @@ const milestones = [
     title: "EDC partnership and the 44th AGM",
     body: "The Society signed a Memorandum of Understanding with the Enterprise Development Centre of Pan-Atlantic University and Pro-Serve Integrated Services Ltd, and held its 44th Annual General Meeting on 30 May 2025.",
   },
+  {
+    year: "2026",
+    title: "45th Annual General Meeting",
+    body: "The Society held its 45th Annual General Meeting in 2026, continuing the line of general meetings that runs back to its founding.",
+  },
 ];
 
 export default function AboutPage() {
@@ -73,7 +78,7 @@ export default function AboutPage() {
                 access to goods and services.
               </p>
               <p>
-                The Society held its 44th Annual General Meeting in May 2025, in a line of general
+                The Society held its 45th Annual General Meeting in 2026, in a line of general
                 meetings that runs back to its founding.
               </p>
               <p>
@@ -105,13 +110,13 @@ export default function AboutPage() {
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <div className="border border-line bg-bone p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 At a glance
               </p>
               <dl className="mt-5 space-y-4">
                 {profile.map((row) => (
                   <div key={row.label} className="border-b border-line pb-3 last:border-0 last:pb-0">
-                    <dt className="text-[11px] uppercase tracking-[0.1em] text-slate">{row.label}</dt>
+                    <dt className="text-[12px] uppercase tracking-[0.1em] text-slate">{row.label}</dt>
                     <dd className="mt-1 text-sm font-medium text-navy">{row.value}</dd>
                   </div>
                 ))}
@@ -119,7 +124,7 @@ export default function AboutPage() {
             </div>
 
             <div className="mt-6 border border-line p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Explore
               </p>
               <ul className="mt-4 space-y-3 text-sm">
@@ -177,7 +182,7 @@ export default function AboutPage() {
             {site.values.map((value, index) => (
               <Reveal key={value.title} delay={index * 55} as="article">
                 <div className="h-full bg-white p-7 md:p-9">
-                  <span className="font-mono text-[11px] tracking-widest text-gold-600">
+                  <span className="font-sans text-[12px] tracking-widest text-gold-600">
                     0{index + 1}
                   </span>
                   <h3 className="mt-5 font-serif text-xl text-navy">{value.title}</h3>

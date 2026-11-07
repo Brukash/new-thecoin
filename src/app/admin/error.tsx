@@ -27,10 +27,10 @@ export default function AdminError({
         or call the website administrator.
       </p>
       <div className="mt-6 flex flex-wrap gap-3">
-        <button type="button" onClick={reset} className="btn btn-primary text-[11px]">
+        <button type="button" onClick={reset} className="btn btn-primary text-[12px]">
           Try again
         </button>
-        <a href="/admin" className="btn btn-outline text-[11px]">
+        <a href="/admin" className="btn btn-outline text-[12px]">
           Back to the console
         </a>
       </div>

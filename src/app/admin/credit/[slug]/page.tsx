@@ -26,7 +26,7 @@ export default async function AdminFacilityPage({
     <div className="mx-auto max-w-3xl">
       <Link
         href="/admin/credit"
-        className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy"
+        className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy"
       >
         <ArrowLeft className="size-3.5" aria-hidden /> Credit policy
       </Link>
@@ -69,7 +69,7 @@ export default async function AdminFacilityPage({
               id="clause"
               name="clause"
               defaultValue={facility.clause}
-              className="field mt-2 font-mono text-sm"
+              className="field mt-2 font-sans text-sm"
             />
           </div>
           <div>
@@ -80,7 +80,7 @@ export default async function AdminFacilityPage({
               id="ref"
               name="ref"
               defaultValue={facility.ref}
-              className="field mt-2 font-mono text-xs"
+              className="field mt-2 font-sans text-xs"
             />
           </div>
         </div>

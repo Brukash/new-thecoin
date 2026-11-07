@@ -1,25 +1,27 @@
 /**
  * Published rate schedule.
  *
- * Source: "Notification of Review of Investment Bond and Lending Rates",
- * CBN Staff Multipurpose Cooperative Society Ltd, approved by the Management
- * Committee on 24 September 2026, effective 1 October 2026.
+ * Sources: "Notification of Review of Investment Bond and Lending Rates",
+ * approved by the Management Committee on 24 September 2026 and effective
+ * 1 October 2026; and the current series documents dated 1 October 2026 for
+ * the Classic Diamond (2024–2028), Classic Excel (2025–2029), Classic
+ * Investment Fund (2025–2029) and Classic Triple Plan.
  *
- * Every figure is reproduced as printed in that notice. Nothing is
- * annualised, averaged or derived, and where the notice shows a rate as
- * unchanged it is marked rather than recalculated.
+ * Every figure is reproduced as printed. Nothing is annualised, averaged or
+ * derived. Where a series began after the previous schedule, no earlier rate
+ * is shown rather than one being inferred.
  */
 
 export type RateRow = {
   /** Term or product exactly as named in the notice. */
   label: string;
-  /** Rate in force before 1 October 2026. */
+  /** Rate in force before 1 October 2026, or "—" where the series is new. */
   previous: string;
   /** Rate in force from 1 October 2026. */
   current: string;
   /** Set where the notice shows the same rate on both sides. */
   unchanged?: boolean;
-  /** Terms the Credit Policy attaches to the product, shown under the label. */
+  /** Terms the series attaches to the product, shown under the label. */
   note?: string;
 };
 
@@ -37,7 +39,7 @@ export const rateNotice = {
 
 export const bondPlans: RatePlan[] = [
   {
-    name: "4-year plan",
+    name: "Classic Diamond Series (2024–2028)",
     rows: [
       { label: "Monthly", previous: "18.25%", current: "17.25%" },
       { label: "Quarterly", previous: "18.50%", current: "17.50%" },
@@ -47,20 +49,33 @@ export const bondPlans: RatePlan[] = [
     ],
   },
   {
-    name: "2-year plan",
+    name: "Classic Excel Series (2025–2029)",
     rows: [
-      { label: "Monthly", previous: "17.25%", current: "16.25%" },
-      { label: "Upfront", previous: "17.00%", current: "16.00%" },
-      { label: "Backend", previous: "18.00%", current: "17.00%" },
+      { label: "Monthly", previous: "—", current: "17.25%", note: "Matures January 2029 · anniversary 31 January" },
+      { label: "Frontend (annual)", previous: "—", current: "17.00%" },
+      { label: "Backend (annual)", previous: "—", current: "18.00%" },
     ],
   },
   {
-    name: "1-year plan (Tripple plan)",
+    name: "Classic Investment Fund (2025–2029)",
+    rows: [
+      { label: "Monthly", previous: "—", current: "17.25%", note: "Matures September 2029 · anniversary 30 September" },
+      { label: "Frontend (annual)", previous: "—", current: "17.00%" },
+      { label: "Backend (annual)", previous: "—", current: "18.00%" },
+    ],
+  },
+  {
+    name: "Classic Triple Plan (short-term)",
     rows: [
       { label: "Quarterly (91 days)", previous: "15.00%", current: "14.00%" },
       { label: "Semi-annual (182 days)", previous: "16.00%", current: "15.00%" },
-      { label: "Upfront (annual, 365 days)", previous: "17.00%", current: "16.00%" },
-      { label: "Backend (annual, 365 days)", previous: "18.00%", current: "17.00%" },
+      { label: "Annual upfront (365 days)", previous: "17.00%", current: "16.00%" },
+      {
+        label: "Annual backend (365 days)",
+        previous: "18.00%",
+        current: "17.00%",
+        note: "Backend payment is available on the annual plan only",
+      },
     ],
   },
 ];

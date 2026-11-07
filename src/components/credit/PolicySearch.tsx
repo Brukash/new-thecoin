@@ -41,7 +41,7 @@ export function PolicySearch({ facilities }: { facilities: Facility[] }) {
             className="h-11 w-full border border-line bg-white pl-10 pr-3 text-sm text-navy placeholder:text-slate/70"
           />
         </div>
-        <p aria-live="polite" className="text-[11px] uppercase tracking-[0.1em] text-slate">
+        <p aria-live="polite" className="text-[12px] uppercase tracking-[0.1em] text-slate">
           {results.length} of {facilities.length} facilities
         </p>
       </div>

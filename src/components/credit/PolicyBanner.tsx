@@ -31,9 +31,9 @@ export function PolicyBanner({ version }: { version: PolicyVersion }) {
           </p>
         </div>
 
-        <div className="flex shrink-0 flex-wrap items-center gap-4 text-[11px] text-slate">
+        <div className="flex shrink-0 flex-wrap items-center gap-4 text-[12px] text-slate">
           <span>
-            Ref <span className="font-mono text-navy">{version.documentReference || "Not set"}</span>
+            Ref <span className="font-sans text-navy">{version.documentReference || "Not set"}</span>
           </span>
           {version.sourceFile && (
             <Link

@@ -40,7 +40,7 @@ export default function LimitsPage() {
         <div className="shell">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <h2 className="font-serif text-2xl text-navy md:text-3xl">{globalLimits.title}</h2>
-            <p className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate">
+            <p className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate">
               {globalLimits.source}
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function LimitsPage() {
                 {policy.overview.limitPrinciples.map((item) => (
                   <li key={item.ref} className="text-sm leading-relaxed text-slate">
                     {item.text}{" "}
-                    <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+                    <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                       {item.ref}
                     </span>
                   </li>
@@ -80,7 +80,7 @@ export default function LimitsPage() {
                 <span className="uppercase">Others</span>. The Secretariat can confirm which staff
                 fall into it.
               </p>
-              <Link href="/contact" className="link-underline mt-5 text-[11px]">
+              <Link href="/contact" className="link-underline mt-5 text-[12px]">
                 Query a figure
               </Link>
             </aside>

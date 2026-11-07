@@ -77,11 +77,11 @@ export default async function AnnouncementsPage({
                 ))}
               </select>
             </div>
-            <button type="submit" className="btn btn-primary h-11 px-5 text-[11px]">
+            <button type="submit" className="btn btn-primary h-11 px-5 text-[12px]">
               Filter
             </button>
             {q || category ? (
-              <Link href="/events/announcements" className="pb-3 text-[11px] uppercase tracking-[0.1em] text-slate">
+              <Link href="/events/announcements" className="pb-3 text-[12px] uppercase tracking-[0.1em] text-slate">
                 Clear
               </Link>
             ) : null}

@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
+import { Analytics } from "@/components/Analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -9,11 +10,6 @@ const inter = Inter({
   display: "swap",
 });
 
-const serif = Source_Serif_4({
-  subsets: ["latin"],
-  variable: "--font-source-serif",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -56,6 +52,12 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   category: "finance",
+  // Set in the environment once Search Console (or Bing) issues a token; the
+  // meta tag is only emitted when a value is present, so no placeholder is
+  // ever published.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -78,7 +80,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   colorScheme: "light",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0a1628" },
+    { media: "(prefers-color-scheme: light)", color: "#08101f" },
     { media: "(prefers-color-scheme: dark)", color: "#08101f" },
   ],
 };
@@ -122,9 +124,10 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-NG" className={`${inter.variable} ${serif.variable}`} suppressHydrationWarning>
+    <html lang="en-NG" className={inter.variable} suppressHydrationWarning>
       <body className="min-h-screen bg-paper antialiased" suppressHydrationWarning>
         {children}
+        <Analytics />
 
         <script
           type="application/ld+json"

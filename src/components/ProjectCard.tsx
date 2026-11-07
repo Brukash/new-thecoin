@@ -28,7 +28,7 @@ export function ProjectCard({ project }: { project: Project }) {
               className="absolute inset-0 opacity-70"
               style={{
                 backgroundImage:
-                  "linear-gradient(140deg, #0a1628 0%, #102541 55%, #16233a 100%)",
+                  "linear-gradient(140deg, #08101f 0%, #102541 55%, #102541 100%)",
               }}
               aria-hidden
             />
@@ -45,13 +45,13 @@ export function ProjectCard({ project }: { project: Project }) {
               <path d="M120 140 H190 M210 118 H285" stroke="currentColor" strokeWidth="1" opacity="0.6" />
             </svg>
             <div className="relative flex items-start justify-between">
-              <span className="border border-gold/30 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-gold-200">
+              <span className="border border-gold/30 px-2 py-1 text-[11px] uppercase tracking-[0.16em] text-gold-200">
                 {project.type}
               </span>
             </div>
             <div className="relative">
               <p className="font-serif text-lg leading-snug text-white/90">{project.city}</p>
-              <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-white/45">
+              <p className="mt-1 text-[12px] uppercase tracking-[0.14em] text-white/45">
                 Photography pending release
               </p>
             </div>
@@ -60,7 +60,7 @@ export function ProjectCard({ project }: { project: Project }) {
       </Link>
 
       <div className="flex flex-1 flex-col p-6">
-        <p className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] text-slate">
+        <p className="flex items-center gap-1.5 text-[12px] uppercase tracking-[0.14em] text-slate">
           <MapPin className="size-3 text-gold-600" aria-hidden />
           {project.location}
         </p>
@@ -74,12 +74,12 @@ export function ProjectCard({ project }: { project: Project }) {
         <p className="mt-3 flex-1 text-sm leading-relaxed text-slate">{project.summary}</p>
 
         <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-600">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-gold-600">
             {project.status}
           </span>
           <Link
             href={`/projects/${project.slug}`}
-            className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-navy"
+            className="inline-flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[0.12em] text-navy"
           >
             View <ArrowUpRight className="size-3.5" aria-hidden />
           </Link>

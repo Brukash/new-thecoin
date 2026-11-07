@@ -13,7 +13,7 @@ export default async function AccountPage() {
 
   return (
     <div className="mx-auto max-w-sm">
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
       <h1 className="mt-4 font-serif text-2xl text-navy">Your account</h1>
@@ -31,7 +31,7 @@ export default async function AccountPage() {
       )}
 
       <form action={signOut} className="mt-8 border-t border-line pt-5">
-        <button type="submit" className="text-[11px] uppercase tracking-[0.1em] text-slate hover:text-navy">
+        <button type="submit" className="text-[12px] uppercase tracking-[0.1em] text-slate hover:text-navy">
           Sign out
         </button>
       </form>

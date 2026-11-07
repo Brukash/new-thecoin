@@ -18,7 +18,7 @@ export default async function AnnouncementsAdminPage({
 
   return (
     <div>
-      <Link href="/admin/events" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin/events" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Events &amp; announcements
       </Link>
 
@@ -41,7 +41,7 @@ export default async function AnnouncementsAdminPage({
             className="field h-9 w-64 text-sm"
             required
           />
-          <button type="submit" className="btn btn-primary h-9 px-4 text-[11px]">
+          <button type="submit" className="btn btn-primary h-9 px-4 text-[12px]">
             Add
           </button>
         </form>
@@ -63,7 +63,7 @@ export default async function AnnouncementsAdminPage({
           <li key={item.slug} className="flex flex-wrap items-center gap-3 px-4 py-3">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm text-navy">{item.title}</p>
-              <p className="text-[11px] text-slate">
+              <p className="text-[12px] text-slate">
                 {item.category} · {item.publicationStatus}
                 {item.publishedAt
                   ? ` · ${new Date(item.publishedAt).toLocaleDateString("en-GB", { timeZone: "Africa/Lagos" })}`
@@ -72,12 +72,12 @@ export default async function AnnouncementsAdminPage({
               </p>
             </div>
             {item.urgent ? (
-              <span className="bg-gold-50 px-1.5 py-0.5 text-[9px] uppercase tracking-[0.1em] text-gold-600">
+              <span className="bg-gold-50 px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-gold-600">
                 Urgent
               </span>
             ) : null}
             {item.featured ? (
-              <span className="border border-line px-1.5 py-0.5 text-[9px] uppercase tracking-[0.1em] text-slate">
+              <span className="border border-line px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-slate">
                 Featured
               </span>
             ) : null}

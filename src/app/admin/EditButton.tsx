@@ -6,7 +6,7 @@ import Link from "next/link";
  */
 export function EditButton({ href, label = "Edit" }: { href: string; label?: string }) {
   return (
-    <Link href={href} className="btn btn-outline h-7 px-3 text-[10px] uppercase tracking-[0.1em]">
+    <Link href={href} className="btn btn-outline h-7 px-3 text-[11px] uppercase tracking-[0.1em]">
       {label}
     </Link>
   );

@@ -3,25 +3,26 @@ import type { RateRow } from "@/content/rates";
 
 function RateTable({ caption, rows, effectiveFrom }: { caption: string; rows: RateRow[]; effectiveFrom: string }) {
   return (
-    <table className="w-full border-collapse text-left">
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[22rem] border-collapse text-left">
       <caption className="sr-only">{caption}</caption>
       <thead>
         <tr className="border-b border-navy/20">
           <th
             scope="col"
-            className="py-2.5 pr-4 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate"
+            className="whitespace-nowrap py-2.5 pr-4 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate"
           >
             Term
           </th>
           <th
             scope="col"
-            className="py-2.5 pr-4 text-[10px] font-semibold uppercase tracking-[0.12em] text-navy"
+            className="whitespace-nowrap py-2.5 pr-4 text-[11px] font-semibold uppercase tracking-[0.1em] text-navy"
           >
             From {effectiveFrom}
           </th>
           <th
             scope="col"
-            className="py-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate"
+            className="whitespace-nowrap py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate"
           >
             Previous
           </th>
@@ -38,19 +39,20 @@ function RateTable({ caption, rows, effectiveFrom }: { caption: string; rows: Ra
                 </span>
               )}
             </th>
-            <td className="py-2.5 pr-4 font-mono text-sm tabular-nums text-navy">
+            <td className="whitespace-nowrap py-2.5 pr-4 font-sans text-sm tabular-nums text-navy">
               {row.current}
               {row.unchanged && (
-                <span className="ml-2 align-middle text-[10px] uppercase tracking-[0.08em] text-gold-600">
+                <span className="ml-2 align-middle text-[11px] uppercase tracking-[0.08em] text-gold-600">
                   Unchanged
                 </span>
               )}
             </td>
-            <td className="py-2.5 font-mono text-sm tabular-nums text-slate/70">{row.previous}</td>
+            <td className="whitespace-nowrap py-2.5 font-sans text-sm tabular-nums text-slate/70">{row.previous}</td>
           </tr>
         ))}
       </tbody>
-    </table>
+      </table>
+    </div>
   );
 }
 
@@ -69,9 +71,9 @@ export async function PublishedRates({ kind }: { kind: "bond" | "loans" }) {
         {kind === "bond" ? "Investment bond rates" : "Loan rates"} from {notice.effectiveFrom}.
       </h2>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate">
-        The Management Committee reviewed the Society&apos;s rates on {notice.approvedOn}, following{" "}
-        {notice.reason}, and approved a moderate downward adjustment. The figures below are
-        reproduced from that notice, with the previous rate shown for comparison.
+        {kind === "bond"
+          ? "Each series pays its own schedule. The figures below are reproduced from the current series documents, and where the review of 24 September 2026 changed a rate the previous rate is shown alongside it."
+          : `The Management Committee reviewed the Society's rates on ${notice.approvedOn}, following ${notice.reason}, and approved a moderate downward adjustment. The figures below are reproduced from that notice, with the previous rate shown for comparison.`}
       </p>
 
       <div className="mt-7 space-y-8">
@@ -102,9 +104,11 @@ export async function PublishedRates({ kind }: { kind: "bond" | "loans" }) {
       </div>
 
       <p className="mt-6 max-w-3xl text-xs leading-relaxed text-slate">
-        Source: {notice.title}, CBN Staff Multipurpose Cooperative Society Ltd, approved{" "}
-        {notice.approvedOn} and effective {notice.effectiveFrom}. The Secretariat confirms the rate
-        that applies to your request in writing before you commit funds.
+        {kind === "bond"
+          ? `Sources: ${notice.title} (approved ${notice.approvedOn}, effective ${notice.effectiveFrom}) and the series documents dated 1 October 2026.`
+          : `Source: ${notice.title}, CBN Staff Multipurpose Cooperative Society Ltd, approved ${notice.approvedOn} and effective ${notice.effectiveFrom}.`}{" "}
+        The Secretariat confirms the rate that applies to your request in writing before you commit
+        funds.
       </p>
     </section>
   );

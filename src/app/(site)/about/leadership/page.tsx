@@ -48,7 +48,7 @@ export default function LeadershipPage() {
                     </div>
                   )}
                   <h2 className="mt-5 font-serif text-lg leading-snug text-navy">{officer.name}</h2>
-                  <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold-600">
+                  <p className="mt-1.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-gold-600">
                     {officer.role}
                   </p>
                 </div>

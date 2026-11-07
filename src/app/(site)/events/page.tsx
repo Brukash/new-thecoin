@@ -101,11 +101,11 @@ export default async function EventsPage({
                 ))}
               </select>
             </div>
-            <button type="submit" className="btn btn-primary h-11 px-5 text-[11px]">
+            <button type="submit" className="btn btn-primary h-11 px-5 text-[12px]">
               Filter
             </button>
             {q || category ? (
-              <Link href="/events" className="pb-3 text-[11px] uppercase tracking-[0.1em] text-slate">
+              <Link href="/events" className="pb-3 text-[12px] uppercase tracking-[0.1em] text-slate">
                 Clear
               </Link>
             ) : null}
@@ -141,7 +141,7 @@ export default async function EventsPage({
 
           {changes.length ? (
             <div className="mt-12 border border-line bg-bone p-6">
-              <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <h3 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Changes to scheduled events
               </h3>
               <ul className="mt-4 space-y-3">

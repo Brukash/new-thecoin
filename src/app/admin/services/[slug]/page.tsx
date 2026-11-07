@@ -37,7 +37,7 @@ export default async function EditServicePage({
     <div className="mx-auto max-w-3xl">
       <Link
         href="/admin/services"
-        className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy"
+        className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy"
       >
         ← All services
       </Link>
@@ -99,7 +99,7 @@ export default async function EditServicePage({
             name="body"
             rows={18}
             defaultValue={serialiseBody(service.body)}
-            className="field mt-2 font-mono text-[13px] leading-relaxed"
+            className="field mt-2 font-sans text-[14px] leading-relaxed"
           />
           <p className="mt-2 text-xs text-slate">
             One paragraph per line. Start a new section with <code>## Heading</code>. Publish only
@@ -116,7 +116,7 @@ export default async function EditServicePage({
             name="facts"
             rows={4}
             defaultValue={(service.facts ?? []).map((fact) => `${fact.label} | ${fact.value}`).join("\n")}
-            className="field mt-2 font-mono text-[13px]"
+            className="field mt-2 font-sans text-[14px]"
           />
           <p className="mt-2 text-xs text-slate">One per line: label | value. Leave blank to hide.</p>
         </div>
@@ -157,7 +157,7 @@ export default async function EditServicePage({
               name="related"
               rows={3}
               defaultValue={service.related.join("\n")}
-              className="field mt-2 font-mono text-[13px]"
+              className="field mt-2 font-sans text-[14px]"
             />
             <p className="mt-2 text-xs text-slate">
               One slug per line. Available: {others.map((item) => item.slug).join(", ") || "none"}.

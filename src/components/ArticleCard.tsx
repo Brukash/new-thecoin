@@ -26,7 +26,7 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
       </Link>
 
       <div className={`flex flex-1 flex-col p-6 ${featured ? "md:w-1/2 md:p-8" : ""}`}>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.13em]">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] uppercase tracking-[0.13em]">
           <span className="font-semibold text-gold-600">{categoryName(article.category)}</span>
           <span className="text-line" aria-hidden>
             |
@@ -50,7 +50,7 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
 
         <Link
           href={`/news/${article.slug}`}
-          className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-navy"
+          className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-navy"
         >
           Read
           <span className="sr-only">: {article.title}</span>

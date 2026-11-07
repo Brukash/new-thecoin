@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { site } from "@/content/site";
 
 export type Crumb = { label: string; href?: string };
 
@@ -23,6 +24,25 @@ export function PageHero({
   image?: string;
   imageAlt?: string;
 }) {
+  // The visible breadcrumb trail is also emitted as BreadcrumbList, so search
+  // results show the same hierarchy the page displays. The final crumb is the
+  // current page and carries no `item`, which schema.org permits.
+  const breadcrumbSchema = crumbs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+          ...crumbs.map((crumb, index) => ({
+            "@type": "ListItem",
+            position: index + 2,
+            name: crumb.label,
+            ...(crumb.href ? { item: `${site.url}${crumb.href}` } : {}),
+          })),
+        ],
+      }
+    : null;
+
   return (
     <section className="relative overflow-hidden bg-ink text-white">
       <div className="hairline-grid pointer-events-none absolute inset-0 opacity-30" aria-hidden />
@@ -44,7 +64,7 @@ export function PageHero({
       <div className="shell relative py-14 md:py-20">
         {crumbs && (
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex flex-wrap items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] text-white/50">
+            <ol className="flex flex-wrap items-center gap-1.5 text-[12px] uppercase tracking-[0.14em] text-white/50">
               <li>
                 <Link href="/" className="transition-colors hover:text-gold-200">
                   Home
@@ -69,7 +89,7 @@ export function PageHero({
         )}
 
         <p className="eyebrow eyebrow-invert">{eyebrow}</p>
-        <h1 className="display mt-5 max-w-3xl text-[2.25rem] text-white md:text-[3.25rem]">
+        <h1 className="display mt-5 max-w-3xl text-[1.9rem] text-white sm:text-[2.25rem] md:text-[3.25rem]">
           {title}
         </h1>
         {intro && (
@@ -78,6 +98,13 @@ export function PageHero({
           </p>
         )}
       </div>
+
+      {breadcrumbSchema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      ) : null}
     </section>
   );
 }

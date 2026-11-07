@@ -48,7 +48,7 @@ export default function LoanTypesPage() {
               every month stated for Quick Credit. The rate that applies to your request is confirmed
               in writing before you sign. The rates in force from 1 October 2026 are listed on the
               Loans page.{" "}
-              <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+              <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                 Cl. 4.4.1 to 4.4.3; Cl. 2.4.2
               </span>
             </p>

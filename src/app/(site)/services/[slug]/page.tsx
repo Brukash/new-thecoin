@@ -7,6 +7,8 @@ import { CtaBand } from "@/components/CtaBand";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { PublishedRates } from "@/components/PublishedRates";
 import { findService, listServices } from "@/content/queries";
+import { serviceImage } from "@/content/services";
+import { shareImages, shareImageUrl } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
@@ -19,11 +21,23 @@ export async function generateMetadata({
   const service = await findService(slug);
   if (!service) return { title: "Service not found" };
 
+  const image = serviceImage(service.slug);
+
   return {
     title: service.title,
     description: service.summary,
     alternates: { canonical: `/services/${service.slug}` },
-    openGraph: { title: service.title, description: service.summary },
+    openGraph: {
+      title: service.title,
+      description: service.summary,
+      images: shareImages(image),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.title,
+      description: service.summary,
+      images: [shareImageUrl(image)],
+    },
   };
 }
 
@@ -48,6 +62,7 @@ export default async function ServiceDetailPage({
         title={service.title}
         intro={service.summary}
         crumbs={[{ label: "Services", href: "/services" }, { label: service.shortTitle }]}
+        image={serviceImage(service.slug)}
       />
 
       <section className="bg-white py-14 md:py-20">
@@ -100,13 +115,13 @@ export default async function ServiceDetailPage({
           <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
             {service.facts && (
               <div className="border border-line bg-bone p-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                   At a glance
                 </p>
                 <dl className="mt-4 space-y-4">
                   {service.facts.map((fact) => (
                     <div key={fact.label} className="border-b border-line pb-3 last:border-0 last:pb-0">
-                      <dt className="text-[11px] uppercase tracking-[0.1em] text-slate">
+                      <dt className="text-[12px] uppercase tracking-[0.1em] text-slate">
                         {fact.label}
                       </dt>
                       <dd className="mt-1 font-serif text-lg text-navy">{fact.value}</dd>
@@ -117,7 +132,7 @@ export default async function ServiceDetailPage({
             )}
 
             <div className="border border-line p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Related services
               </p>
               <ul className="mt-4 space-y-3">

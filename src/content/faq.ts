@@ -176,8 +176,8 @@ export const faqGroups: FaqDocument["groups"] = [
     title: "Investment fund",
     items: [
       {
-        q: "What is the COOP Investment Fund Classic Excel Series (2025–2029)?",
-        a: "A four-year investment opportunity running from 2025 to 2029, offered by the CBN Staff Multipurpose Cooperative Society, with stable returns and flexible interest payment options.",
+        q: "Which investment series can I subscribe to?",
+        a: "Three four-year series are open: Classic Diamond (2024–2028, maturing January 2028), Classic Excel (2025–2029, maturing January 2029) and the Classic Investment Fund (2025–2029, maturing September 2029). The Classic Triple Plan is a short-term option running for three, six or twelve months.",
       },
       {
         q: "Who is eligible to invest?",
@@ -205,7 +205,7 @@ export const faqGroups: FaqDocument["groups"] = [
       },
       {
         q: "What is the penalty for early liquidation?",
-        a: "Without 90 days' notice, a charge of 50% of total interest earned applies to the monthly and backend options, and 25% of the interest paid upfront applies to the front-end option.",
+        a: "Under the Diamond and Excel series, liquidating without 90 days' notice attracts a charge of 50% of total interest earned, and 25% of the interest paid upfront on the front-end option. The Classic Investment Fund applies a 40% charge and requires 90 days' notice, without which a further 10% applies. The Secretariat confirms the exact charge for your tranche before you commit.",
       },
       {
         q: "Can I use funds from my Coop savings account for this investment?",

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { listServices } from "@/content/queries";
+import { serviceImage } from "@/content/services";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -33,7 +35,7 @@ export default async function ServicesPage() {
         <div className="shell">
           <div className="mb-8 flex flex-col gap-4 border border-line bg-bone p-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Credit and loans
               </p>
               <p className="mt-2 max-w-2xl font-serif text-xl leading-snug text-navy">
@@ -51,30 +53,44 @@ export default async function ServicesPage() {
               <Reveal key={service.slug} delay={index * 45} as="article">
                 <Link
                   href={`/services/${service.slug}`}
-                  className="group flex h-full flex-col bg-white p-7 transition-colors hover:bg-bone md:p-9"
+                  className="group flex h-full flex-col bg-white transition-colors hover:bg-bone"
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="font-mono text-[11px] tracking-widest text-gold-600">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-mist">
+                    <Image
+                      src={serviceImage(service.slug)}
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                    />
+                    <span className="absolute left-3 top-3 bg-ink/75 px-2 py-1 font-sans text-[11px] tracking-widest text-white">
                       {service.index}
                     </span>
-                    <ArrowUpRight
-                      className="size-4 text-slate/40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-600"
-                      aria-hidden
-                    />
                   </div>
 
-                  <h2 className="mt-6 font-serif text-2xl leading-snug text-navy">
-                    {service.title}
-                  </h2>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate">{service.summary}</p>
+                  <div className="flex flex-1 flex-col p-7 md:p-9">
+                    <div className="flex items-start justify-between gap-4">
+                      <h2 className="font-serif text-2xl leading-snug text-navy">
+                        {service.title}
+                      </h2>
+                      <ArrowUpRight
+                        className="mt-1.5 size-4 shrink-0 text-slate/40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-600"
+                        aria-hidden
+                      />
+                    </div>
 
-                  <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-4">
-                    {service.facts?.slice(0, 2).map((fact) => (
-                      <span key={fact.label} className="text-[11px] uppercase tracking-[0.1em] text-slate">
-                        <span className="block text-navy">{fact.value}</span>
-                        {fact.label}
-                      </span>
-                    ))}
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-slate">
+                      {service.summary}
+                    </p>
+
+                    <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-4">
+                      {service.facts?.slice(0, 2).map((fact) => (
+                        <span key={fact.label} className="text-[12px] uppercase tracking-[0.1em] text-slate">
+                          <span className="block text-navy">{fact.value}</span>
+                          {fact.label}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </Link>
               </Reveal>

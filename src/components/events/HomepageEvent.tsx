@@ -38,11 +38,11 @@ export function HomepageEvent({ event }: { event: SocietyEvent }) {
           <p className="eyebrow eyebrow-invert">Featured event</p>
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
-            <span className="border border-gold/40 bg-gold/10 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-gold-200">
+            <span className="border border-gold/40 bg-gold/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-200">
               {event.categoryName}
             </span>
             {event.edition ? (
-              <span className="border border-white/20 px-2 py-1 text-[9px] uppercase tracking-[0.16em] text-white/70">
+              <span className="border border-white/20 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-white/70">
                 {event.edition}
               </span>
             ) : null}
@@ -91,11 +91,11 @@ export function HomepageEvent({ event }: { event: SocietyEvent }) {
 
         {event.startsAt ? (
           <div className="border border-white/15 bg-ink/60 p-6 backdrop-blur-sm">
-            <p className="text-[10px] uppercase tracking-[0.18em] text-gold-200">Begins in</p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-gold-200">Begins in</p>
             <div className="mt-4">
               <EventCountdown startsAt={event.startsAt} endsAt={event.endsAt} variant="invert" />
             </div>
-            <p className="mt-4 text-[11px] leading-relaxed text-white/50">
+            <p className="mt-4 text-[12px] leading-relaxed text-white/50">
               West Africa Time (WAT). Registration details are on the event page.
             </p>
           </div>

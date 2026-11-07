@@ -28,6 +28,10 @@ export async function generateMetadata({
   if (!announcement) return { title: "Announcement not found" };
 
   const description = announcement.shortDescription || announcement.fullDescription.slice(0, 160);
+  const images = announcement.featuredImage
+    ? [announcement.featuredImage]
+    : [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: site.name }];
+
   return {
     title: announcement.title,
     description,
@@ -36,8 +40,17 @@ export async function generateMetadata({
       type: "article",
       title: announcement.title,
       description,
+      url: announcementPageUrl(announcement),
       publishedTime: announcement.publishedAt ?? undefined,
-      images: announcement.featuredImage ? [announcement.featuredImage] : undefined,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: announcement.title,
+      description,
+      images: announcement.featuredImage
+        ? [announcement.featuredImage]
+        : ["/images/og-default.jpg"],
     },
   };
 }
@@ -56,6 +69,30 @@ export default async function AnnouncementPage({ params }: { params: Promise<{ s
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
 
+  const noticeDescription =
+    announcement.shortDescription || announcement.fullDescription.slice(0, 160);
+
+  // An official notice published on a date is an Article: the type is accurate
+  // and lets Google associate the notice with the Society as its publisher.
+  const noticeSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: announcement.title,
+    description: noticeDescription,
+    datePublished: announcement.publishedAt ?? undefined,
+    dateModified: announcement.updatedAt,
+    articleSection: announcement.category,
+    ...(announcement.featuredImage ? { image: [announcement.featuredImage] } : {}),
+    author: { "@type": "Organization", name: site.legalName, url: site.url },
+    publisher: {
+      "@type": "Organization",
+      name: site.legalName,
+      url: site.url,
+      logo: { "@type": "ImageObject", url: `${site.url}/images/logo.png` },
+    },
+    mainEntityOfPage: announcementPageUrl(announcement),
+  };
+
   return (
     <>
       <PageHero
@@ -67,16 +104,21 @@ export default async function AnnouncementPage({ params }: { params: Promise<{ s
 
       <EventsSubnav active="announcements" />
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(noticeSchema) }}
+      />
+
       <section className="bg-white py-12 md:py-16">
         <div className="shell grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
           <article>
-            <div className="flex flex-wrap items-center gap-4 border-b border-line pb-5 text-[11px] uppercase tracking-[0.12em]">
+            <div className="flex flex-wrap items-center gap-4 border-b border-line pb-5 text-[12px] uppercase tracking-[0.12em]">
               <span className="font-semibold text-gold-600">{announcement.category}</span>
               <time dateTime={announcement.publishedAt ?? undefined} className="text-slate">
                 {formatAnnouncementDate(announcement.publishedAt)}
               </time>
               {announcement.urgent ? (
-                <span className="bg-red-50 px-2 py-0.5 text-[9px] font-semibold text-red-700">
+                <span className="bg-red-50 px-2 py-0.5 text-[10px] font-semibold text-red-700">
                   Urgent
                 </span>
               ) : null}
@@ -86,7 +128,7 @@ export default async function AnnouncementPage({ params }: { params: Promise<{ s
               <div className="relative mt-6 aspect-[16/9] overflow-hidden bg-bone">
                 <Image
                   src={announcement.featuredImage}
-                  alt=""
+                  alt={announcement.title}
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -139,11 +181,11 @@ export default async function AnnouncementPage({ params }: { params: Promise<{ s
               </p>
               <dl className="mt-4 space-y-2 text-sm text-navy">
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.12em] text-slate">Telephone</dt>
+                  <dt className="text-[11px] uppercase tracking-[0.12em] text-slate">Telephone</dt>
                   <dd>{site.contact.phones[0].value}</dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.12em] text-slate">Email</dt>
+                  <dt className="text-[11px] uppercase tracking-[0.12em] text-slate">Email</dt>
                   <dd className="break-all">{site.contact.emails[0].value}</dd>
                 </div>
               </dl>

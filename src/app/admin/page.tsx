@@ -64,7 +64,7 @@ export default async function AdminPage({
     <div className="space-y-12">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
             Content
           </p>
           <h1 className="mt-2 font-serif text-3xl text-navy">Console</h1>
@@ -76,12 +76,12 @@ export default async function AdminPage({
         <div className="flex items-center gap-4">
           <Link
             href="/admin/account"
-            className="text-[11px] uppercase tracking-[0.1em] text-slate transition-colors hover:text-navy"
+            className="text-[12px] uppercase tracking-[0.1em] text-slate transition-colors hover:text-navy"
           >
             Account
           </Link>
           <form action={signOut}>
-            <button type="submit" className="btn btn-outline text-[11px]">
+            <button type="submit" className="btn btn-outline text-[12px]">
               Sign out
             </button>
           </form>
@@ -102,7 +102,7 @@ export default async function AdminPage({
           href="/admin/events"
           className="group border border-line bg-white p-5 transition-colors hover:border-navy"
         >
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
             Programme
           </p>
           <h2 className="mt-2 font-serif text-xl text-navy">Events</h2>
@@ -110,7 +110,7 @@ export default async function AdminPage({
             Create events, set the homepage promotion, manage galleries, registrations and
             enquiries.
           </p>
-          <span className="mt-4 inline-block text-[10px] uppercase tracking-[0.12em] text-navy">
+          <span className="mt-4 inline-block text-[11px] uppercase tracking-[0.12em] text-navy">
             Open events →
           </span>
         </Link>
@@ -119,15 +119,49 @@ export default async function AdminPage({
           href="/admin/announcements"
           className="group border border-line bg-white p-5 transition-colors hover:border-navy"
         >
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
             Notices
           </p>
           <h2 className="mt-2 font-serif text-xl text-navy">Announcements</h2>
           <p className="mt-2 text-xs leading-relaxed text-slate">
             Publish official notices with expiry dates, attachments and the urgent banner.
           </p>
-          <span className="mt-4 inline-block text-[10px] uppercase tracking-[0.12em] text-navy">
+          <span className="mt-4 inline-block text-[11px] uppercase tracking-[0.12em] text-navy">
             Open announcements →
+          </span>
+        </Link>
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-2">
+        <Link
+          href="/admin/analytics"
+          className="border border-line bg-white p-5 transition-colors hover:border-gold/60"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+            Insight
+          </p>
+          <h2 className="mt-2 font-serif text-xl text-navy">Website analytics</h2>
+          <p className="mt-2 text-xs leading-relaxed text-slate">
+            Page views, most-read pages and open enquiries at a glance.
+          </p>
+          <span className="mt-4 inline-block text-[11px] uppercase tracking-[0.12em] text-navy">
+            Open analytics →
+          </span>
+        </Link>
+
+        <Link
+          href="/admin/newsletter"
+          className="border border-line bg-white p-5 transition-colors hover:border-gold/60"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+            Audience
+          </p>
+          <h2 className="mt-2 font-serif text-xl text-navy">Newsletter</h2>
+          <p className="mt-2 text-xs leading-relaxed text-slate">
+            Subscribers collected from the site, and a single message to all of them.
+          </p>
+          <span className="mt-4 inline-block text-[11px] uppercase tracking-[0.12em] text-navy">
+            Open newsletter →
           </span>
         </Link>
       </section>
@@ -148,7 +182,7 @@ export default async function AdminPage({
               className="field h-9 w-56 text-sm"
               required
             />
-            <button type="submit" className="btn btn-primary h-9 px-4 text-[11px]">
+            <button type="submit" className="btn btn-primary h-9 px-4 text-[12px]">
               Add
             </button>
           </form>
@@ -157,7 +191,7 @@ export default async function AdminPage({
         <ul className="divide-y divide-line">
           {news.map((entry) => (
             <li key={entry.slug} className="flex flex-wrap items-center gap-3 py-3">
-              <span className="w-24 shrink-0 text-[11px] tabular-nums text-slate">
+              <span className="w-24 shrink-0 text-[12px] tabular-nums text-slate">
                 {entry.data.date}
               </span>
               <Link
@@ -196,7 +230,7 @@ export default async function AdminPage({
               className="field h-9 w-56 text-sm"
               required
             />
-            <button type="submit" className="btn btn-primary h-9 px-4 text-[11px]">
+            <button type="submit" className="btn btn-primary h-9 px-4 text-[12px]">
               Add
             </button>
           </form>
@@ -205,7 +239,7 @@ export default async function AdminPage({
         <ul className="divide-y divide-line">
           {projects.map((entry) => (
             <li key={entry.slug} className="flex flex-wrap items-center gap-3 py-3">
-              <span className="w-24 shrink-0 text-[11px] text-slate">
+              <span className="w-24 shrink-0 text-[12px] text-slate">
                 {entry.data.city || "Not set"}
               </span>
               <Link
@@ -236,7 +270,7 @@ export default async function AdminPage({
           <p className="flex items-center gap-2 font-serif text-lg text-navy">
             Enquiries
             {openEnquiries > 0 ? (
-              <span className="rounded-full bg-gold px-2 py-0.5 text-[10px] font-semibold tabular-nums text-navy">
+              <span className="rounded-full bg-gold px-2 py-0.5 text-[11px] font-semibold tabular-nums text-navy">
                 {openEnquiries}
               </span>
             ) : null}
@@ -324,7 +358,7 @@ export default async function AdminPage({
         <ul className="divide-y divide-line text-sm">
           {audit.map((row) => (
             <li key={String(row.id)} className="flex flex-wrap gap-2 py-2.5 text-slate">
-              <span className="w-40 shrink-0 text-[11px] tabular-nums text-slate/70">
+              <span className="w-40 shrink-0 text-[12px] tabular-nums text-slate/70">
                 {new Date(String(row.created_at)).toLocaleString("en-GB", {
                   dateStyle: "medium",
                   timeStyle: "short",
@@ -334,7 +368,7 @@ export default async function AdminPage({
               <span className="text-slate/80">
                 {String(row.collection)}/{String(row.slug)}
               </span>
-              <span className="ml-auto text-[11px]">{String(row.actor_email)}</span>
+              <span className="ml-auto text-[12px]">{String(row.actor_email)}</span>
             </li>
           ))}
           {audit.length === 0 ? (
@@ -358,7 +392,7 @@ export default async function AdminPage({
 
 function CardAction({ children }: { children: ReactNode }) {
   return (
-    <span className="mt-3 block text-[10px] font-semibold uppercase tracking-[0.12em] text-gold-600">
+    <span className="mt-3 block text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-600">
       {children}
     </span>
   );
@@ -367,7 +401,7 @@ function CardAction({ children }: { children: ReactNode }) {
 function StatusTag({ status }: { status: "draft" | "published" }) {
   return (
     <span
-      className={`text-[10px] uppercase tracking-[0.1em] ${
+      className={`text-[11px] uppercase tracking-[0.1em] ${
         status === "published" ? "text-gold-600" : "text-slate/70"
       }`}
     >

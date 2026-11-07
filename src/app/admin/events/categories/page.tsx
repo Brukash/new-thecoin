@@ -16,7 +16,7 @@ export default async function EventCategoriesPage({
 
   return (
     <div className="max-w-3xl">
-      <Link href="/admin/events" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin/events" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← All events
       </Link>
 
@@ -78,7 +78,7 @@ export default async function EventCategoriesPage({
           Show in public filters
         </label>
         <div className="sm:col-span-2">
-          <button type="submit" className="btn btn-primary h-9 px-5 text-[11px]">
+          <button type="submit" className="btn btn-primary h-9 px-5 text-[12px]">
             Save category
           </button>
         </div>
@@ -89,14 +89,14 @@ export default async function EventCategoriesPage({
           <li key={category.id} className="flex flex-wrap items-center gap-3 px-4 py-3">
             <div className="min-w-0 flex-1">
               <p className="text-sm text-navy">{category.name}</p>
-              <p className="text-[11px] text-slate">
+              <p className="text-[12px] text-slate">
                 /{category.slug} · order {category.displayOrder}
                 {category.active ? "" : " · hidden"}
               </p>
             </div>
             <form action={deleteCategoryAction}>
               <input type="hidden" name="id" value={category.id} />
-              <button type="submit" className="text-[11px] uppercase tracking-[0.1em] text-red-700">
+              <button type="submit" className="text-[12px] uppercase tracking-[0.1em] text-red-700">
                 Delete
               </button>
             </form>

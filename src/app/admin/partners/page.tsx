@@ -25,7 +25,7 @@ export default async function PartnersAdminPage({
 
   return (
     <div>
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
 
@@ -49,7 +49,7 @@ export default async function PartnersAdminPage({
             className="field h-9 w-56 text-sm"
             required
           />
-          <button type="submit" className="btn btn-primary h-9 px-4 text-[11px]">
+          <button type="submit" className="btn btn-primary h-9 px-4 text-[12px]">
             Add
           </button>
         </form>
@@ -98,13 +98,13 @@ export default async function PartnersAdminPage({
                   className="max-h-8 w-auto max-w-full object-contain"
                 />
               ) : (
-                <span className="text-[9px] uppercase tracking-[0.1em] text-slate/60">No logo</span>
+                <span className="text-[10px] uppercase tracking-[0.1em] text-slate/60">No logo</span>
               )}
             </div>
 
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm text-navy">{partner.organisationName}</p>
-              <p className="text-[11px] text-slate">
+              <p className="text-[12px] text-slate">
                 {partner.category} · order {partner.displayOrder}
                 {partner.active ? "" : " · hidden"}
               </p>
@@ -116,7 +116,7 @@ export default async function PartnersAdminPage({
                 <input type="hidden" name="direction" value="up" />
                 <button
                   type="submit"
-                  className="btn btn-outline h-7 px-2 text-[11px]"
+                  className="btn btn-outline h-7 px-2 text-[12px]"
                   disabled={index === 0}
                   aria-label={`Move ${partner.organisationName} up`}
                 >
@@ -128,7 +128,7 @@ export default async function PartnersAdminPage({
                 <input type="hidden" name="direction" value="down" />
                 <button
                   type="submit"
-                  className="btn btn-outline h-7 px-2 text-[11px]"
+                  className="btn btn-outline h-7 px-2 text-[12px]"
                   disabled={index === partners.length - 1}
                   aria-label={`Move ${partner.organisationName} down`}
                 >
@@ -140,7 +140,7 @@ export default async function PartnersAdminPage({
             <form action={togglePartnerAction}>
               <input type="hidden" name="slug" value={partner.slug} />
               <input type="hidden" name="active" value={partner.active ? "false" : "true"} />
-              <button type="submit" className="btn btn-outline h-7 px-3 text-[10px] uppercase">
+              <button type="submit" className="btn btn-outline h-7 px-3 text-[11px] uppercase">
                 {partner.active ? "Hide" : "Show"}
               </button>
             </form>

@@ -24,7 +24,7 @@ export default async function RegistrationsPage({
 
   return (
     <div>
-      <Link href={`/admin/events/${slug}`} className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href={`/admin/events/${slug}`} className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to the event
       </Link>
 
@@ -39,7 +39,7 @@ export default async function RegistrationsPage({
         </div>
         <a
           href={`/admin/events/${slug}/registrations.csv`}
-          className="btn btn-outline h-9 px-3 text-[11px]"
+          className="btn btn-outline h-9 px-3 text-[12px]"
         >
           Export CSV
         </a>
@@ -53,7 +53,7 @@ export default async function RegistrationsPage({
 
       <div className="mt-6 overflow-x-auto border border-line bg-white">
         <table className="w-full min-w-[46rem] text-left text-sm">
-          <thead className="border-b border-line bg-bone text-[10px] uppercase tracking-[0.12em] text-slate">
+          <thead className="border-b border-line bg-bone text-[11px] uppercase tracking-[0.12em] text-slate">
             <tr>
               <th className="px-3 py-2 font-medium">Name</th>
               <th className="px-3 py-2 font-medium">Contact</th>
@@ -69,7 +69,7 @@ export default async function RegistrationsPage({
                 <td className="px-3 py-3 text-navy">
                   {registration.fullName}
                   {registration.additionalInformation ? (
-                    <p className="mt-1 max-w-xs text-[11px] text-slate">
+                    <p className="mt-1 max-w-xs text-[12px] text-slate">
                       {registration.additionalInformation}
                     </p>
                   ) : null}
@@ -84,7 +84,7 @@ export default async function RegistrationsPage({
                 <td className="px-3 py-3 text-[12px] tabular-nums text-slate">
                   {registration.attendeeCount}
                 </td>
-                <td className="px-3 py-3 text-[11px] text-slate">
+                <td className="px-3 py-3 text-[12px] text-slate">
                   {new Date(registration.registrationDate).toLocaleString("en-GB", {
                     timeZone: "Africa/Lagos",
                     dateStyle: "medium",
@@ -98,14 +98,14 @@ export default async function RegistrationsPage({
                     <select
                       name="status"
                       defaultValue={registration.status}
-                      className="field h-8 w-28 text-[11px]"
+                      className="field h-8 w-28 text-[12px]"
                     >
                       <option value="received">Received</option>
                       <option value="approved">Approved</option>
                       <option value="declined">Declined</option>
                       <option value="attended">Attended</option>
                     </select>
-                    <button type="submit" className="btn btn-outline h-8 px-2 text-[10px] uppercase">
+                    <button type="submit" className="btn btn-outline h-8 px-2 text-[11px] uppercase">
                       Save
                     </button>
                   </form>

@@ -32,12 +32,12 @@ export default async function NewsPage() {
         <div className="shell">
           {/* Category filter */}
           <div className="flex flex-wrap items-center gap-2 border-b border-line pb-6">
-            <span className="mr-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate">
+            <span className="mr-1 text-[12px] font-semibold uppercase tracking-[0.14em] text-slate">
               Filter
             </span>
             <Link
               href="/news"
-              className="border border-navy bg-navy px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white"
+              className="border border-navy bg-navy px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-white"
             >
               All
             </Link>
@@ -45,7 +45,7 @@ export default async function NewsPage() {
               <Link
                 key={category.slug}
                 href={`/news/category/${category.slug}`}
-                className="border border-line px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate transition-colors hover:border-navy hover:text-navy"
+                className="border border-line px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-slate transition-colors hover:border-navy hover:text-navy"
               >
                 {category.name}
               </Link>

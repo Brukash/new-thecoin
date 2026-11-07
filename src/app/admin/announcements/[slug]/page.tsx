@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { requireStaff } from "@/lib/cms/auth";
 import { getAnnouncement } from "@/lib/cms/events";
 import { saveAnnouncementAction } from "../../events/actions";
+import { SeoPanel } from "@/components/admin/SeoPanel";
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +37,7 @@ export default async function AnnouncementEditPage({
     <div className="max-w-2xl">
       <Link
         href="/admin/announcements"
-        className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy"
+        className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy"
       >
         ← All announcements
       </Link>
@@ -140,7 +141,7 @@ export default async function AnnouncementEditPage({
             defaultValue={announcement.fullDescription}
             className="field mt-2"
           />
-          <p className="mt-1 text-[11px] text-slate">Separate paragraphs with a blank line.</p>
+          <p className="mt-1 text-[12px] text-slate">Separate paragraphs with a blank line.</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -155,7 +156,7 @@ export default async function AnnouncementEditPage({
               defaultValue={publishedInput}
               className="field mt-2"
             />
-            <p className="mt-1 text-[11px] text-slate">
+            <p className="mt-1 text-[12px] text-slate">
               Used for scheduled notices. Leave blank to publish immediately.
             </p>
           </div>
@@ -170,7 +171,7 @@ export default async function AnnouncementEditPage({
               defaultValue={announcement.expiryDate ?? ""}
               className="field mt-2"
             />
-            <p className="mt-1 text-[11px] text-slate">
+            <p className="mt-1 text-[12px] text-slate">
               After this date the notice disappears from the website but is not deleted.
             </p>
           </div>
@@ -202,7 +203,7 @@ export default async function AnnouncementEditPage({
                 />
               </div>
             ) : (
-              <p className="mt-2 text-[11px] text-slate">None uploaded.</p>
+              <p className="mt-2 text-[12px] text-slate">None uploaded.</p>
             )}
             <input
               id="featuredImage"
@@ -217,9 +218,9 @@ export default async function AnnouncementEditPage({
             <p className="field-label">Attachment (PDF)</p>
             <input type="hidden" name="attachmentUrl" value={announcement.attachmentUrl} />
             {announcement.attachmentUrl ? (
-              <p className="mt-2 break-all text-[11px] text-slate">{announcement.attachmentUrl}</p>
+              <p className="mt-2 break-all text-[12px] text-slate">{announcement.attachmentUrl}</p>
             ) : (
-              <p className="mt-2 text-[11px] text-slate">None uploaded.</p>
+              <p className="mt-2 text-[12px] text-slate">None uploaded.</p>
             )}
             <input
               id="attachment"
@@ -240,6 +241,28 @@ export default async function AnnouncementEditPage({
           </Link>
         </div>
       </form>
+
+      <SeoPanel
+        fields={{
+          title: ["title"],
+          description: ["shortDescription"],
+          slug: ["slug"],
+          image: ["featuredImageUrl"],
+          body: ["fullDescription"],
+        }}
+        initial={{
+          title: announcement.title,
+          description: announcement.shortDescription,
+          slug: announcement.slug,
+          image: announcement.featuredImage,
+          body: announcement.fullDescription,
+          hasSchema: true,
+          // Notices have no alt field: the artwork is described by the notice title.
+          skip: ["imageAlt"],
+        }}
+        previewHref={`/events/announcements/${announcement.slug}`}
+        notes="Notices have no separate search fields, so the title and short summary are used verbatim in results and the featured image becomes the share card. Uploaded artwork is described by the notice title."
+      />
     </div>
   );
 }

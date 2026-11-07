@@ -164,7 +164,7 @@ export default function MembershipPage() {
             {steps.map((step, index) => (
               <Reveal key={step.step} delay={index * 50} as="article">
                 <div className="h-full bg-white p-6 md:p-7">
-                  <span className="font-mono text-[11px] tracking-widest text-gold-600">
+                  <span className="font-sans text-[12px] tracking-widest text-gold-600">
                     {step.step}
                   </span>
                   <h3 className="mt-4 font-serif text-lg leading-snug text-navy">{step.title}</h3>
@@ -184,7 +184,7 @@ export default function MembershipPage() {
                   href={site.documents[1].href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-200 hover:text-white"
+                  className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-gold-200 hover:text-white"
                 >
                   Download forms <ArrowUpRight className="size-3.5" aria-hidden />
                 </a>

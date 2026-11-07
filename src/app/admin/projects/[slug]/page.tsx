@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { requireStaff } from "@/lib/cms/auth";
 import { getEntry } from "@/lib/cms/store";
 import type { ProjectDocument } from "@/lib/cms/schemas";
+import { SeoPanel } from "@/components/admin/SeoPanel";
 import { saveProject } from "../../actions";
 
 export const dynamic = "force-dynamic";
@@ -21,7 +22,7 @@ export default async function EditProjectPage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
       <h1 className="mt-4 font-serif text-2xl text-navy">{project.name}</h1>
@@ -100,7 +101,7 @@ export default async function EditProjectPage({
             name="description"
             rows={12}
             defaultValue={project.description.join("\n\n")}
-            className="field mt-2 font-mono text-[13px] leading-relaxed"
+            className="field mt-2 font-sans text-[14px] leading-relaxed"
           />
           <p className="mt-2 text-xs text-slate">
             Separate paragraphs with a blank line. Prices, completion figures and unit counts must be
@@ -133,6 +134,28 @@ export default async function EditProjectPage({
           </Link>
         </div>
       </form>
+
+      <SeoPanel
+        fields={{
+          title: ["name"],
+          description: ["summary"],
+          slug: ["slug"],
+          image: ["image"],
+          body: ["description"],
+        }}
+        initial={{
+          title: project.name,
+          description: project.summary,
+          slug: project.slug,
+          image: project.image ?? "",
+          body: project.description.join("\n\n"),
+          hasSchema: true,
+          // The project form has no alt field, so it is not scored.
+          skip: ["imageAlt"],
+        }}
+        previewHref={`/projects/${project.slug}`}
+        notes="A project page has no separate meta description: the summary is used for search results and social cards, and the image path is reused as the share image."
+      />
     </div>
   );
 }

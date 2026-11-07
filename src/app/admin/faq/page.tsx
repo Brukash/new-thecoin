@@ -24,7 +24,7 @@ export default async function FaqAdminPage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
       <h1 className="mt-4 font-serif text-2xl text-navy">Frequently asked questions</h1>
@@ -46,7 +46,7 @@ export default async function FaqAdminPage({
       <form action={saveFaq} className="mt-8 space-y-6 bg-white p-6 ring-1 ring-line">
         {slots.map((group, index) => (
           <fieldset key={index} className="border border-line p-4">
-            <legend className="px-1 text-[11px] uppercase tracking-[0.12em] text-slate">
+            <legend className="px-1 text-[12px] uppercase tracking-[0.12em] text-slate">
               Section {index + 1}
             </legend>
 
@@ -69,7 +69,7 @@ export default async function FaqAdminPage({
               name={`items-${index}`}
               rows={Math.max(4, (group?.items.length ?? 0) * 2)}
               defaultValue={(group?.items ?? []).map((item) => `${item.q} | ${item.a}`).join("\n")}
-              className="field mt-2 font-mono text-[13px] leading-relaxed"
+              className="field mt-2 font-sans text-[14px] leading-relaxed"
             />
             <p className="mt-2 text-xs text-slate">
               One question per line: <code>question | answer</code>. Empty sections are removed on

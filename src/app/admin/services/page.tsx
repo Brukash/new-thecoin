@@ -17,7 +17,7 @@ export default async function ServicesAdminPage() {
 
   return (
     <div>
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
 
@@ -40,7 +40,7 @@ export default async function ServicesAdminPage() {
             className="field h-9 w-56 text-sm"
             required
           />
-          <button type="submit" className="btn btn-primary h-9 px-4 text-[11px]">
+          <button type="submit" className="btn btn-primary h-9 px-4 text-[12px]">
             Add
           </button>
         </form>
@@ -49,7 +49,7 @@ export default async function ServicesAdminPage() {
       <ul className="mt-2 divide-y divide-line">
         {services.map((entry) => (
           <li key={entry.slug} className="flex flex-wrap items-center gap-3 py-3">
-            <span className="w-10 shrink-0 font-mono text-[11px] text-gold-600">
+            <span className="w-10 shrink-0 font-sans text-[12px] text-gold-600">
               {entry.data.index}
             </span>
             <Link
@@ -58,7 +58,7 @@ export default async function ServicesAdminPage() {
             >
               {entry.data.title}
             </Link>
-            <span className="text-[10px] uppercase tracking-[0.1em] text-slate/70">
+            <span className="text-[11px] uppercase tracking-[0.1em] text-slate/70">
               {entry.status}
             </span>
             <EditButton href={`/admin/services/${entry.slug}`} />

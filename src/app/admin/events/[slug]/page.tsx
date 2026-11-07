@@ -7,6 +7,7 @@ import { saveEventAction } from "../actions";
 import { EventForm } from "../EventForm";
 import { EventAdminBar } from "./EventAdminBar";
 import { GalleryManager } from "./GalleryManager";
+import { SeoPanel } from "@/components/admin/SeoPanel";
 
 export const dynamic = "force-dynamic";
 
@@ -50,7 +51,7 @@ export default async function EditEventPage({
 
   return (
     <div>
-      <Link href="/admin/events" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin/events" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← All events
       </Link>
 
@@ -62,13 +63,13 @@ export default async function EditEventPage({
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Link href={`/events/${event.slug}`} className="btn btn-outline h-9 px-3 text-[11px]" target="_blank" rel="noopener noreferrer">
+          <Link href={`/events/${event.slug}`} className="btn btn-outline h-9 px-3 text-[12px]" target="_blank" rel="noopener noreferrer">
             Preview page
           </Link>
-          <Link href={`/admin/events/${event.slug}/registrations`} className="btn btn-outline h-9 px-3 text-[11px]">
+          <Link href={`/admin/events/${event.slug}/registrations`} className="btn btn-outline h-9 px-3 text-[12px]">
             Registrations ({registrations.length})
           </Link>
-          <Link href={`/admin/events/${event.slug}/enquiries`} className="btn btn-outline h-9 px-3 text-[11px]">
+          <Link href={`/admin/events/${event.slug}/enquiries`} className="btn btn-outline h-9 px-3 text-[12px]">
             Enquiries ({openEnquiries} open)
           </Link>
         </div>
@@ -99,13 +100,35 @@ export default async function EditEventPage({
           <Link href="/admin/events" className="text-xs text-slate hover:text-navy">
             Cancel
           </Link>
-          <span className="ml-auto text-[11px] text-slate">
+          <span className="ml-auto text-[12px] text-slate">
             Last updated {new Date(event.updatedAt).toLocaleString("en-GB", { timeZone: "Africa/Lagos" })}
           </span>
         </div>
       </form>
 
       <GalleryManager slug={event.slug} images={event.gallery} />
+
+      <SeoPanel
+        fields={{
+          title: ["seoTitle", "title"],
+          description: ["seoDescription", "shortDescription"],
+          slug: ["slug"],
+          image: ["bannerUrl"],
+          body: ["fullDescription"],
+        }}
+        initial={{
+          title: event.seoTitle || event.title,
+          description: event.seoDescription || event.shortDescription,
+          slug: event.slug,
+          image: event.bannerUrl ?? "",
+          body: event.fullDescription ?? "",
+          hasSchema: true,
+          // Events have no dedicated alt field; the banner carries its own description elsewhere.
+          skip: ["imageAlt"],
+        }}
+        previewHref={`/events/${event.slug}`}
+        notes="Leave the search title and description blank to fall back to the event title and short description. The event page emits Event structured data, which Google can list directly."
+      />
     </div>
   );
 }

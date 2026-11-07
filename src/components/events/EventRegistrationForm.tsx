@@ -147,7 +147,7 @@ export function EventRegistrationForm({
 
       <div className="flex items-center gap-4">
         <SubmitButton />
-        <p className="text-[11px] leading-relaxed text-slate">
+        <p className="text-[12px] leading-relaxed text-slate">
           Registration records are private to the organising team.
         </p>
       </div>

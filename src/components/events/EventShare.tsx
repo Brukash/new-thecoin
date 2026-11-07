@@ -42,12 +42,12 @@ export function EventShare({
   ];
 
   const base =
-    "inline-flex items-center justify-center gap-1.5 border px-2.5 py-2 text-[10px] font-semibold uppercase tracking-[0.1em] transition-colors";
+    "inline-flex items-center justify-center gap-1.5 border px-2.5 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
       {!compact ? (
-        <span className="mr-1 text-[10px] uppercase tracking-[0.14em] text-slate">Share</span>
+        <span className="mr-1 text-[11px] uppercase tracking-[0.14em] text-slate">Share</span>
       ) : null}
 
       {links.map(({ label, href, Icon }) => (

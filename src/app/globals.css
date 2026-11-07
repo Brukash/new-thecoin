@@ -7,12 +7,15 @@
 
 @theme {
   /* Brand */
+  /* One black for the whole site. `ink` and `navy` are aliases of the same
+     value so that dark sections, headings and body copy cannot drift apart;
+     the named shades below keep their own values for hovers and accents. */
   --color-ink: #08101f;
-  --color-navy: #0a1628;
+  --color-navy: #08101f;
   --color-navy-700: #102541;
   --color-navy-500: #1b3557;
   --color-gold: #b99351;
-  --color-gold-600: #9c7a3d;
+  --color-gold-600: #836431;
   --color-gold-200: #e6d3ab;
   --color-gold-50: #f7f1e4;
 
@@ -20,14 +23,17 @@
   --color-paper: #ffffff;
   --color-bone: #f7f5f0;
   --color-mist: #eef1f4;
-  --color-charcoal: #1a2127;
+  --color-charcoal: #08101f;
   --color-slate: #58626e;
   --color-line: #e4dfd4;
   --color-line-dark: #24374f;
 
   /* Type */
+  /* One family for every heading and paragraph. `font-serif` is kept as a
+     utility name so existing markup keeps working, but it resolves to the same
+     sans face: the site no longer mixes a serif and a sans. */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   /* Motion */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -38,8 +44,12 @@
     border-color: var(--color-line);
   }
 
+  /* The root is 17px rather than 16px so that rem-based type and spacing sit
+     at a comfortable reading size on large screens without overriding the
+     scale on a per-component basis. */
   html {
     -webkit-text-size-adjust: 100%;
+    font-size: 106.25%;
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
   }
@@ -48,6 +58,11 @@
     background-color: var(--color-paper);
     color: var(--color-charcoal);
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    /* Long addresses and reference codes must wrap rather than push the page
+       sideways on a phone. */
+    overflow-wrap: break-word;
     font-feature-settings: "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -59,8 +74,9 @@
   h3,
   h4 {
     font-family: var(--font-serif);
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.02em;
+    line-height: 1.15;
     color: var(--color-navy);
     text-wrap: balance;
   }
@@ -125,9 +141,16 @@
     font-family: var(--font-sans);
     font-size: 0.6875rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     color: var(--color-gold-600);
+  }
+
+  @media (min-width: 768px) {
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+    }
   }
 
   .eyebrow::before {
@@ -145,20 +168,20 @@
 
   .display {
     font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
   }
 
   .lede {
-    font-size: 1.0625rem;
-    line-height: 1.75;
+    font-size: 1.125rem;
+    line-height: 1.7;
     color: var(--color-slate);
   }
 
   @media (min-width: 768px) {
     .lede {
-      font-size: 1.1875rem;
+      font-size: 1.25rem;
     }
   }
 
@@ -168,11 +191,11 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-height: 2.875rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.8125rem;
+    min-height: 3rem;
+    padding: 0.8125rem 1.625rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: all 220ms var(--ease-out-soft);
     border: 1px solid transparent;
@@ -252,9 +275,9 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--color-navy);
   }
@@ -282,9 +305,9 @@
     width: 100%;
     border: 1px solid var(--color-line);
     background-color: var(--color-paper);
-    padding: 0.625rem 0.75rem;
-    font-size: 0.875rem;
-    line-height: 1.5;
+    padding: 0.6875rem 0.875rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
     color: var(--color-charcoal);
     outline: none;
     transition: border-color 200ms var(--ease-out-soft), box-shadow 200ms var(--ease-out-soft);
@@ -321,10 +344,10 @@
 
   .field-label {
     display: block;
-    font-size: 10px;
+    font-size: 0.6875rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.11em;
     color: var(--color-slate);
   }
 
@@ -344,8 +367,8 @@
 
   /* Long-form article body */
   .prose-coop {
-    color: #2a333b;
-    font-size: 1.0625rem;
+    color: var(--color-ink);
+    font-size: 1.125rem;
     line-height: 1.85;
   }
 
@@ -354,13 +377,15 @@
   }
 
   .prose-coop h2 {
-    font-size: 1.75rem;
+    font-size: 1.875rem;
+    line-height: 1.2;
     margin-top: 2.75rem;
     margin-bottom: 0.75rem;
   }
 
   .prose-coop h3 {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
+    line-height: 1.3;
     margin-top: 2rem;
     margin-bottom: 0.5rem;
   }
@@ -430,9 +455,100 @@
   }
 }
 
+/* ------------------------------------------------------------------ motion
+   Small, slow, institutional. Everything here is switched off under
+   prefers-reduced-motion at the foot of this file. */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer components {
+  .rise {
+    animation: rise 720ms var(--ease-out-soft) both;
+  }
+
+  .hero-media img {
+    animation: hero-drift 26s var(--ease-out-soft) both;
+  }
+
+  /* Continuous partner strip; pauses on hover and focus. */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 38s linear infinite;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .link-underline svg {
+    transition: transform 220ms var(--ease-out-soft);
+  }
+
+  .link-underline:hover svg {
+    transform: translateX(2px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .rise,
+  .hero-media img {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .reveal {

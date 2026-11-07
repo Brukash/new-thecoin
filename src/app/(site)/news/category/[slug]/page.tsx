@@ -50,7 +50,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           <div className="flex flex-wrap items-center gap-2 border-b border-line pb-6">
             <Link
               href="/news"
-              className="border border-line px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate transition-colors hover:border-navy hover:text-navy"
+              className="border border-line px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-slate transition-colors hover:border-navy hover:text-navy"
             >
               All
             </Link>
@@ -59,7 +59,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 key={entry.slug}
                 href={`/news/category/${entry.slug}`}
                 aria-current={entry.slug === category.slug ? "page" : undefined}
-                className={`border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                className={`border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
                   entry.slug === category.slug
                     ? "border-navy bg-navy text-white"
                     : "border-line text-slate hover:border-navy hover:text-navy"

@@ -12,7 +12,7 @@ export function FacilityCard({ facility }: { facility: Facility }) {
       className="group flex h-full flex-col border border-line bg-white p-6 transition-colors hover:border-gold/60 hover:bg-bone md:p-7"
     >
       <div className="flex items-start justify-between gap-4">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
           {facility.kind}
         </p>
         <ArrowUpRight
@@ -35,7 +35,7 @@ export function FacilityCard({ facility }: { facility: Facility }) {
         </div>
       </dl>
 
-      <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.08em] text-slate">
+      <p className="mt-4 font-sans text-[11px] uppercase tracking-[0.08em] text-slate">
         {facility.ref}
       </p>
     </Link>

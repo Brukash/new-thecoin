@@ -1,5 +1,8 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { ChatWidget } from "@/components/ChatWidget";
+import { PageViewTracker } from "@/components/PageViewTracker";
 
 /**
  * Public website chrome. Kept in a route group so the staff console at /admin
@@ -18,6 +21,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <Header />
       <main id="main">{children}</main>
       <Footer />
+      <WhatsAppButton />
+      <ChatWidget />
+      <PageViewTracker />
     </>
   );
 }

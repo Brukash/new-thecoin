@@ -43,7 +43,7 @@ export default async function EventGalleryPage() {
                         {event.title}
                       </Link>
                     </h2>
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-slate">
+                    <p className="mt-1 text-[12px] uppercase tracking-[0.12em] text-slate">
                       {formatEventDateShort(event)} · {event.gallery.length} photograph
                       {event.gallery.length === 1 ? "" : "s"}
                     </p>
@@ -64,7 +64,7 @@ export default async function EventGalleryPage() {
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                       {image.caption ? (
-                        <span className="absolute inset-x-0 bottom-0 bg-ink/75 px-3 py-2 text-[10px] leading-snug text-white/85">
+                        <span className="absolute inset-x-0 bottom-0 bg-ink/75 px-3 py-2 text-[11px] leading-snug text-white/85">
                           {image.caption}
                         </span>
                       ) : null}

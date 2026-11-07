@@ -16,7 +16,7 @@ export default async function SettingsPage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
       <h1 className="mt-4 font-serif text-2xl text-navy">Contact details</h1>
@@ -138,7 +138,7 @@ export default async function SettingsPage({
               name="phones"
               rows={3}
               defaultValue={settings.contact.phones.map((p) => `${p.label} | ${p.value}`).join("\n")}
-              className="field mt-2 font-mono text-[13px]"
+              className="field mt-2 font-sans text-[14px]"
             />
           </div>
           <div>
@@ -150,7 +150,7 @@ export default async function SettingsPage({
               name="emails"
               rows={3}
               defaultValue={settings.contact.emails.map((e) => `${e.label} | ${e.value}`).join("\n")}
-              className="field mt-2 font-mono text-[13px]"
+              className="field mt-2 font-sans text-[14px]"
             />
           </div>
         </div>
@@ -164,7 +164,7 @@ export default async function SettingsPage({
             name="hours"
             rows={3}
             defaultValue={settings.contact.hours.map((h) => `${h.days} | ${h.time}`).join("\n")}
-            className="field mt-2 font-mono text-[13px]"
+            className="field mt-2 font-sans text-[14px]"
           />
         </div>
 

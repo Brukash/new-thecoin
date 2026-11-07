@@ -47,11 +47,11 @@ export default function EligibilityPage() {
                 <dl className="mt-5 space-y-5">
                   {group.items.map((item) => (
                     <div key={item.label}>
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-600">
+                      <dt className="text-[12px] font-semibold uppercase tracking-[0.12em] text-gold-600">
                         {item.label}
                       </dt>
                       <dd className="mt-1.5 text-sm leading-relaxed text-slate">{item.text}</dd>
-                      <dd className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+                      <dd className="mt-1.5 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                         {item.ref}
                       </dd>
                     </div>
@@ -72,12 +72,12 @@ export default function EligibilityPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+            <p className="mt-4 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
               {overview.criteriaRef}
             </p>
             <p className="mt-6 max-w-3xl border-t border-line pt-5 text-sm leading-relaxed text-slate">
               {overview.rejection}{" "}
-              <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+              <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                 {overview.rejectionRef}
               </span>
             </p>

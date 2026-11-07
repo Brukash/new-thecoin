@@ -23,7 +23,7 @@ export default async function MediaAdminPage({
 
   return (
     <div>
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
       <h1 className="mt-4 font-serif text-2xl text-navy">Media</h1>
@@ -95,7 +95,7 @@ export default async function MediaAdminPage({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={item.url} alt={item.alt} className="aspect-[4/3] w-full object-cover" />
             <div className="space-y-2 p-3">
-              <p className="truncate text-[11px] text-slate" title={item.path}>
+              <p className="truncate text-[12px] text-slate" title={item.path}>
                 {item.path}
               </p>
               <form action={updateMediaAltAction} className="flex items-center gap-2">
@@ -108,19 +108,19 @@ export default async function MediaAdminPage({
                   name="alt"
                   defaultValue={item.alt}
                   placeholder="Description"
-                  className="field h-8 min-w-0 flex-1 text-[11px]"
+                  className="field h-8 min-w-0 flex-1 text-[12px]"
                 />
-                <button type="submit" className="btn btn-outline h-8 px-3 text-[10px]">
+                <button type="submit" className="btn btn-outline h-8 px-3 text-[11px]">
                   Save
                 </button>
               </form>
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] uppercase tracking-[0.1em] text-slate/70">
+                <span className="text-[11px] uppercase tracking-[0.1em] text-slate/70">
                   {Math.max(1, Math.round(item.sizeBytes / 1024))} KB
                 </span>
                 <form action={deleteMediaAction}>
                   <input type="hidden" name="path" value={item.path} />
-                  <button type="submit" className="text-[11px] text-red-700 hover:underline">
+                  <button type="submit" className="text-[12px] text-red-700 hover:underline">
                     Delete
                   </button>
                 </form>

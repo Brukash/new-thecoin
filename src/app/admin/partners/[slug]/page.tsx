@@ -32,7 +32,7 @@ export default async function PartnerEditPage({
     <div className="max-w-2xl">
       <Link
         href="/admin/partners"
-        className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy"
+        className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy"
       >
         ← All partners
       </Link>
@@ -85,7 +85,7 @@ export default async function PartnerEditPage({
             defaultValue={partner.websiteUrl}
             className="field mt-2"
           />
-          <p className="mt-1 text-[11px] text-slate">
+          <p className="mt-1 text-[12px] text-slate">
             The logo links to this address on the public page.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default async function PartnerEditPage({
             defaultValue={partner.description}
             className="field mt-2"
           />
-          <p className="mt-1 text-[11px] text-slate">
+          <p className="mt-1 text-[12px] text-slate">
             Shown to screen readers and in the page metadata. Keep it factual.
           </p>
         </div>
@@ -157,12 +157,12 @@ export default async function PartnerEditPage({
                   className="max-h-10 w-auto max-w-full object-contain"
                 />
               ) : (
-                <span className="text-[10px] uppercase tracking-[0.1em] text-slate/60">
+                <span className="text-[11px] uppercase tracking-[0.1em] text-slate/60">
                   No logo
                 </span>
               )}
             </div>
-            <div className="text-[11px] leading-relaxed text-slate">
+            <div className="text-[12px] leading-relaxed text-slate">
               {partner.logoUrl ? (
                 <p className="break-all">{partner.logoUrl}</p>
               ) : (
@@ -185,7 +185,7 @@ export default async function PartnerEditPage({
               accept="image/svg+xml,image/png,image/jpeg,image/webp"
               className="field mt-2 py-2 text-sm"
             />
-            <p className="mt-1 text-[11px] text-slate">
+            <p className="mt-1 text-[12px] text-slate">
               SVG or transparent PNG preferred. Stored in the Supabase partner-logos bucket.
             </p>
           </div>

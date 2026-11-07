@@ -16,7 +16,7 @@ export default async function NewEventPage({
 
   return (
     <div className="max-w-2xl">
-      <Link href="/admin/events" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin/events" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← All events
       </Link>
 

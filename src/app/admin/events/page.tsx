@@ -39,7 +39,7 @@ export default async function EventsAdminPage({
 
   return (
     <div>
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
 
@@ -52,13 +52,13 @@ export default async function EventsAdminPage({
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Link href="/admin/events/categories" className="btn btn-outline h-9 px-3 text-[11px]">
+          <Link href="/admin/events/categories" className="btn btn-outline h-9 px-3 text-[12px]">
             Categories
           </Link>
-          <Link href="/admin/announcements" className="btn btn-outline h-9 px-3 text-[11px]">
+          <Link href="/admin/announcements" className="btn btn-outline h-9 px-3 text-[12px]">
             Announcements
           </Link>
-          <Link href="/events" className="btn btn-outline h-9 px-3 text-[11px]">
+          <Link href="/events" className="btn btn-outline h-9 px-3 text-[12px]">
             View events page
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default async function EventsAdminPage({
       <section className="mt-8">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-3">
           <h2 className="font-serif text-xl text-navy">Events</h2>
-          <Link href="/admin/events/new" className="btn btn-primary h-9 px-4 text-[11px]">
+          <Link href="/admin/events/new" className="btn btn-primary h-9 px-4 text-[12px]">
             Create event
           </Link>
         </div>
@@ -97,19 +97,19 @@ export default async function EventsAdminPage({
                       >
                         {event.title}
                       </Link>
-                      <span className="border border-line px-1.5 py-0.5 text-[9px] uppercase tracking-[0.1em] text-slate">
+                      <span className="border border-line px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-slate">
                         {event.publicationStatus}
                       </span>
-                      <span className="border border-line px-1.5 py-0.5 text-[9px] uppercase tracking-[0.1em] text-slate">
+                      <span className="border border-line px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-slate">
                         {lifecycleLabels[state]}
                       </span>
                       {event.featured ? (
-                        <span className="bg-gold-50 px-1.5 py-0.5 text-[9px] uppercase tracking-[0.1em] text-gold-600">
+                        <span className="bg-gold-50 px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-gold-600">
                           Homepage
                         </span>
                       ) : null}
                     </div>
-                    <p className="mt-1 text-[11px] text-slate">
+                    <p className="mt-1 text-[12px] text-slate">
                       {formatEventDateShort(event)} · {event.categoryName}
                       {event.venueName ? ` · ${event.venueName}` : ""}
                     </p>
@@ -119,7 +119,7 @@ export default async function EventsAdminPage({
                     <form action={featureEventAction}>
                       <input type="hidden" name="slug" value={event.slug} />
                       <input type="hidden" name="featured" value={event.featured ? "false" : "true"} />
-                      <button type="submit" className="btn btn-outline h-7 px-2 text-[10px] uppercase">
+                      <button type="submit" className="btn btn-outline h-7 px-2 text-[11px] uppercase">
                         {event.featured ? "Unfeature" : "Feature"}
                       </button>
                     </form>
@@ -130,14 +130,14 @@ export default async function EventsAdminPage({
                         name="status"
                         value={event.publicationStatus === "published" ? "archived" : "published"}
                       />
-                      <button type="submit" className="btn btn-outline h-7 px-2 text-[10px] uppercase">
+                      <button type="submit" className="btn btn-outline h-7 px-2 text-[11px] uppercase">
                         {event.publicationStatus === "published" ? "Unpublish" : "Publish"}
                       </button>
                     </form>
                     <EditButton href={`/admin/events/${event.slug}`} />
                     <Link
                       href={`/events/${event.slug}`}
-                      className="btn btn-outline h-7 px-2 text-[10px] uppercase"
+                      className="btn btn-outline h-7 px-2 text-[11px] uppercase"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -163,7 +163,7 @@ export default async function EventsAdminPage({
       <section className="mt-10">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-3">
           <h2 className="font-serif text-xl text-navy">Announcements</h2>
-          <Link href="/admin/announcements" className="btn btn-outline h-9 px-3 text-[11px]">
+          <Link href="/admin/announcements" className="btn btn-outline h-9 px-3 text-[12px]">
             Manage announcements
           </Link>
         </div>
@@ -171,11 +171,11 @@ export default async function EventsAdminPage({
           {announcements.slice(0, 5).map((item) => (
             <li key={item.slug} className="flex flex-wrap items-center gap-3 px-4 py-3">
               <span className="min-w-0 flex-1 truncate text-sm text-navy">{item.title}</span>
-              <span className="text-[10px] uppercase tracking-[0.1em] text-slate">
+              <span className="text-[11px] uppercase tracking-[0.1em] text-slate">
                 {item.publicationStatus}
               </span>
               {item.urgent ? (
-                <span className="bg-gold-50 px-1.5 py-0.5 text-[9px] uppercase tracking-[0.1em] text-gold-600">
+                <span className="bg-gold-50 px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-gold-600">
                   Urgent
                 </span>
               ) : null}

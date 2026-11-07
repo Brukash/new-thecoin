@@ -40,7 +40,7 @@ export default async function FaqPage() {
       <section className="bg-white py-14 md:py-20">
         <div className="shell grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <nav aria-label="FAQ sections" className="lg:sticky lg:top-28 lg:self-start">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
               On this page
             </p>
             <ul className="mt-4 space-y-2.5 border-l border-line">
@@ -61,7 +61,7 @@ export default async function FaqPage() {
               <p className="mt-1.5 text-xs leading-relaxed text-slate">
                 The Secretariat answers specific questions directly.
               </p>
-              <Link href="/contact" className="link-underline mt-4 text-[11px]">
+              <Link href="/contact" className="link-underline mt-4 text-[12px]">
                 Contact us
               </Link>
             </div>

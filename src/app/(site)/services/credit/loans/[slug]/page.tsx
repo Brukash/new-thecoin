@@ -86,7 +86,7 @@ export default async function FacilityPage({ params }: { params: Promise<{ slug:
             <dl className="mt-4 divide-y divide-line border-y border-line">
               {rows.map((row) => (
                 <div key={row.label} className="grid gap-1 py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
-                  <dt className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate">
+                  <dt className="text-[12px] font-semibold uppercase tracking-[0.1em] text-slate">
                     {row.label}
                   </dt>
                   <dd className="text-sm leading-relaxed text-navy">{row.value}</dd>
@@ -117,19 +117,19 @@ export default async function FacilityPage({ params }: { params: Promise<{ slug:
 
           <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
             <div className="border border-line bg-bone p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Policy reference
               </p>
-              <p className="mt-3 font-mono text-sm text-navy">{facility.clause}</p>
+              <p className="mt-3 font-sans text-sm text-navy">{facility.clause}</p>
               <p className="mt-1 text-xs text-slate">{facility.ref}</p>
-              <Link href={policy.version.sourceFile} className="link-underline mt-5 text-[11px]">
+              <Link href={policy.version.sourceFile} className="link-underline mt-5 text-[12px]">
                 Open the policy
                 <ArrowUpRight className="size-3.5" aria-hidden />
               </Link>
             </div>
 
             <div className="border border-line p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Other facilities
               </p>
               <ul className="mt-4 space-y-3">

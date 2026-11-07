@@ -19,7 +19,7 @@ function RefList({ items }: { items: RefBlock[] }) {
       {items.map((item) => (
         <li key={item.ref} className="text-sm leading-relaxed text-slate">
           {item.text}{" "}
-          <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+          <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
             {item.ref}
           </span>
         </li>
@@ -60,13 +60,13 @@ export default function RepaymentPage() {
               <caption className="sr-only">Repayment periods by facility</caption>
               <thead>
                 <tr className="bg-ink text-white">
-                  <th scope="col" className="px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.1em]">
+                  <th scope="col" className="px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.1em]">
                     Facility
                   </th>
-                  <th scope="col" className="px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.1em]">
+                  <th scope="col" className="px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.1em]">
                     Repayment period
                   </th>
-                  <th scope="col" className="px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.1em]">
+                  <th scope="col" className="px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.1em]">
                     Source
                   </th>
                 </tr>
@@ -78,7 +78,7 @@ export default function RepaymentPage() {
                       {row.label}
                     </th>
                     <td className="px-4 py-3 text-slate">{row.value}</td>
-                    <td className="whitespace-nowrap px-4 py-3 font-mono text-[10px] uppercase tracking-[0.06em] text-slate/80">
+                    <td className="whitespace-nowrap px-4 py-3 font-sans text-[11px] uppercase tracking-[0.06em] text-slate/80">
                       {row.ref}
                     </td>
                   </tr>
@@ -98,7 +98,7 @@ export default function RepaymentPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+              <p className="mt-3 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                 {repayment.sourcesRef}
               </p>
               <p className="mt-5 border-l-2 border-gold pl-4 text-sm leading-relaxed text-slate">
@@ -119,7 +119,7 @@ export default function RepaymentPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+              <p className="mt-3 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                 {repayment.recallRef}
               </p>
             </section>
@@ -128,7 +128,7 @@ export default function RepaymentPage() {
           <section className="mt-14 border border-line bg-bone p-6 md:p-8">
             <h2 className="font-serif text-2xl text-navy">If a repayment is missed</h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate">{repayment.penalty}</p>
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+            <p className="mt-2 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
               Cl. 4.5.1, p. 15
             </p>
 
@@ -136,12 +136,12 @@ export default function RepaymentPage() {
             <ol className="mt-4 space-y-4">
               {repayment.recovery.map((step, index) => (
                 <li key={step.ref} className="flex gap-4">
-                  <span className="font-mono text-[11px] text-gold-600">
+                  <span className="font-sans text-[12px] text-gold-600">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm leading-relaxed text-slate">
                     {step.text}{" "}
-                    <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+                    <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                       {step.ref}
                     </span>
                   </span>
@@ -180,7 +180,7 @@ export default function RepaymentPage() {
               {overview.limitPrinciples.map((item) => (
                 <li key={item.ref} className="text-sm leading-relaxed text-slate">
                   {item.text}{" "}
-                  <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+                  <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                     {item.ref}
                   </span>
                 </li>

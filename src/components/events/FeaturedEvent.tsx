@@ -31,13 +31,13 @@ export function FeaturedEvent({ event }: { event: SocietyEvent }) {
             <div className="absolute inset-0 bg-gradient-to-br from-navy via-ink to-navy-700" />
           </div>
         )}
-        <span className="absolute left-4 top-4 bg-white/95 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-navy">
+        <span className="absolute left-4 top-4 whitespace-nowrap bg-white/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-navy">
           {state === "ongoing" ? "Happening now" : "Next up"}
         </span>
       </div>
 
       <div className="flex flex-col p-6 md:p-8">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
           {event.categoryName}
         </p>
         <h3 className="mt-3 font-serif text-2xl leading-snug text-navy md:text-[1.8rem]">
@@ -75,7 +75,7 @@ export function FeaturedEvent({ event }: { event: SocietyEvent }) {
 
         {event.startsAt ? (
           <div className="mt-5 border-t border-line pt-4">
-            <p className="text-[10px] uppercase tracking-[0.18em] text-slate">Begins in</p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-slate">Begins in</p>
             <div className="mt-3">
               <EventCountdown startsAt={event.startsAt} endsAt={event.endsAt} />
             </div>

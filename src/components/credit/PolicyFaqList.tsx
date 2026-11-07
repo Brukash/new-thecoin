@@ -47,7 +47,7 @@ export function PolicyFaqList({ items }: { items: PolicyFaq[] }) {
             className="h-11 w-full border border-line bg-white pl-10 pr-3 text-sm text-navy placeholder:text-slate/70"
           />
         </div>
-        <p aria-live="polite" className="text-[11px] uppercase tracking-[0.1em] text-slate">
+        <p aria-live="polite" className="text-[12px] uppercase tracking-[0.1em] text-slate">
           {filtered.length} of {items.length} questions
         </p>
       </div>
@@ -58,7 +58,7 @@ export function PolicyFaqList({ items }: { items: PolicyFaq[] }) {
             Nothing matches that search. Ask the Secretariat directly and we will answer in
             writing.
           </p>
-          <Link href="/contact" className="link-underline mt-4 text-[11px]">
+          <Link href="/contact" className="link-underline mt-4 text-[12px]">
             Contact the Secretariat
           </Link>
         </div>
@@ -80,7 +80,7 @@ export function PolicyFaqList({ items }: { items: PolicyFaq[] }) {
                       </span>
                     </summary>
                     <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate">{item.a}</p>
-                    <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+                    <p className="mt-3 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                       {item.refs.join(" · ")}
                     </p>
                   </details>

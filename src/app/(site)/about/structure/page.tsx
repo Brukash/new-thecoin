@@ -19,7 +19,7 @@ const tiers = [
     title: "Annual General Meeting",
     who: "The membership",
     body:
-      "The AGM is the supreme authority of the Society. Members receive reports, approve accounts and direction, and elect the officers who will administer the Society. The 44th AGM was held on 30 May 2025.",
+      "The AGM is the supreme authority of the Society. Members receive reports, approve accounts and direction, and elect the officers who will administer the Society. The 45th AGM was held in 2026.",
   },
   {
     level: "02",
@@ -62,11 +62,11 @@ export default function StructurePage() {
                 <Reveal key={tier.level} delay={index * 60} as="li">
                   <div className="relative pb-10 last:pb-0">
                     <span className="absolute -left-[1.85rem] top-1.5 size-2.5 rotate-45 bg-gold md:-left-[2.35rem]" />
-                    <p className="font-mono text-[11px] tracking-widest text-gold-600">
+                    <p className="font-sans text-[12px] tracking-widest text-gold-600">
                       {tier.level}
                     </p>
                     <h2 className="mt-2 font-serif text-2xl leading-snug text-navy">{tier.title}</h2>
-                    <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate">
+                    <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.14em] text-slate">
                       {tier.who}
                     </p>
                     <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate">{tier.body}</p>
@@ -78,7 +78,7 @@ export default function StructurePage() {
 
           <aside className="space-y-6">
             <div className="border border-line bg-bone p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Governing documents
               </p>
               <p className="mt-3 text-sm leading-relaxed text-slate">
@@ -97,7 +97,7 @@ export default function StructurePage() {
             </div>
 
             <div className="border border-line p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Related
               </p>
               <ul className="mt-4 space-y-3 text-sm">

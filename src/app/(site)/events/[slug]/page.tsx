@@ -28,6 +28,7 @@ import {
   registrationState,
 } from "@/lib/events/format";
 import { site } from "@/content/site";
+import { shareImages } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
@@ -52,13 +53,13 @@ export async function generateMetadata({
       title: event.seoTitle || event.title,
       description,
       url: eventPageUrl(event),
-      images: event.bannerUrl ? [event.bannerUrl] : undefined,
+      images: shareImages(event.bannerUrl),
     },
     twitter: {
       card: "summary_large_image",
       title: event.seoTitle || event.title,
       description,
-      images: event.bannerUrl ? [event.bannerUrl] : undefined,
+      images: shareImages(event.bannerUrl),
     },
   };
 }
@@ -149,7 +150,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
         <div className="shell relative py-12 md:py-20">
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex flex-wrap items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] text-white/50">
+            <ol className="flex flex-wrap items-center gap-1.5 text-[12px] uppercase tracking-[0.14em] text-white/50">
               <li>
                 <Link href="/" className="hover:text-gold-200">
                   Home
@@ -173,16 +174,16 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           >
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="border border-gold/40 bg-gold/10 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-gold-200">
+                <span className="border border-gold/40 bg-gold/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-200">
                   {event.categoryName}
                 </span>
                 {event.edition ? (
-                  <span className="border border-white/20 px-2 py-1 text-[9px] uppercase tracking-[0.16em] text-white/70">
+                  <span className="border border-white/20 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-white/70">
                     {event.edition}
                   </span>
                 ) : null}
                 {state === "ongoing" ? (
-                  <span className="bg-gold px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-ink">
+                  <span className="bg-gold px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-ink">
                     Live now
                   </span>
                 ) : null}
@@ -256,13 +257,13 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
             {state === "upcoming" && event.startsAt ? (
               <div className="border border-white/15 bg-ink/60 p-6 backdrop-blur-sm">
-                <p className="text-[10px] uppercase tracking-[0.18em] text-gold-200">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-gold-200">
                   {event.organiserStatus === "postponed" ? "Postponed — new date once confirmed" : "Counting down"}
                 </p>
                 <div className="mt-4">
                   <EventCountdown startsAt={event.startsAt} endsAt={event.endsAt} variant="invert" />
                 </div>
-                <p className="mt-4 text-[11px] leading-relaxed text-white/50">
+                <p className="mt-4 text-[12px] leading-relaxed text-white/50">
                   All times are West Africa Time (WAT).
                 </p>
               </div>
@@ -310,7 +311,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
             {event.objectives.length ? (
               <div className="mt-10">
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+                <h3 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                   Objectives
                 </h3>
                 <ul className="mt-4 space-y-3">
@@ -326,7 +327,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
             {event.exhibitors.length ? (
               <div className="mt-10">
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+                <h3 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                   Participating organisations
                 </h3>
                 <ul className="mt-4 grid gap-2 sm:grid-cols-2">
@@ -362,7 +363,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
             {event.gallery.length ? (
               <div className="mt-12">
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+                <h3 className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                   Event gallery
                 </h3>
                 <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -396,16 +397,16 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               <p className="eyebrow">When and where</p>
               <dl className="mt-4 space-y-4 text-sm">
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.12em] text-slate">Date</dt>
+                  <dt className="text-[11px] uppercase tracking-[0.12em] text-slate">Date</dt>
                   <dd className="mt-1 text-navy">{formatEventDate(event)}</dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.12em] text-slate">Time</dt>
+                  <dt className="text-[11px] uppercase tracking-[0.12em] text-slate">Time</dt>
                   <dd className="mt-1 text-navy">{formatEventTime(event)}</dd>
                 </div>
                 {event.venueName ? (
                   <div>
-                    <dt className="text-[10px] uppercase tracking-[0.12em] text-slate">Venue</dt>
+                    <dt className="text-[11px] uppercase tracking-[0.12em] text-slate">Venue</dt>
                     <dd className="mt-1 leading-relaxed text-navy">
                       {event.venueName}
                       {event.venueAddress ? <span className="block text-slate">{event.venueAddress}</span> : null}
@@ -420,7 +421,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     href={event.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-outline h-9 px-3 text-[10px] uppercase"
+                    className="btn btn-outline h-9 px-3 text-[11px] uppercase"
                   >
                     <MapPin className="size-3.5" aria-hidden />
                     Directions
@@ -432,7 +433,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-outline h-9 px-3 text-[10px] uppercase"
+                    className="btn btn-outline h-9 px-3 text-[11px] uppercase"
                   >
                     <MapPin className="size-3.5" aria-hidden />
                     Directions
@@ -458,7 +459,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     href={event.onlineEventUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-outline h-9 px-3 text-[10px] uppercase"
+                    className="btn btn-outline h-9 px-3 text-[11px] uppercase"
                   >
                     <ExternalLink className="size-3.5" aria-hidden />
                     Join online
@@ -475,11 +476,11 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               </p>
               <dl className="mt-4 space-y-2 text-sm text-navy">
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.12em] text-slate">Telephone</dt>
+                  <dt className="text-[11px] uppercase tracking-[0.12em] text-slate">Telephone</dt>
                   <dd>{event.contactPhone || site.contact.phones[0].value}</dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.12em] text-slate">Email</dt>
+                  <dt className="text-[11px] uppercase tracking-[0.12em] text-slate">Email</dt>
                   <dd className="break-all">{event.enquiryEmail || site.contact.emails[0].value}</dd>
                 </div>
               </dl>

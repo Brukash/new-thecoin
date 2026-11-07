@@ -59,7 +59,7 @@ export default function CreditFaqPage() {
                 These pages are an extract of an internal policy, not a substitute for it. The
                 signed PDF is the authoritative text.
               </p>
-              <Link href={policy.version.sourceFile} className="link-underline mt-4 text-[11px]">
+              <Link href={policy.version.sourceFile} className="link-underline mt-4 text-[12px]">
                 Read the PDF
               </Link>
             </div>

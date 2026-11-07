@@ -50,13 +50,13 @@ export default async function AdminCreditPage({
       <div>
         <Link
           href="/admin"
-          className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy"
+          className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy"
         >
           <ArrowLeft className="size-3.5" aria-hidden /> Back to console
         </Link>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
               Credit policy
             </p>
             <h1 className="mt-2 font-serif text-3xl text-navy">
@@ -66,11 +66,11 @@ export default async function AdminCreditPage({
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/services/credit"
-              className="text-[11px] uppercase tracking-[0.1em] text-slate hover:text-navy"
+              className="text-[12px] uppercase tracking-[0.1em] text-slate hover:text-navy"
             >
               View public section
             </Link>
-            <Link href="/admin" className="btn btn-outline h-9 px-4 text-[11px]">
+            <Link href="/admin" className="btn btn-outline h-9 px-4 text-[12px]">
               Sign out
             </Link>
           </div>
@@ -110,7 +110,7 @@ export default async function AdminCreditPage({
       {params.previous && params.saved === "document" && (
         <p className="text-xs text-slate">
           The previous document is retained at{" "}
-          <span className="font-mono">{decodeURIComponent(params.previous)}</span>.
+          <span className="font-sans">{decodeURIComponent(params.previous)}</span>.
         </p>
       )}
 
@@ -135,7 +135,7 @@ export default async function AdminCreditPage({
               id="documentReference"
               name="documentReference"
               defaultValue={version.documentReference}
-              className="field mt-2 font-mono text-sm"
+              className="field mt-2 font-sans text-sm"
             />
           </div>
           <div>
@@ -155,7 +155,7 @@ export default async function AdminCreditPage({
               className="field mt-2"
               placeholder="e.g. 2026-08-10"
             />
-            <p className="mt-1 text-[11px] text-slate">
+            <p className="mt-1 text-[12px] text-slate">
               Leave as the printed month unless the commencement date is confirmed in writing.
             </p>
           </div>
@@ -189,7 +189,7 @@ export default async function AdminCreditPage({
               id="sourceFile"
               name="sourceFile"
               defaultValue={version.sourceFile}
-              className="field mt-2 font-mono text-xs"
+              className="field mt-2 font-sans text-xs"
             />
           </div>
 
@@ -231,7 +231,7 @@ export default async function AdminCreditPage({
             <label htmlFor="confirm" className="field-label">
               Type APPROVE to confirm
             </label>
-            <input id="confirm" name="confirm" className="field mt-2 font-mono" required />
+            <input id="confirm" name="confirm" className="field mt-2 font-sans" required />
           </div>
           <div className="sm:col-span-3">
             <button type="submit" className="btn btn-primary">
@@ -258,7 +258,7 @@ export default async function AdminCreditPage({
               name="document"
               type="file"
               accept="application/pdf"
-              className="field mt-2 file:mr-3 file:border-0 file:bg-navy file:px-3 file:py-1.5 file:text-[11px] file:text-white"
+              className="field mt-2 file:mr-3 file:border-0 file:bg-navy file:px-3 file:py-1.5 file:text-[12px] file:text-white"
               required
             />
           </div>
@@ -271,7 +271,7 @@ export default async function AdminCreditPage({
       <section className="bg-white p-6 ring-1 ring-line">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-serif text-xl text-navy">Schedule A limits</h2>
-          <p className="text-[11px] uppercase tracking-[0.1em] text-slate">
+          <p className="text-[12px] uppercase tracking-[0.1em] text-slate">
             Values as printed, two decimal places
           </p>
         </div>
@@ -280,7 +280,7 @@ export default async function AdminCreditPage({
           <div className="overflow-x-auto">
             <table className="w-full min-w-[38rem] border-collapse text-left text-sm">
               <thead>
-                <tr className="border-b border-line text-[11px] uppercase tracking-[0.08em] text-slate">
+                <tr className="border-b border-line text-[12px] uppercase tracking-[0.08em] text-slate">
                   <th scope="col" className="w-10 py-2 pr-2">
                     S/N
                   </th>
@@ -319,7 +319,7 @@ export default async function AdminCreditPage({
                         name={`global-${index}`}
                         defaultValue={row.globalLimit}
                         inputMode="decimal"
-                        className="field h-9 w-full font-mono text-xs tabular-nums"
+                        className="field h-9 w-full font-sans text-xs tabular-nums"
                       />
                     </td>
                     <td className="py-2">
@@ -331,7 +331,7 @@ export default async function AdminCreditPage({
                         name={`deductible-${index}`}
                         defaultValue={row.maxDeductible}
                         inputMode="decimal"
-                        className="field h-9 w-full font-mono text-xs tabular-nums"
+                        className="field h-9 w-full font-sans text-xs tabular-nums"
                       />
                     </td>
                   </tr>
@@ -359,7 +359,7 @@ export default async function AdminCreditPage({
         <ul className="divide-y divide-line bg-white px-4">
           {store.facilities.map((facility) => (
             <li key={facility.slug} className="flex flex-wrap items-center gap-3 py-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate">
+              <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate">
                 {facility.clause}
               </span>
               <Link
@@ -368,7 +368,7 @@ export default async function AdminCreditPage({
               >
                 {facility.name}
               </Link>
-              <span className="text-[10px] uppercase tracking-[0.1em] text-slate">{facility.kind}</span>
+              <span className="text-[11px] uppercase tracking-[0.1em] text-slate">{facility.kind}</span>
               <EditButton href={`/admin/credit/${facility.slug}`} />
             </li>
           ))}
@@ -388,7 +388,7 @@ export default async function AdminCreditPage({
                 {flag.id} · {flag.area}
               </p>
               <p className="mt-1 text-sm leading-relaxed text-slate">{flag.issue}</p>
-              <p className="mt-1 font-mono text-[10px] text-slate/80">{flag.refs}</p>
+              <p className="mt-1 font-sans text-[11px] text-slate/80">{flag.refs}</p>
             </li>
           ))}
         </ul>
@@ -412,7 +412,7 @@ export default async function AdminCreditPage({
             <label htmlFor="archiveConfirm" className="field-label">
               Type ARCHIVE
             </label>
-            <input id="archiveConfirm" name="confirm" className="field mt-2 font-mono" />
+            <input id="archiveConfirm" name="confirm" className="field mt-2 font-sans" />
           </div>
           <div className="flex items-end">
             <button type="submit" className="btn btn-outline">
@@ -425,7 +425,7 @@ export default async function AdminCreditPage({
           <ul className="mt-6 divide-y divide-line border-t border-line">
             {store.versions.map((entry) => (
               <li key={`${entry.code}-${entry.archivedOn}`} className="flex flex-wrap gap-3 py-3 text-xs">
-                <span className="font-mono text-slate">{entry.code || "unversioned"}</span>
+                <span className="font-sans text-slate">{entry.code || "unversioned"}</span>
                 <span className="text-navy">{entry.issueDate}</span>
                 <span className="text-slate">Archived {entry.archivedOn}</span>
                 <span className="min-w-0 flex-1 truncate text-slate">{entry.note}</span>

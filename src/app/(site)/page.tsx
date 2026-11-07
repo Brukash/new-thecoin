@@ -72,6 +72,7 @@ export default async function HomePage() {
   const featuredEvent = featuredEventOf(events);
 
   const urgentNotice = notices.find((notice) => notice.urgent) ?? null;
+  const partnerLogos = partners.filter((partner) => partner.logoUrl).slice(0, 6);
 
   const [services, articles, projects] = await Promise.all([
     listServices(),
@@ -87,7 +88,7 @@ export default async function HomePage() {
         <div className="border-b border-gold/40 bg-gold-50">
           <div className="shell flex flex-wrap items-center justify-between gap-3 py-3">
             <p className="text-[12px] leading-relaxed text-navy">
-              <span className="mr-2 bg-red-700 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white">
+              <span className="mr-2 bg-red-700 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
                 Urgent
               </span>
               <Link href={`/events/announcements/${urgentNotice.slug}`} className="underline-offset-2 hover:underline">
@@ -97,7 +98,7 @@ export default async function HomePage() {
             </p>
             <Link
               href={`/events/announcements/${urgentNotice.slug}`}
-              className="text-[10px] font-semibold uppercase tracking-[0.12em] text-navy"
+              className="text-[11px] font-semibold uppercase tracking-[0.12em] text-navy"
             >
               Read the notice
             </Link>
@@ -112,21 +113,27 @@ export default async function HomePage() {
         <div className="relative grid lg:grid-cols-[1.05fr_1fr]">
           <div className="flex flex-col justify-center px-5 py-14 sm:px-8 md:px-12 lg:py-20 xl:pl-[max(3rem,calc((100vw-78rem)/2+3rem))]">
             <div className="animate-[fadeIn_0.7s_ease-out]">
-              <p className="eyebrow eyebrow-invert">Member-owned cooperative · Abuja</p>
+              <p className="eyebrow eyebrow-invert">Member-owned cooperative{`\u00A0`}· Abuja</p>
 
-              <h1 className="display mt-6 text-[2.5rem] leading-[1.02] text-white sm:text-[3.25rem] lg:text-[3.75rem]">
+              <h1
+                className="display rise mt-6 text-[2rem] leading-[1.05] text-white sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.75rem]"
+                style={{ animationDelay: "90ms" }}
+              >
                 A cooperative built
                 <br />
                 for the long term.
               </h1>
 
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+              <p
+                className="rise mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
+                style={{ animationDelay: "180ms" }}
+              >
                 The CBN Staff Multipurpose Cooperative Society serves serving staff, retirees and
                 staff on secondment with disciplined savings, member credit, investment funds and
                 home ownership.
               </p>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <div className="rise mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "260ms" }}>
                 <a
                   href={site.registration.href}
                   target="_blank"
@@ -142,7 +149,7 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              <ul className="mt-10 grid gap-2.5 text-sm text-white/60 sm:grid-cols-2">
+              <ul className="rise mt-10 grid gap-2.5 text-sm text-white/60 sm:grid-cols-2" style={{ animationDelay: "340ms" }}>
                 {[
                   "Savings, credit & investment",
                   "Home ownership schemes",
@@ -158,7 +165,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="relative min-h-[300px] lg:min-h-[560px]">
+          <div className="hero-media relative min-h-[300px] overflow-hidden lg:min-h-[560px]">
             <Image
               src="/images/hero/head-office.jpg"
               alt="Sam Olabanji House, the CBN Staff Multipurpose Cooperative Society Secretariat"
@@ -172,7 +179,7 @@ export default async function HomePage() {
               aria-hidden
             />
             <div className="absolute bottom-5 left-5 right-5 hidden border border-white/15 bg-ink/60 p-4 backdrop-blur-sm lg:block">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-gold-200">Since inception</p>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-gold-200">Since inception</p>
               <p className="mt-1.5 font-serif text-lg text-white">
                 Serving CBN staff and retirees through the cooperative model.
               </p>
@@ -188,10 +195,14 @@ export default async function HomePage() {
             <Reveal
               key={fact.label}
               delay={index * 70}
-              className={`px-2 md:px-6 ${index !== 0 ? "md:border-l md:border-line" : ""}`}
+              className={`group px-2 md:px-6 ${index !== 0 ? "md:border-l md:border-line" : ""}`}
             >
               <p className="font-serif text-3xl text-navy md:text-4xl">{fact.value}</p>
-              <p className="mt-2 max-w-[16rem] text-xs leading-relaxed text-slate md:text-[13px]">
+              <span
+                className="mt-3 block h-px w-8 bg-gold transition-all duration-500 group-hover:w-16"
+                aria-hidden
+              />
+              <p className="mt-3 max-w-[16rem] text-xs leading-relaxed text-slate md:text-[14px]">
                 {fact.label}
               </p>
             </Reveal>
@@ -215,12 +226,12 @@ export default async function HomePage() {
           </div>
 
           <div className="lg:col-span-8">
-            <p className="lede">
+            <p className="text-[17px] leading-[1.75] text-charcoal md:text-[1.0625rem]">
               CBN Coop improves the financial well-being of its members. It turns regular savings
               into member credit, opens investment series with defined tenors, and negotiates
               property that members could not access alone.
             </p>
-            <p className="mt-5 text-[15px] leading-relaxed text-slate md:text-base">
+            <p className="mt-5 text-[17px] leading-[1.75] text-slate md:text-[1.0625rem]">
               A Management Committee elected from the membership administers the Society, and the
               Annual General Meeting holds it to account. The Bye-Laws are published, and members
               receive a report on the year's activity at each AGM.
@@ -228,13 +239,13 @@ export default async function HomePage() {
 
             <div className="mt-10 grid gap-6 border-t border-line pt-8 sm:grid-cols-2">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                   Our vision
                 </p>
                 <p className="mt-3 font-serif text-lg leading-relaxed text-navy">{site.vision}</p>
               </div>
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                   Our mission
                 </p>
                 <p className="mt-3 font-serif text-lg leading-relaxed text-navy">{site.mission}</p>
@@ -267,7 +278,7 @@ export default async function HomePage() {
                   className="group flex h-full flex-col bg-white p-7 transition-colors hover:bg-navy"
                 >
                   <div className="flex items-start justify-between">
-                    <span className="font-mono text-[11px] tracking-widest text-gold-600 transition-colors group-hover:text-gold">
+                    <span className="font-sans text-[12px] tracking-widest text-gold-600 transition-colors group-hover:text-gold">
                       {service.index}
                     </span>
                     <ArrowUpRight
@@ -300,7 +311,7 @@ export default async function HomePage() {
                     The Secretariat will walk you through the options available to your membership
                     category.
                   </p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-200">
+                  <span className="mt-6 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-gold-200">
                     Talk to us <ArrowRight className="size-3.5" aria-hidden />
                   </span>
                 </div>
@@ -397,7 +408,7 @@ export default async function HomePage() {
                   <portal.icon className="size-5" aria-hidden />
                 </span>
                 <span className="flex-1">
-                  <span className="block text-[10px] uppercase tracking-[0.18em] text-white/40">
+                  <span className="block text-[11px] uppercase tracking-[0.18em] text-white/60">
                     {portal.label}
                   </span>
                   <span className="mt-1 block font-serif text-xl text-white">{portal.name}</span>
@@ -460,16 +471,19 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <ul className="mt-9 grid grid-cols-2 items-center gap-px bg-line sm:grid-cols-3 lg:grid-cols-5">
-            {partners
-              .filter((partner) => partner.logoUrl)
-              .slice(0, 5)
-              .map((partner) => (
-                <li key={partner.slug} className="flex h-24 items-center justify-center bg-bone px-5">
+          <div className="marquee mt-9 border-y border-line py-5">
+            <ul className="marquee-track items-center">
+              {[...partnerLogos, ...partnerLogos].map((partner, index) => (
+                <li
+                  key={`${partner.slug}-${index}`}
+                  aria-hidden={index >= partnerLogos.length}
+                  className="flex h-16 w-52 shrink-0 items-center justify-center px-6"
+                >
                   <PartnerMark src={partner.logoUrl} alt={`${partner.organisationName} logo`} />
                 </li>
               ))}
-          </ul>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -500,7 +514,7 @@ export default async function HomePage() {
             </ul>
 
             <div className="mt-8 bg-bone p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Already a member?
               </p>
               <a

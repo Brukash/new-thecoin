@@ -35,7 +35,7 @@ export function EventCountdown({
         {["Days", "Hours", "Minutes", "Seconds"].map((label) => (
           <div
             key={label}
-            className={`border px-2 py-3 text-center ${
+            className={`border px-1.5 py-3 text-center ${
               variant === "invert" ? "border-white/15" : "border-line"
             }`}
           >
@@ -43,7 +43,7 @@ export function EventCountdown({
               --
             </p>
             <p
-              className={`mt-1 text-[9px] uppercase tracking-[0.14em] ${
+              className={`mt-1 whitespace-nowrap text-[10px] uppercase tracking-[0.14em] ${
                 variant === "invert" ? "text-white/50" : "text-slate"
               }`}
             >
@@ -59,7 +59,7 @@ export function EventCountdown({
     const live = now <= end;
     return (
       <p
-        className={`inline-flex items-center gap-2 border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] ${
+        className={`inline-flex items-center gap-2 border px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] ${
           variant === "invert"
             ? "border-gold/40 bg-gold/10 text-gold-200"
             : "border-gold/40 bg-gold-50 text-gold-600"
@@ -94,7 +94,7 @@ export function EventCountdown({
       {parts.map((part) => (
         <div
           key={part.label}
-          className={`border px-2 py-3 text-center ${
+          className={`border px-1.5 py-3 text-center ${
             variant === "invert" ? "border-white/15 bg-white/[0.03]" : "border-line bg-white"
           }`}
         >
@@ -106,7 +106,7 @@ export function EventCountdown({
             {String(part.value).padStart(2, "0")}
           </p>
           <p
-            className={`mt-1 text-[9px] uppercase tracking-[0.14em] ${
+            className={`mt-1 whitespace-nowrap text-[10px] uppercase tracking-[0.14em] ${
               variant === "invert" ? "text-white/50" : "text-slate"
             }`}
           >

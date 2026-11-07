@@ -26,7 +26,7 @@ export function EventsSubnav({ active }: { active: "upcoming" | "past" | "announ
               key={link.href}
               href={link.href}
               aria-current={isActive ? "page" : undefined}
-              className={`border-b-2 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors ${
+              className={`border-b-2 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors ${
                 isActive
                   ? "border-gold text-navy"
                   : "border-transparent text-slate hover:border-line hover:text-navy"

@@ -17,7 +17,7 @@ Defined once in `src/app/globals.css` under `@theme`, so every utility (`bg-navy
 | `navy-700` | `#102541` | Raised dark surface |
 | `navy-500` | `#1b3557` | Dark borders, subdued dark text |
 | `gold` | `#b99351` | Accent rules, eyebrow text on dark, focus |
-| `gold-600` | `#9c7a3d` | Accent text on white (AA at body size) |
+| `gold-600` | `#836431` | Accent text on light backgrounds (5.48:1 on white, 5.03:1 on bone, 4.83:1 on mist) |
 | `gold-200` | `#e6d3ab` | Hover state on dark |
 | `gold-50` | `#f7f1e4` | Tinted callout |
 | `paper` | `#ffffff` | Default page ground |
@@ -84,7 +84,7 @@ Short declarative sentences. Institutional register without legalese. Numbers al
 
 ## 3.9 Accessibility commitments
 
-- Contrast: body `charcoal` on `paper` 13.6:1; `slate` on `paper` 4.9:1; white on `navy` 15.5:1; `gold-600` on `paper` 4.6:1.
+- Contrast: body `charcoal` on `paper` 13.6:1; `slate` on `paper` 4.9:1; white on `navy` 15.5:1; `gold-600` on `paper` 5.48:1.
 - Focus is always visible: 2 px gold ring with 2 px offset, never `outline: none`.
 - Landmarks: one `h1` per page, `header`/`nav`/`main`/`footer`, `aria-current` on the active link, skip link first in tab order.
 - Every interactive target is at least 44×44 px on touch.

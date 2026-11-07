@@ -35,7 +35,7 @@ export function GalleryManager({ slug, images }: { slug: string; images: Gallery
             </label>
             <input id="gallery-caption" name="caption" className="field mt-1 h-9 w-48 text-sm" />
           </div>
-          <button type="submit" className="btn btn-primary h-9 px-4 text-[11px]">
+          <button type="submit" className="btn btn-primary h-9 px-4 text-[12px]">
             Add
           </button>
         </form>
@@ -55,11 +55,11 @@ export function GalleryManager({ slug, images }: { slug: string; images: Gallery
                 />
               </div>
               <div className="p-2">
-                <p className="line-clamp-2 text-[11px] text-slate">{image.caption || "No caption"}</p>
+                <p className="line-clamp-2 text-[12px] text-slate">{image.caption || "No caption"}</p>
                 <form action={deleteGalleryAction} className="mt-1">
                   <input type="hidden" name="slug" value={slug} />
                   <input type="hidden" name="imageId" value={image.id} />
-                  <button type="submit" className="text-[10px] uppercase tracking-[0.1em] text-red-700">
+                  <button type="submit" className="text-[11px] uppercase tracking-[0.1em] text-red-700">
                     Remove
                   </button>
                 </form>

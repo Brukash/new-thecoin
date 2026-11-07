@@ -24,7 +24,7 @@ export default async function EventEnquiriesPage({
 
   return (
     <div>
-      <Link href={`/admin/events/${slug}`} className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href={`/admin/events/${slug}`} className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to the event
       </Link>
 
@@ -48,15 +48,15 @@ export default async function EventEnquiriesPage({
               <div className="min-w-0">
                 <p className="text-sm text-navy">
                   {enquiry.name}
-                  <span className="ml-2 text-[11px] text-slate">{enquiry.email}</span>
+                  <span className="ml-2 text-[12px] text-slate">{enquiry.email}</span>
                   {enquiry.phone ? (
-                    <span className="ml-2 text-[11px] text-slate">{enquiry.phone}</span>
+                    <span className="ml-2 text-[12px] text-slate">{enquiry.phone}</span>
                   ) : null}
                 </p>
-                <p className="mt-2 max-w-2xl whitespace-pre-line text-[13px] leading-relaxed text-slate">
+                <p className="mt-2 max-w-2xl whitespace-pre-line text-[14px] leading-relaxed text-slate">
                   {enquiry.message}
                 </p>
-                <p className="mt-2 text-[11px] text-slate">
+                <p className="mt-2 text-[12px] text-slate">
                   {new Date(enquiry.createdAt).toLocaleString("en-GB", {
                     timeZone: "Africa/Lagos",
                     dateStyle: "medium",
@@ -73,7 +73,7 @@ export default async function EventEnquiriesPage({
                   name="status"
                   value={enquiry.status === "open" ? "resolved" : "open"}
                 />
-                <button type="submit" className="btn btn-outline h-7 px-2 text-[10px] uppercase">
+                <button type="submit" className="btn btn-outline h-7 px-2 text-[11px] uppercase">
                   {enquiry.status === "open" ? "Mark resolved" : "Reopen"}
                 </button>
               </form>

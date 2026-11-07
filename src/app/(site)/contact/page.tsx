@@ -33,7 +33,7 @@ export default async function ContactPage() {
             <div className="grid gap-px bg-line sm:grid-cols-2">
               <div className="bg-white p-6">
                 <MapPin className="size-5 text-gold-600" aria-hidden />
-                <h2 className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-navy">
+                <h2 className="mt-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-navy">
                   Office
                 </h2>
                 <address className="mt-3 text-sm not-italic leading-relaxed text-slate">
@@ -47,7 +47,7 @@ export default async function ContactPage() {
 
               <div className="bg-white p-6">
                 <Phone className="size-5 text-gold-600" aria-hidden />
-                <h2 className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-navy">
+                <h2 className="mt-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-navy">
                   Telephone
                 </h2>
                 <div className="mt-3 space-y-1.5 text-sm text-slate">
@@ -57,7 +57,7 @@ export default async function ContactPage() {
                       href={`tel:${phone.value.replace(/\s/g, "")}`}
                       className="block transition-colors hover:text-navy"
                     >
-                      <span className="text-[11px] uppercase tracking-[0.08em] text-slate/70">
+                      <span className="text-[12px] uppercase tracking-[0.08em] text-slate/70">
                         {phone.label}:
                       </span>{" "}
                       {phone.value}
@@ -68,7 +68,7 @@ export default async function ContactPage() {
 
               <div className="bg-white p-6">
                 <Mail className="size-5 text-gold-600" aria-hidden />
-                <h2 className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-navy">
+                <h2 className="mt-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-navy">
                   Email
                 </h2>
                 <div className="mt-3 space-y-1.5 text-sm">
@@ -86,13 +86,13 @@ export default async function ContactPage() {
 
               <div className="bg-white p-6">
                 <Clock className="size-5 text-gold-600" aria-hidden />
-                <h2 className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-navy">
+                <h2 className="mt-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-navy">
                   Office hours
                 </h2>
                 <dl className="mt-3 space-y-1 text-sm text-slate">
                   {site.contact.hours.map((entry) => (
                     <div key={entry.days}>
-                      <dt className="text-[11px] uppercase tracking-[0.08em] text-slate/70">
+                      <dt className="text-[12px] uppercase tracking-[0.08em] text-slate/70">
                         {entry.days}
                       </dt>
                       <dd>{entry.time}</dd>
@@ -103,7 +103,7 @@ export default async function ContactPage() {
             </div>
 
             <div className="mt-6 border border-line p-6">
-              <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-navy">
+              <h2 className="text-[12px] font-semibold uppercase tracking-[0.14em] text-navy">
                 Follow the Society
               </h2>
               <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -124,7 +124,7 @@ export default async function ContactPage() {
             </div>
 
             <div className="mt-6 border border-line bg-bone p-6">
-              <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-navy">
+              <h2 className="text-[12px] font-semibold uppercase tracking-[0.14em] text-navy">
                 Member services
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-slate">
@@ -138,7 +138,7 @@ export default async function ContactPage() {
                     href={portal.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-outline text-[11px]"
+                    className="btn btn-outline text-[12px]"
                   >
                     {portal.name}
                   </a>

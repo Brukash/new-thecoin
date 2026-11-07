@@ -15,6 +15,8 @@ export type Service = {
   shortTitle: string;
   /** Two-digit index used by the editorial numbering on the site. */
   index: string;
+  /** Illustrative photograph used on the service card and the detail masthead. */
+  image: string;
   summary: string;
   intro: string;
   body: { heading?: string; paragraphs: string[]; bullets?: string[] }[];
@@ -33,6 +35,7 @@ export const services: Service[] = [
     title: "Credit and Thrift",
     shortTitle: "Credit & Thrift",
     index: "01",
+    image: "/images/hero/p7.jpg",
     summary:
       "Monthly thrift savings, a credit facility for members, and an annual bonus declared after the Annual General Meeting.",
     intro:
@@ -66,6 +69,7 @@ export const services: Service[] = [
     title: "Savings",
     shortTitle: "Savings",
     index: "02",
+    image: "/images/hero/p8.jpg",
     summary:
       "Structured monthly thrift savings that build a member's capital and earn an annual savings bonus.",
     intro:
@@ -98,6 +102,7 @@ export const services: Service[] = [
     title: "Loans",
     shortTitle: "Loans",
     index: "03",
+    image: "/images/hero/p10.jpg",
     summary:
       "Credit for members, administered under the Society's Bye-Laws with transparent deduction and repayment.",
     intro:
@@ -133,33 +138,49 @@ export const services: Service[] = [
     title: "Investment Services",
     shortTitle: "Investments",
     index: "04",
+    image: "/images/hero/p13.jpg",
     summary:
-      "Fixed-tenor investment series that finance the Society's activities and pay returns to investors.",
+      "Four-year investment series and a short-term Triple Plan that finance the Society's activities and pay returns to investors.",
     intro:
-      "The Coop Investment Fund allows members to participate in the financing of the Society's activities while earning a return on their capital. Each series runs for a defined tenor and is approved by the Management Committee.",
+      "The Coop Investment Fund allows members to participate in the financing of the Society's activities while earning a return on their capital. Each series runs for a defined tenor, matures on a published date and is approved by the Management Committee.",
     body: [
       {
-        heading: "How a series works",
+        heading: "The series open to members",
         paragraphs: [
-          "The fund runs for an initial four years, after which it may be continued or discontinued. Series open and close on published dates. The Classic Diamond Series (2024–2028) followed the closure of Series D, which marked its fourth anniversary on 31 January 2024.",
-          "Members invest on a 4-year, 2-year or 1-year (Tripple) plan. Within each plan the rate depends on the payment option: monthly, quarterly, half yearly, up-front or backend.",
-          "Investors in a closed series are invited into the succeeding series, and the terms of each series are communicated to members directly.",
-          "Rates for the 4-year, 2-year and 1-year plans were reviewed by the Management Committee on 24 September 2026 and apply from 1 October 2026. They are published below.",
+          "Three four-year series are currently open. The Classic Diamond Series (2024–2028) followed the closure of Series D and matures in January 2028. The Classic Excel Series (2025–2029) followed the closure of Series E and matures in January 2029.",
+          "The Classic Investment Fund (2025–2029) opened on 1 October 2025 and matures in September 2029, with a 30 September anniversary. Alongside the four-year series, the Classic Triple Plan is a short-term window for excess liquidity, running for three, six or twelve months.",
         ],
       },
       {
-        heading: "What the fund is used for",
+        heading: "How the return is paid",
         paragraphs: [
-          "The fund has been a source of financing for cooperative activities, bringing value to both contributors and beneficiaries. The Management Committee publishes notices to members at each series milestone.",
+          "Within each series the rate depends on how interest is paid. The monthly, quarterly and half-yearly options pay during the tenor, the front-end option pays the year's interest at the start, and the backend option pays at the end of the period.",
+          "Interest is computed from the day payment is confirmed in the Society's account, and is paid to the member's bank account or credited to their Coop savings account. Interest credited to savings also qualifies for the savings bonus; the principal does not.",
+        ],
+      },
+      {
+        heading: "Subscription limits",
+        paragraphs: [
+          "The minimum subscription is ₦1,000,000. Serving members may hold up to ₦50,000,000 per investment tranche; retiring staff may hold up to ₦100,000,000 per tranche and may invest in multiple tranches.",
+          "Application is open to all members. Transfers from Coop savings, or from another investment series into a new series, are not permitted.",
+        ],
+      },
+      {
+        heading: "Liquidation, switching and rollover",
+        paragraphs: [
+          "Liquidating before maturity without the required notice attracts a charge on interest already earned: 50% under the Diamond and Excel series, and 25% on interest paid upfront. The Classic Investment Fund applies a 40% charge and requires 90 days' notice, without which a further 10% applies.",
+          "Switching between payment options is allowed once per investment anniversary and attracts a fee of 5% of interest earned. Under the Triple Plan, a switch between tenor or payment option before maturity is not allowed, and an investment rolls over automatically at maturity unless the Society is notified at least 10 days beforehand.",
         ],
       },
     ],
     facts: [
-      { label: "Initial tenor", value: "4 years" },
-      { label: "Plans", value: "1, 2 or 4 years" },
-      { label: "Current series", value: "Classic Diamond 2024–2028" },
-      { label: "Approval", value: "Management Committee" },
+      { label: "Minimum subscription", value: "₦1,000,000" },
+      { label: "Maximum per tranche", value: "₦50m · ₦100m retiring" },
+      { label: "Tenors", value: "3, 6 or 12 months · 4 years" },
+      { label: "Current series", value: "Diamond · Excel · Classic Fund" },
     ],
+    reviewNote:
+      "Figures are reproduced from the series documents dated 1 October 2026 and the Classic Triple Plan. The rate, payment option and payment account for your tranche are confirmed by the Secretariat in writing before funds are committed.",
     rates: "bond",
     related: ["financial-advisory", "savings", "credit-and-thrift"],
     cta: { label: "Ask about the current series", href: "/contact" },
@@ -169,6 +190,7 @@ export const services: Service[] = [
     title: "Financial Advisory and Wealth Management",
     shortTitle: "Advisory & Wealth",
     index: "05",
+    image: "/images/hero/p9.jpg",
     summary:
       "Investment management and financial advice for members, including the Coop Special Savings scheme.",
     intro:
@@ -211,6 +233,7 @@ export const services: Service[] = [
     title: "Coop Home Ownership and Asset Acquisition Scheme",
     shortTitle: "Home Ownership",
     index: "06",
+    image: "/images/hero/p3.jpg",
     summary:
       "Affordable housing and asset acquisition on flexible payment plans, delivered through the Society's developer partnerships.",
     intro:
@@ -249,6 +272,7 @@ export const services: Service[] = [
     title: "Consumer Operations",
     shortTitle: "Consumer",
     index: "07",
+    image: "/images/hero/p14.jpg",
     summary:
       "The annual Coop Exhibition and Consumer Fair, now extended online through the Coop E-Mall.",
     intro:
@@ -285,3 +309,11 @@ export const services: Service[] = [
 ];
 
 export const getService = (slug: string) => services.find((s) => s.slug === slug);
+
+/**
+ * Artwork for a service. Services published through the CMS may not carry an
+ * image field yet, so fall back to the catalogue's own choice by slug.
+ */
+const imageBySlug = new Map(services.map((service) => [service.slug, service.image]));
+
+export const serviceImage = (slug: string) => imageBySlug.get(slug) ?? "/images/hero/p6.jpg";

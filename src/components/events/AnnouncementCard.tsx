@@ -22,11 +22,11 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
 
       <div className="flex flex-1 flex-col p-6">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
             {announcement.category}
           </span>
           {announcement.urgent ? (
-            <span className="bg-red-50 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-red-700">
+            <span className="whitespace-nowrap bg-red-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-red-700">
               Urgent
             </span>
           ) : null}
@@ -44,8 +44,8 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
           </p>
         ) : null}
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-5 text-[11px] text-slate">
-          <time dateTime={announcement.publishedAt ?? undefined}>
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-5 text-[12px] text-slate">
+          <time className="whitespace-nowrap" dateTime={announcement.publishedAt ?? undefined}>
             {formatAnnouncementDate(announcement.publishedAt)}
           </time>
           <div className="flex items-center gap-3">

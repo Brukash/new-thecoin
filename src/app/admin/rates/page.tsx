@@ -35,7 +35,7 @@ export default async function RatesAdminPage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
       <h1 className="mt-4 font-serif text-2xl text-navy">Published rates</h1>
@@ -118,7 +118,7 @@ export default async function RatesAdminPage({
             name="bondPlans"
             rows={18}
             defaultValue={planText}
-            className="field mt-2 font-mono text-[13px] leading-relaxed"
+            className="field mt-2 font-sans text-[14px] leading-relaxed"
           />
           <p className="mt-2 text-xs text-slate">
             Start each plan with <code>## Plan name</code>. Then one line per term:{" "}
@@ -136,7 +136,7 @@ export default async function RatesAdminPage({
             name="loanRates"
             rows={12}
             defaultValue={loanText}
-            className="field mt-2 font-mono text-[13px] leading-relaxed"
+            className="field mt-2 font-sans text-[14px] leading-relaxed"
           />
           <p className="mt-2 text-xs text-slate">One line per product: label | previous | current.</p>
         </div>

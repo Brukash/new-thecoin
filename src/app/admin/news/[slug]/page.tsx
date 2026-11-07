@@ -4,6 +4,7 @@ import { requireStaff } from "@/lib/cms/auth";
 import { getEntry } from "@/lib/cms/store";
 import { getNewsCategories } from "@/lib/content";
 import type { ArticleDocument } from "@/lib/cms/schemas";
+import { SeoPanel } from "@/components/admin/SeoPanel";
 import { saveArticle } from "../../actions";
 
 export const dynamic = "force-dynamic";
@@ -24,7 +25,7 @@ export default async function EditArticlePage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link href="/admin" className="text-[11px] uppercase tracking-[0.12em] text-slate hover:text-navy">
+      <Link href="/admin" className="text-[12px] uppercase tracking-[0.12em] text-slate hover:text-navy">
         ← Back to console
       </Link>
       <h1 className="mt-4 font-serif text-2xl text-navy">{article.title}</h1>
@@ -91,7 +92,7 @@ export default async function EditArticlePage({
             name="body"
             rows={14}
             defaultValue={article.body.join("\n\n")}
-            className="field mt-2 font-mono text-[13px] leading-relaxed"
+            className="field mt-2 font-sans text-[14px] leading-relaxed"
           />
           <p className="mt-2 text-xs text-slate">
             Separate paragraphs with a blank line. Facts only: no invented figures.
@@ -141,6 +142,28 @@ export default async function EditArticlePage({
           </Link>
         </div>
       </form>
+
+      <SeoPanel
+        fields={{
+          title: ["title"],
+          description: ["excerpt"],
+          slug: ["slug"],
+          image: ["image"],
+          imageAlt: ["imageAlt"],
+          body: ["body"],
+        }}
+        initial={{
+          title: article.title,
+          description: article.excerpt,
+          slug: article.slug,
+          image: article.image ?? "",
+          imageAlt: article.imageAlt,
+          body: article.body.join("\n\n"),
+          hasSchema: true,
+        }}
+        previewHref={`/news/${article.slug}`}
+        notes="The excerpt is the meta description and the same image is used for the article artwork and its social card."
+      />
     </div>
   );
 }

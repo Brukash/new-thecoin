@@ -23,7 +23,7 @@ export function EventStatusBadge({ event }: { event: SocietyEvent }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 border px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] ${tone}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${tone}`}
     >
       {state === "ongoing" ? <span className="size-1.5 rounded-full bg-ink" aria-hidden /> : null}
       {labels[state]}
@@ -61,14 +61,14 @@ export function EventCard({ event, compact = false }: { event: SocietyEvent; com
           <EventStatusBadge event={event} />
         </div>
         {event.edition ? (
-          <span className="absolute bottom-4 left-4 bg-ink/75 px-2 py-1 text-[9px] uppercase tracking-[0.14em] text-gold-200">
+          <span className="absolute bottom-4 left-4 bg-ink/75 px-2 py-1 text-[10px] whitespace-nowrap uppercase tracking-[0.14em] text-gold-200">
             {event.edition}
           </span>
         ) : null}
       </div>
 
       <div className="flex flex-1 flex-col p-6">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
           {event.categoryName}
         </p>
         <h3 className="mt-3 font-serif text-xl leading-snug text-navy">{event.title}</h3>
@@ -84,7 +84,7 @@ export function EventCard({ event, compact = false }: { event: SocietyEvent; com
             <div>
               <dt className="sr-only">Date</dt>
               <dd>{formatEventDate(event)}</dd>
-              <dd className="text-[10px] text-slate/80 sm:hidden">{formatEventDateShort(event)}</dd>
+              <dd className="text-[11px] whitespace-nowrap text-slate/80 sm:hidden">{formatEventDateShort(event)}</dd>
             </div>
           </div>
           {event.venueName ? (
@@ -98,7 +98,7 @@ export function EventCard({ event, compact = false }: { event: SocietyEvent; com
           ) : null}
         </dl>
 
-        <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-navy">
+        <span className="mt-auto inline-flex items-center gap-1.5 whitespace-nowrap pt-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-navy">
           {state === "completed" ? "View the event archive" : "Event details"}
           <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
         </span>

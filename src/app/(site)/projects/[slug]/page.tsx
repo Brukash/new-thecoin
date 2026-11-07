@@ -7,6 +7,8 @@ import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { findProject, listProjects } from "@/content/queries";
+import { shareImages, shareImageUrl } from "@/lib/seo/metadata";
+import { site } from "@/content/site";
 
 // Projects render on demand so newly published entries do not need a rebuild.
 export const revalidate = 60;
@@ -20,11 +22,31 @@ export async function generateMetadata({
   const project = await findProject(slug);
   if (!project) return { title: "Project not found" };
 
+  // A project can be published before its overview is written. Rather than ship
+  // an empty description, fall back to what the record does contain — its type
+  // and its location — and let the console flag the missing summary.
+  const place = [project.city, project.state].filter(Boolean).join(", ");
+  const kind = project.type ? `${project.type} project` : "Project";
+  const description =
+    project.summary ||
+    project.description.join(" ").slice(0, 160).trim() ||
+    `${project.name} — ${kind}${place ? ` in ${place}` : ""}. A project of ${site.legalName}.`;
+
   return {
     title: project.name,
-    description: project.summary,
+    description,
     alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: { title: project.name, description: project.summary },
+    openGraph: {
+      title: project.name,
+      description,
+      images: shareImages(project.image),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.name,
+      description,
+      images: [shareImageUrl(project.image)],
+    },
   };
 }
 
@@ -68,7 +90,7 @@ export default async function ProjectDetailPage({
                   <div className="hairline-grid absolute inset-0 opacity-40" aria-hidden />
                   <MapPin className="relative size-6 text-gold" aria-hidden />
                   <p className="relative font-serif text-xl text-white">{project.location}</p>
-                  <p className="relative max-w-xs text-[11px] uppercase tracking-[0.16em] text-white/45">
+                  <p className="relative max-w-xs text-[12px] uppercase tracking-[0.16em] text-white/45">
                     Approved project photography will be published when released
                   </p>
                 </div>
@@ -98,7 +120,7 @@ export default async function ProjectDetailPage({
             </div>
 
             <div className="mt-10 border border-line bg-bone p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Before you commit
               </p>
               <ul className="mt-3 space-y-2.5">
@@ -127,7 +149,7 @@ export default async function ProjectDetailPage({
                   { label: "Scheme", value: "Home ownership & asset acquisition" },
                 ].map((row) => (
                   <div key={row.label} className="border-b border-line pb-3 last:border-0 last:pb-0">
-                    <dt className="text-[11px] uppercase tracking-[0.1em] text-slate">{row.label}</dt>
+                    <dt className="text-[12px] uppercase tracking-[0.1em] text-slate">{row.label}</dt>
                     <dd className="mt-1 text-sm font-medium text-navy">{row.value}</dd>
                   </div>
                 ))}
@@ -139,7 +161,7 @@ export default async function ProjectDetailPage({
             </div>
 
             <div className="border border-line p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                 Other projects
               </p>
               <ul className="mt-4 space-y-3">

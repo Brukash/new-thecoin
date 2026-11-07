@@ -45,7 +45,7 @@ export default function CreditOverviewPage() {
               A single standard for every lending decision.
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-slate">{overview.purpose}</p>
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+            <p className="mt-4 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
               Cl. 1.1.1, p. 3
             </p>
           </div>
@@ -56,14 +56,14 @@ export default function CreditOverviewPage() {
             <ol className="mt-5 divide-y divide-line border-y border-line">
               {overview.objectives.map((objective, index) => (
                 <li key={objective} className="flex gap-4 py-4">
-                  <span className="font-mono text-[11px] text-gold-600">
+                  <span className="font-sans text-[12px] text-gold-600">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm leading-relaxed text-slate">{objective}</span>
                 </li>
               ))}
             </ol>
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+            <p className="mt-3 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
               Cl. 1.1.1 (I) to (V), p. 3
             </p>
           </div>
@@ -79,7 +79,7 @@ export default function CreditOverviewPage() {
                 Nine facilities in the policy.
               </h2>
             </div>
-            <Link href="/services/credit/loans" className="link-underline text-[11px]">
+            <Link href="/services/credit/loans" className="link-underline text-[12px]">
               Compare every facility
               <ArrowRight className="size-3.5" aria-hidden />
             </Link>
@@ -111,12 +111,12 @@ export default function CreditOverviewPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+            <p className="mt-4 font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
               {overview.criteriaRef}
             </p>
             <p className="mt-6 border-l-2 border-gold pl-4 text-sm leading-relaxed text-slate">
               {overview.rejection}{" "}
-              <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+              <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                 {overview.rejectionRef}
               </span>
             </p>
@@ -131,7 +131,7 @@ export default function CreditOverviewPage() {
             </p>
             <dl className="mt-5 space-y-4 border-t border-line pt-5 text-sm">
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.1em] text-slate">
+                <dt className="text-[12px] uppercase tracking-[0.1em] text-slate">
                   Highest global limit, {highest?.status}
                 </dt>
                 <dd className="mt-1 font-serif text-xl text-navy">
@@ -139,7 +139,7 @@ export default function CreditOverviewPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.1em] text-slate">
+                <dt className="text-[12px] uppercase tracking-[0.1em] text-slate">
                   Lowest global limit, {lowest?.status}
                 </dt>
                 <dd className="mt-1 font-serif text-xl text-navy">
@@ -147,7 +147,7 @@ export default function CreditOverviewPage() {
                 </dd>
               </div>
             </dl>
-            <Link href="/services/credit/limits" className="link-underline mt-6 text-[11px]">
+            <Link href="/services/credit/limits" className="link-underline mt-6 text-[12px]">
               See the full table
               <ArrowRight className="size-3.5" aria-hidden />
             </Link>
@@ -171,7 +171,7 @@ export default function CreditOverviewPage() {
                 <summary className="flex cursor-pointer items-start justify-between gap-6 marker:content-none">
                   <span>
                     <span className="block font-serif text-lg text-navy">{role.role}</span>
-                    <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.08em] text-slate">
+                    <span className="mt-0.5 block font-sans text-[11px] uppercase tracking-[0.08em] text-slate">
                       Section {role.clause}
                     </span>
                   </span>
@@ -209,7 +209,7 @@ export default function CreditOverviewPage() {
                 {internalCredits.items.map((item) => (
                   <li key={item.ref} className="text-sm leading-relaxed text-slate">
                     {item.text}{" "}
-                    <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+                    <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                       {item.ref}
                     </span>
                   </li>
@@ -223,7 +223,7 @@ export default function CreditOverviewPage() {
                 {review.items.map((item) => (
                   <li key={item.ref} className="text-sm leading-relaxed text-slate">
                     {item.text}{" "}
-                    <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-slate/80">
+                    <span className="font-sans text-[11px] uppercase tracking-[0.08em] text-slate/80">
                       {item.ref}
                     </span>
                   </li>
