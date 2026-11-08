@@ -133,6 +133,15 @@
     }
   }
 
+  /*
+   * Grid children default to min-width:auto, so a single unbreakable child (a
+   * nowrap button, a wide table) widens its column past the phone screen and
+   * pushes the text off the edge. Let the columns shrink instead.
+   */
+  .shell.grid > * {
+    min-width: 0;
+  }
+
   /* Small uppercase section label with a gold rule — the editorial signature */
   .eyebrow {
     display: inline-flex;

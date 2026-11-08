@@ -67,7 +67,7 @@ export default async function ServiceDetailPage({
 
       <section className="bg-white py-14 md:py-20">
         <div className="shell grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
-          <article>
+          <article className="min-w-0">
             <p className="font-serif text-xl leading-relaxed text-navy md:text-2xl">
               {service.intro}
             </p>
@@ -112,7 +112,7 @@ export default async function ServiceDetailPage({
             </div>
           </article>
 
-          <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+          <aside className="min-w-0 space-y-6 lg:sticky lg:top-28 lg:self-start">
             {service.facts && (
               <div className="border border-line bg-bone p-6">
                 <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
