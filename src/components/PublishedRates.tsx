@@ -3,7 +3,32 @@ import type { RateRow } from "@/content/rates";
 
 function RateTable({ caption, rows, effectiveFrom }: { caption: string; rows: RateRow[]; effectiveFrom: string }) {
   return (
-    <div className="overflow-x-auto">
+    <>
+      {/* Phones: one record per row so the term and both rates stay on screen. */}
+      <ul aria-label={caption} className="divide-y divide-line sm:hidden">
+        {rows.map((row) => (
+          <li key={row.label} className="py-3">
+            <p className="text-sm text-slate">{row.label}</p>
+            {row.note && (
+              <p className="mt-1 text-xs leading-relaxed text-slate/70">{row.note}</p>
+            )}
+            <p className="mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span className="font-sans text-sm tabular-nums text-navy">{row.current}</span>
+              {row.unchanged && (
+                <span className="text-[11px] uppercase tracking-[0.08em] text-gold-600">
+                  Unchanged
+                </span>
+              )}
+              <span className="ml-auto font-sans text-xs tabular-nums text-slate/70">
+                <span className="sr-only">Previous: </span>
+                {row.previous}
+              </span>
+            </p>
+          </li>
+        ))}
+      </ul>
+
+      <div className="hidden overflow-x-auto sm:block">
       <table className="w-full min-w-[22rem] border-collapse text-left">
       <caption className="sr-only">{caption}</caption>
       <thead>
@@ -52,7 +77,8 @@ function RateTable({ caption, rows, effectiveFrom }: { caption: string; rows: Ra
         ))}
       </tbody>
       </table>
-    </div>
+      </div>
+    </>
   );
 }
 

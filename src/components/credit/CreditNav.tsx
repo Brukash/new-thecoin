@@ -4,14 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { creditNav } from "@/content/credit-nav";
 
-/** Section tab bar. Scrolls horizontally on narrow screens instead of wrapping. */
+/** Section tab bar. Wraps onto extra lines on phones so no tab is cut off. */
 export function CreditNav() {
   const pathname = usePathname();
 
   return (
     <nav aria-label="Credit and loan services" className="border-b border-line bg-white">
       <div className="shell">
-        <ul className="-mb-px flex gap-6 overflow-x-auto">
+        <ul className="flex flex-wrap gap-x-5 sm:-mb-px sm:flex-nowrap sm:gap-6 sm:overflow-x-auto">
           {creditNav.map((item) => {
             const active =
               item.href === "/services/credit"

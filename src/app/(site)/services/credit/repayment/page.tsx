@@ -55,7 +55,20 @@ export default function RepaymentPage() {
             {repayment.periodsNote}
           </p>
 
-          <div className="mt-6 overflow-x-auto border border-line">
+          {/* Phones: stacked records, so the facility, period and clause all fit. */}
+          <ul className="mt-6 divide-y divide-line border border-line bg-white sm:hidden">
+            {repayment.periods.map((row) => (
+              <li key={row.label} className="px-4 py-3">
+                <p className="text-sm font-medium text-navy">{row.label}</p>
+                <p className="mt-1 text-sm text-slate">{row.value}</p>
+                <p className="mt-1 font-sans text-[11px] uppercase tracking-[0.06em] text-slate/80">
+                  {row.ref}
+                </p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 hidden overflow-x-auto border border-line sm:block">
             <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
               <caption className="sr-only">Repayment periods by facility</caption>
               <thead>
