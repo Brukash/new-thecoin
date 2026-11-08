@@ -14,11 +14,16 @@ export function ProjectCard({ project }: { project: Project }) {
         href={`/projects/${project.slug}`}
         className="relative block aspect-[4/3] overflow-hidden bg-navy"
       >
+        {project.image && project.imageBadge ? (
+          <span className="absolute left-3 top-3 z-10 border border-white/25 bg-ink/80 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-white/85">
+            {project.imageBadge}
+          </span>
+        ) : null}
         {project.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={project.image}
-            alt=""
+            alt={project.imageAlt ?? ""}
             className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             loading="lazy"
           />

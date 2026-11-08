@@ -60,10 +60,14 @@
       "summary": "A residential project at Katampe in the Federal Capital Territory.",
       "description": [
         "The Katampe project is part of the Society's Abuja property portfolio.",
+        "The aerial view on this page shows the site as at November 2026: the land has been cleared and shaped for development, with the surrounding district already built up.",
         "Members should request the current project schedule and payment plan from the Secretariat before subscribing.",
         "Delivery timelines and title documentation are confirmed per project in the project agreement."
       ],
-      "image": null
+      "image": "/images/projects/katampe/katampe-project-site.jpg",
+      "imageAlt": "Aerial view of the cleared Katampe project site, surrounded by completed houses with rooftop solar panels",
+      "imageBadge": "Site photograph",
+      "imageNote": "Aerial view of the Katampe site, November 2026. Photograph supplied by the Society."
     },
     {
       "slug": "jikwoyi",
@@ -112,6 +116,25 @@
         "The Society confirms all terms in writing before any subscription is made."
       ],
       "image": null
+    },
+    {
+      "slug": "gidan-daya",
+      "name": "Gidan Daya Project",
+      "city": "Abuja",
+      "state": "Federal Capital Territory",
+      "location": "Gidan Daya, Orozo (Nyanya-Karshi axis), Abuja (FCT)",
+      "status": "Enquiries open",
+      "type": "Home ownership",
+      "summary": "The Society's estate at Gidan Daya on the Nyanya-Karshi axis of the Federal Capital Territory, where site works and the first units are under way.",
+      "description": [
+        "The Gidan Daya project is the Society's estate on the Nyanya-Karshi axis of the Federal Capital Territory, within Abuja Municipal Area Council.",
+        "The photograph on this page shows the site as it stands: the estate road and drainage being formed, the water storage tower serving the layout, the electricity poles along the road and blockwork going up for the first units.",
+        "Members interested in Gidan Daya should ask the Secretariat for the current plot and unit schedule, the payment plan and the title documentation position before committing funds."
+      ],
+      "image": "/images/projects/gidan-daya/gidan-daya-site.jpg",
+      "imageAlt": "Estate road under construction at Gidan Daya, with blockwork for new units, a water storage tower and electricity poles",
+      "imageBadge": "Site photograph",
+      "imageNote": "Site works at Gidan Daya, November 2026. Photograph supplied by the Society."
     }
   ]
 }

@@ -75,11 +75,12 @@ export default async function ProjectDetailPage({
       <section className="bg-white py-14 md:py-20">
         <div className="shell grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
           <div>
-            <div className="relative aspect-[16/9] overflow-hidden border border-line bg-navy">
+            <figure>
+            <div className="relative aspect-[4/3] overflow-hidden border border-line bg-navy sm:aspect-[16/9]">
               {project.image ? (
                 <Image
                   src={project.image}
-                  alt={project.name}
+                  alt={project.imageAlt ?? project.name}
                   fill
                   sizes="(max-width: 1024px) 100vw, 62vw"
                   className="object-cover"
@@ -96,6 +97,17 @@ export default async function ProjectDetailPage({
                 </div>
               )}
             </div>
+            {project.imageNote ? (
+              <figcaption className="mt-3 flex flex-wrap items-start gap-x-3 gap-y-1 text-[12px] leading-relaxed text-slate">
+                {project.imageBadge ? (
+                  <span className="border border-line px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] text-gold-600">
+                    {project.imageBadge}
+                  </span>
+                ) : null}
+                <span className="min-w-0 flex-1">{project.imageNote}</span>
+              </figcaption>
+            ) : null}
+            </figure>
 
             <div className="prose-coop mt-10">
               <h2>Project overview</h2>

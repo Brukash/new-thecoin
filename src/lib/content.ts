@@ -36,6 +36,12 @@ export type Project = {
   summary: string;
   description: string[];
   image: string | null;
+  /** Alt text for the project photograph. Falls back to the project name. */
+  imageAlt?: string;
+  /** Short chip shown on the card: "Site photograph" or "Illustrative". */
+  imageBadge?: string;
+  /** Caption and credit printed under the photograph on the project page. */
+  imageNote?: string;
 };
 
 function readJson<T>(file: string, fallback: T): T {

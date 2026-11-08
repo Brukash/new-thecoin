@@ -141,6 +141,9 @@ export const projectSchema = z.object({
   summary: paragraph,
   description: z.array(paragraph).max(40),
   image: z.string().max(500).nullable(),
+  imageAlt: line.optional(),
+  imageBadge: line.optional(),
+  imageNote: line.optional(),
 });
 
 export type ProjectDocument = z.infer<typeof projectSchema>;

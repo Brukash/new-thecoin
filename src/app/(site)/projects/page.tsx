@@ -4,14 +4,18 @@ import { CtaBand } from "@/components/CtaBand";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
 import { getProjectsIntro, listProjects } from "@/content/queries";
-import { CheckCircle2 } from "lucide-react";
+import { Camera, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Projects & real estate",
   description:
-    "The CBN Staff Multipurpose Cooperative Society's property portfolio in Asaba, Kaduna, Okota, Katampe, Jikwoyi, Asokoro and Guzape, offered to members through the home ownership scheme.",
+    "The CBN Staff Multipurpose Cooperative Society's property portfolio in Asaba, Kaduna, Okota, Katampe, Gidan Daya, Jikwoyi, Asokoro and Guzape, offered to members through the home ownership scheme.",
   alternates: { canonical: "/projects" },
 };
+
+// The portfolio is maintained in the CMS, so the index must pick up a newly
+// published project without waiting for a redeploy.
+export const revalidate = 300;
 
 export default async function ProjectsPage() {
   const projects = await listProjects();
@@ -46,6 +50,12 @@ export default async function ProjectsPage() {
               </Reveal>
             ))}
           </div>
+
+          <p className="mt-6 flex items-start gap-2 text-[12px] leading-relaxed text-slate">
+            <Camera className="mt-0.5 size-3.5 shrink-0 text-gold-600" aria-hidden />
+            Site photographs are published as the Secretariat releases them. Where a project has no
+            photograph yet, its card carries the location instead of a building from another project.
+          </p>
 
           <div className="mt-14 grid gap-8 border-t border-line pt-10 lg:grid-cols-[1fr_1.4fr]">
             <div>
