@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -14,10 +13,12 @@ import {
   Wallet,
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ArticleCard } from "@/components/ArticleCard";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { site, verifiedFacts } from "@/content/site";
+import { heroPhotos } from "@/content/hero-photos";
 import { listArticles, listProjects, listServices } from "@/content/queries";
 import { listPartners } from "@/lib/cms/partners";
 import { PartnerMark } from "@/components/PartnerMark";
@@ -166,16 +167,9 @@ export default async function HomePage() {
           </div>
 
           <div className="hero-media relative min-h-[300px] overflow-hidden lg:aspect-[16/10] lg:min-h-0 lg:self-center">
-            <Image
-              src="/images/site/staff-1.jpg"
-              alt="Staff of the Society photographed in the Secretariat office"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 48vw"
-              className="object-cover object-center"
-            />
+            <HeroCarousel photos={heroPhotos} />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent lg:bg-gradient-to-r lg:from-ink lg:via-ink/20 lg:to-transparent"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent lg:bg-gradient-to-r lg:from-ink lg:via-ink/20 lg:to-transparent"
               aria-hidden
             />
             <div className="absolute bottom-5 left-5 right-5 hidden border border-white/15 bg-ink/60 p-4 backdrop-blur-sm lg:block">
