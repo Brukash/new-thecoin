@@ -24,7 +24,15 @@ export const heroPhotos: HeroPhoto[] = [
     alt: "Officers of the Society photographed at the Secretariat",
   },
   {
-    src: "/images/projects/katampe/katampe-project-site.jpg",
-    alt: "Aerial view of the Katampe project site",
+    src: "/images/site/staff-2.jpg",
+    alt: "Staff of the Society photographed at the Secretariat",
+  },
+  {
+    src: "/images/site/staff-3.jpg",
+    alt: "Staff of the Society photographed at the Secretariat",
+  },
+  {
+    src: "/images/site/staff-4.jpg",
+    alt: "Staff of the Society photographed at the Secretariat",
   },
 ];
