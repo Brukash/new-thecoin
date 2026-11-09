@@ -85,8 +85,8 @@ export default function MembershipPage() {
         title="Who can join, and how."
         intro="CBN Coop is owned by its members. Every contribution you make funds another member's loan, and every facility you draw is funded by theirs."
         crumbs={[{ label: "Membership" }]}
-        image="/images/hero/p11.jpg"
-        imageAlt="A member reviewing documents at a desk"
+        image="/images/site/people-3.jpg"
+        imageAlt="A group photograph taken at the Society's Secretariat."
       />
 
       {/* Eligibility + benefits */}

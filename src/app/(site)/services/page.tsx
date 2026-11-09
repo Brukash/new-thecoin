@@ -1,12 +1,39 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Banknote,
+  HandCoins,
+  Home,
+  LineChart,
+  PiggyBank,
+  ShoppingBag,
+  TrendingUp,
+  Wallet,
+  type LucideIcon,
+} from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { listServices } from "@/content/queries";
-import { serviceImage } from "@/content/services";
+
+/** Service identity marks. Photography is reserved for pages where the Society
+ * has a real photograph of the subject, so the cards carry a mark instead of a
+ * stock image of an unrelated city. */
+const glyphs: Record<string, LucideIcon> = {
+  "credit-and-thrift": HandCoins,
+  savings: PiggyBank,
+  loans: Banknote,
+  "investment-services": TrendingUp,
+  "financial-advisory": LineChart,
+  "home-ownership": Home,
+  "consumer-operations": ShoppingBag,
+};
+
+function ServiceGlyph({ slug, className }: { slug: string; className?: string }) {
+  const Icon = glyphs[slug] ?? Wallet;
+  return <Icon className={className} aria-hidden />;
+}
 
 export const metadata: Metadata = {
   title: "Services",
@@ -27,8 +54,8 @@ export default async function ServicesPage() {
         title="Services available to members."
         intro="A member can start with a monthly thrift contribution and work towards a home. Each service below is open to members, and the Secretariat confirms the terms before you commit."
         crumbs={[{ label: "Services" }]}
-        image="/images/hero/p6.jpg"
-        imageAlt="Institutional office interior"
+        image="/images/hero/head-office.jpg"
+        imageAlt="Sam Olabanji House, the Society's Secretariat in Garki II, Abuja."
       />
 
       <section className="bg-white py-16 md:py-20">
@@ -55,15 +82,13 @@ export default async function ServicesPage() {
                   href={`/services/${service.slug}`}
                   className="group flex h-full flex-col bg-white transition-colors hover:bg-bone"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-mist">
-                    <Image
-                      src={serviceImage(service.slug)}
-                      alt=""
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  <div className="relative flex h-28 items-center justify-between overflow-hidden bg-navy px-7 md:px-9">
+                    <div
+                      className="hairline-grid pointer-events-none absolute inset-0 opacity-20"
+                      aria-hidden
                     />
-                    <span className="absolute left-3 top-3 bg-ink/75 px-2 py-1 font-sans text-[11px] tracking-widest text-white">
+                    <ServiceGlyph slug={service.slug} className="relative size-7 text-gold" />
+                    <span className="relative font-serif text-4xl leading-none text-white/20">
                       {service.index}
                     </span>
                   </div>

@@ -35,7 +35,7 @@ export const services: Service[] = [
     title: "Credit and Thrift",
     shortTitle: "Credit & Thrift",
     index: "01",
-    image: "/images/hero/p7.jpg",
+    image: "/images/site/people-1.jpg",
     summary:
       "Monthly thrift savings, a credit facility for members, and an annual bonus declared after the Annual General Meeting.",
     intro:
@@ -69,7 +69,7 @@ export const services: Service[] = [
     title: "Savings",
     shortTitle: "Savings",
     index: "02",
-    image: "/images/hero/p8.jpg",
+    image: "/images/site/people-2.jpg",
     summary:
       "Structured monthly thrift savings that build a member's capital and earn an annual savings bonus.",
     intro:
@@ -102,7 +102,7 @@ export const services: Service[] = [
     title: "Loans",
     shortTitle: "Loans",
     index: "03",
-    image: "/images/hero/p10.jpg",
+    image: "/images/site/people-3.jpg",
     summary:
       "Credit for members, administered under the Society's Bye-Laws with transparent deduction and repayment.",
     intro:
@@ -138,7 +138,7 @@ export const services: Service[] = [
     title: "Investment Services",
     shortTitle: "Investments",
     index: "04",
-    image: "/images/hero/p13.jpg",
+    image: "/images/site/people-4.jpg",
     summary:
       "Four-year investment series and a short-term Triple Plan that finance the Society's activities and pay returns to investors.",
     intro:
@@ -190,7 +190,7 @@ export const services: Service[] = [
     title: "Financial Advisory and Wealth Management",
     shortTitle: "Advisory & Wealth",
     index: "05",
-    image: "/images/hero/p9.jpg",
+    image: "/images/site/people-5.jpg",
     summary:
       "Investment management and financial advice for members, including the Coop Special Savings scheme.",
     intro:
@@ -233,7 +233,7 @@ export const services: Service[] = [
     title: "Coop Home Ownership and Asset Acquisition Scheme",
     shortTitle: "Home Ownership",
     index: "06",
-    image: "/images/hero/p3.jpg",
+    image: "/images/projects/katampe/katampe-project-site.jpg",
     summary:
       "Affordable housing and asset acquisition on flexible payment plans, delivered through the Society's developer partnerships.",
     intro:
@@ -272,7 +272,7 @@ export const services: Service[] = [
     title: "Consumer Operations",
     shortTitle: "Consumer",
     index: "07",
-    image: "/images/hero/p14.jpg",
+    image: "/images/hero/head-office.jpg",
     summary:
       "The annual Coop Exhibition and Consumer Fair, now extended online through the Coop E-Mall.",
     intro:
@@ -316,4 +316,4 @@ export const getService = (slug: string) => services.find((s) => s.slug === slug
  */
 const imageBySlug = new Map(services.map((service) => [service.slug, service.image]));
 
-export const serviceImage = (slug: string) => imageBySlug.get(slug) ?? "/images/hero/p6.jpg";
+export const serviceImage = (slug: string) => imageBySlug.get(slug) ?? "/images/hero/head-office.jpg";

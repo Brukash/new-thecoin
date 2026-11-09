@@ -28,8 +28,8 @@ export default async function ProjectsPage() {
         title="Homes and land offered to members."
         intro={intro}
         crumbs={[{ label: "Projects" }]}
-        image="/images/hero/p3.jpg"
-        imageAlt="Residential property exterior"
+        image="/images/projects/katampe/katampe-project-site.jpg"
+        imageAlt="Aerial view of the Katampe project site."
       />
 
       <section className="bg-white py-14 md:py-20">
