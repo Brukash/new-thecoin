@@ -6,6 +6,7 @@ import { PolicyBanner } from "@/components/credit/PolicyBanner";
 import { CreditNav } from "@/components/credit/CreditNav";
 import { PolicyFaqList } from "@/components/credit/PolicyFaqList";
 import { getCreditPolicy, policyRobots } from "@/content/credit-policy";
+import { jsonLdScript } from "@/lib/seo/json-ld";
 
 export const metadata: Metadata = {
   title: "Credit and loan FAQs",
@@ -82,7 +83,7 @@ export default function CreditFaqPage() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(schema) }}
       />
 
       <CtaBand

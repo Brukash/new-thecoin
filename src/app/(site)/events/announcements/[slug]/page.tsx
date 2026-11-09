@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Download, Paperclip } from "lucide-react";
+import { jsonLdScript } from "@/lib/seo/json-ld";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { EventsSubnav } from "@/components/events/EventsSubnav";
@@ -106,7 +107,7 @@ export default async function AnnouncementPage({ params }: { params: Promise<{ s
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(noticeSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(noticeSchema) }}
       />
 
       <section className="bg-white py-12 md:py-16">

@@ -26,11 +26,36 @@ export function rateLimit(key: string, limit: number, windowMs: number): boolean
   return true;
 }
 
-/** Best-effort client identifier. Behind a proxy, use the left-most forwarded address. */
+/**
+ * Best-effort client identifier for rate limiting.
+ *
+ * Headers written by the hosting edge come first, because the client cannot
+ * forge them. `x-forwarded-for` is only a fallback for hosts behind a proxy
+ * that rewrites it, and the left-most entry is the original client. When no
+ * address header exists every caller shares the "unknown" bucket, which fails
+ * closed: the limit then applies globally instead of becoming bypassable.
+ */
+export function clientKeyFromHeaders(headers: Headers): string {
+  const platform = headers.get("x-vercel-forwarded-for") ?? headers.get("cf-connecting-ip");
+  if (platform) return platform.split(",")[0].trim();
+
+  const real = headers.get("x-real-ip");
+  if (real) return real.trim();
+
+  const forwarded = headers.get("x-forwarded-for");
+  if (forwarded) {
+    const hops = forwarded
+      .split(",")
+      .map((hop) => hop.trim())
+      .filter(Boolean);
+    if (hops.length > 0) return hops[0];
+  }
+
+  return "unknown";
+}
+
 export function clientKey(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0].trim();
-  return request.headers.get("x-real-ip") ?? "unknown";
+  return clientKeyFromHeaders(request.headers);
 }
 
 function dataDir(): string {

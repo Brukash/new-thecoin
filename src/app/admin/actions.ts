@@ -38,6 +38,8 @@ import {
 import { createSessionClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSession, destroySession, isAdminConfigured, verifyPassword } from "@/lib/admin-auth";
+import { headers } from "next/headers";
+import { clientKeyFromHeaders, rateLimit } from "@/lib/security";
 
 function text(form: FormData, key: string): string {
   return String(form.get(key) ?? "").trim();
@@ -99,6 +101,17 @@ export async function signIn(
 ): Promise<{ error?: string }> {
   const email = text(form, "email");
   const password = text(form, "password");
+
+  // The console is a single shared password in local mode and a password login
+  // otherwise, so both paths need a ceiling on guesses. Two buckets: one per
+  // address and account, one per address across accounts.
+  const requestHeaders = await headers();
+  const address = clientKeyFromHeaders(requestHeaders);
+  const accountAllowed = rateLimit(`signin:${address}:${email.toLowerCase()}`, 8, 15 * 60_000);
+  const addressAllowed = rateLimit(`signin-ip:${address}`, 40, 15 * 60_000);
+  if (!accountAllowed || !addressAllowed) {
+    return { error: "Too many sign-in attempts. Wait 15 minutes and try again." };
+  }
 
   if (isSupabaseConfigured()) {
     const supabase = await createSessionClient();

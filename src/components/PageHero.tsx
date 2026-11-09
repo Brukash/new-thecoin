@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { site } from "@/content/site";
+import { jsonLdScript } from "@/lib/seo/json-ld";
 
 export type Crumb = { label: string; href?: string };
 
@@ -102,7 +103,7 @@ export function PageHero({
       {breadcrumbSchema ? (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbSchema) }}
         />
       ) : null}
     </section>

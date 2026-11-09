@@ -1,5 +1,6 @@
 import "server-only";
 import { createServiceClient } from "@/lib/supabase/server";
+import { readVerifiedUpload } from "@/lib/uploads";
 import { hasServiceRole } from "@/lib/supabase/config";
 import type { StaffUser } from "./auth";
 
@@ -261,8 +262,11 @@ export async function uploadMedia(
   if (!extension) throw new Error("Use a JPG, PNG, WebP, AVIF or SVG image.");
   if (file.size > 5 * 1024 * 1024) throw new Error("Images must be 5 MB or smaller.");
 
+  // The declared type is only a hint; store nothing whose bytes disagree.
+  const body = await readVerifiedUpload(file, file.type);
+
   const path = `${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.${extension}`;
-  const { error } = await client.storage.from("media").upload(path, file, {
+  const { error } = await client.storage.from("media").upload(path, body, {
     contentType: file.type,
     cacheControl: "31536000",
     upsert: false,

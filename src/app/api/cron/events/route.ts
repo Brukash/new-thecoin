@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { listAnnouncements, listEvents } from "@/lib/cms/events";
 import { lifecycleOf } from "@/lib/events/format";
@@ -17,6 +18,15 @@ export const dynamic = "force-dynamic";
  *
  * It performs no writes and is safe to call repeatedly.
  */
+/** Compares the bearer token without leaking length or content by timing. */
+function authorised(header: string | null, secret: string): boolean {
+  if (!header) return false;
+  const expected = Buffer.from(`Bearer ${secret}`);
+  const received = Buffer.from(header);
+  if (expected.length !== received.length) return false;
+  return timingSafeEqual(expected, received);
+}
+
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;
   if (!secret) {
@@ -26,7 +36,7 @@ export async function GET(request: Request) {
     );
   }
 
-  if (request.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!authorised(request.headers.get("authorization"), secret)) {
     return new Response("Unauthorized", { status: 401 });
   }
 

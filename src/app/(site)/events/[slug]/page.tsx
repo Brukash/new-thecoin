@@ -12,6 +12,7 @@ import {
   MapPin,
   Users,
 } from "lucide-react";
+import { jsonLdScript } from "@/lib/seo/json-ld";
 import { CtaBand } from "@/components/CtaBand";
 import { EventCard } from "@/components/events/EventCard";
 import { EventCountdown } from "@/components/events/EventCountdown";
@@ -126,7 +127,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
       <script
         type="application/ld+json"
         // Structured data is generated from stored fields only.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript([eventSchema, breadcrumbSchema]) }}
       />
 
       {/* ------------------------------------------------------------- hero */}

@@ -1,5 +1,6 @@
 import "server-only";
 import { createServiceClient } from "@/lib/supabase/server";
+import { readVerifiedUpload } from "@/lib/uploads";
 import { hasServiceRole } from "@/lib/supabase/config";
 import type { StaffUser } from "@/lib/cms/auth";
 import type {
@@ -792,8 +793,10 @@ export async function uploadEventAsset(
     throw new Error(isDocument ? "Documents must be 10 MB or smaller." : "Images must be 5 MB or smaller.");
   }
 
+  const body = await readVerifiedUpload(file, file.type);
+
   const path = `${folder}/${slug}-${Date.now()}.${extension}`;
-  const { error } = await client.storage.from("event-media").upload(path, file, {
+  const { error } = await client.storage.from("event-media").upload(path, body, {
     contentType: file.type,
     cacheControl: "31536000",
     upsert: false,

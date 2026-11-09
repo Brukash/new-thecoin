@@ -160,7 +160,10 @@ export async function saveCase(entry: EnquiryCase): Promise<void> {
       collection: COLLECTION,
       slug: entry.reference,
       data: { ...entry, updatedAt: new Date().toISOString() },
-      status: "published",
+      // Case documents hold internal notes, officer names and replies. They are
+      // written as drafts so the public "published content" read policy can
+      // never treat them as website copy; staff read them with the service role.
+      status: "draft",
     },
     { onConflict: "collection,slug" },
   );

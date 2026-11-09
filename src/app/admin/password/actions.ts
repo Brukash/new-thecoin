@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { getStaffUser } from "@/lib/cms/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSessionClient } from "@/lib/supabase/server";
+import { site } from "@/content/site";
+import { clientKeyFromHeaders, rateLimit } from "@/lib/security";
 import { MIN_PASSWORD, type PasswordState } from "./rules";
 
 /**
@@ -21,18 +23,24 @@ function value(form: FormData, key: string): string {
   return String(form.get(key) ?? "");
 }
 
-/** The public origin used to build the recovery link. */
+/**
+ * The public origin used to build the recovery link.
+ *
+ * Never derived from the request's Host header: a forged host would make the
+ * emailed token point at someone else's domain. The canonical site URL is used
+ * instead, with loopback allowed only in development.
+ */
 async function siteOrigin(): Promise<string> {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (configured) return configured.replace(/\/+$/, "");
 
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
-  const forwarded = requestHeaders.get("x-forwarded-proto");
-  const protocol =
-    forwarded ?? (host.startsWith("localhost") || host.startsWith("127.") ? "http" : "https");
+  if (process.env.NODE_ENV !== "production") {
+    const requestHeaders = await headers();
+    const host = requestHeaders.get("host") ?? "";
+    if (/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)) return `http://${host}`;
+  }
 
-  return `${protocol}://${host}`;
+  return site.url.replace(/\/+$/, "");
 }
 
 export async function requestPasswordReset(
@@ -40,6 +48,11 @@ export async function requestPasswordReset(
   form: FormData,
 ): Promise<PasswordState> {
   const email = value(form, "email").trim().toLowerCase();
+
+  const requestHeaders = await headers();
+  if (!rateLimit(`reset:${clientKeyFromHeaders(requestHeaders)}`, 5, 15 * 60_000)) {
+    return { error: "Too many reset requests. Please wait a few minutes and try again." };
+  }
 
   if (!email.includes("@")) {
     return { error: "Enter the email address on your staff account." };

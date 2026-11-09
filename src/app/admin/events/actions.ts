@@ -486,12 +486,8 @@ function rateLimited(key: string, limit = 5, windowMs = 60 * 60 * 1000): boolean
 
 async function clientKey(): Promise<string> {
   const { headers } = await import("next/headers");
-  const list = await headers();
-  return (
-    list.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    list.get("x-real-ip") ||
-    "unknown"
-  );
+  const { clientKeyFromHeaders } = await import("@/lib/security");
+  return clientKeyFromHeaders(await headers());
 }
 
 export async function registerForEvent(

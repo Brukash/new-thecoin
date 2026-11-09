@@ -1,5 +1,6 @@
 import "server-only";
 import { createServiceClient } from "@/lib/supabase/server";
+import { readVerifiedUpload } from "@/lib/uploads";
 import { hasServiceRole } from "@/lib/supabase/config";
 import { seedPartners, type PartnerCategory } from "@/content/partners";
 import type { StaffUser } from "./auth";
@@ -241,8 +242,12 @@ export async function uploadPartnerLogo(file: File, slug: string): Promise<strin
     console.warn("partner-logos bucket", bucketError.message);
   }
 
+  // Logos are served from a public bucket, so the bytes must match the type
+  // and an SVG must not carry script or event handlers.
+  const body = await readVerifiedUpload(file, file.type);
+
   const path = `${slug}-${Date.now()}.${extension}`;
-  const { error } = await client.storage.from("partner-logos").upload(path, file, {
+  const { error } = await client.storage.from("partner-logos").upload(path, body, {
     contentType: file.type,
     cacheControl: "31536000",
     upsert: false,

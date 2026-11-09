@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
 import { Analytics } from "@/components/Analytics";
+import { jsonLdScript } from "@/lib/seo/json-ld";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -133,7 +134,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           // Schema data is static and authored here, never user supplied.
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([organisationSchema, websiteSchema]),
+            __html: jsonLdScript([organisationSchema, websiteSchema]),
           }}
         />
       </body>

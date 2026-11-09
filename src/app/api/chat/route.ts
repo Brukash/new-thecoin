@@ -25,11 +25,38 @@ function overLimit(key: string): boolean {
   return bucket.count > LIMIT;
 }
 
+/**
+ * Strict same-origin check. A missing Origin used to be accepted, which let
+ * any script call this paid endpoint without a browser; now the request has to
+ * prove it came from a page on this host, through Origin, Fetch Metadata or
+ * Referer. No proof means no answer.
+ */
 function sameOrigin(request: Request): boolean {
-  const origin = request.headers.get("origin");
-  if (!origin) return true;
   const host = request.headers.get("host");
-  return Boolean(host && new URL(origin).host === host);
+  if (!host) return false;
+
+  const origin = request.headers.get("origin");
+  if (origin) {
+    try {
+      return new URL(origin).host === host;
+    } catch {
+      return false;
+    }
+  }
+
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (fetchSite && fetchSite !== "same-origin") return false;
+
+  const referer = request.headers.get("referer");
+  if (referer) {
+    try {
+      return new URL(referer).host === host;
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
 }
 
 export async function POST(request: Request) {

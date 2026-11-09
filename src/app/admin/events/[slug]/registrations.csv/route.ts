@@ -4,8 +4,13 @@ import { getEvent, listRegistrations } from "@/lib/cms/events";
 export const dynamic = "force-dynamic";
 
 function cell(value: string | number): string {
-  const text = String(value ?? "");
-  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  // Registrant fields are attacker-controlled and end up in a spreadsheet.
+  // A leading =, +, -, @, tab or CR makes Excel and Sheets evaluate the cell as
+  // a formula, so the text is neutralised with a leading apostrophe and the
+  // remaining control characters are removed.
+  let text = String(value ?? "").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, "");
+  if (/^[=+\-@\t\r]/.test(text)) text = `'${text}`;
+  return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
 /** Staff-only CSV export of one event's registrations. */

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { getContactSettings, getFaqGroups } from "@/content/queries";
+import { jsonLdScript } from "@/lib/seo/json-ld";
 
 export const revalidate = 60;
 
@@ -112,7 +113,7 @@ export default async function FaqPage() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(faqSchema) }}
       />
 
       <CtaBand

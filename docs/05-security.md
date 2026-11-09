@@ -73,3 +73,33 @@ This is a public information site with one small editorial console. There is no 
 6. Verify TLS certificate chain and automatic renewal.
 7. Ensure `data/` is outside the web root and excluded from any static upload.
 8. Keep the legacy site's backups until the new site has run clean for 30 days.
+
+## 5.5 Security review — 9 November 2026
+
+A full review of the application, database policies, auth, uploads, APIs and deployment
+configuration found and fixed the issues below. Severity is rated on exploitability and the
+sensitivity of what was reachable.
+
+| # | Finding | Severity | Fix |
+| --- | --- | --- | --- |
+| 1 | Enquiry CRM case documents were stored as `published`, so the public `content_public_read` policy exposed internal notes, officer names, replies and feedback to anyone holding the (public) anon key. Confirmed: one case row was readable. | **High** | Cases are written as drafts and the read policy excludes the `enquiry-cases` collection; existing rows migrated (`20261109_harden_content_and_registration_policies.sql`). |
+| 2 | `event_registrations_public_insert` allowed anonymous inserts through PostgREST directly, bypassing the server action's validation, honeypot and rate limit. | **Medium** | Policy dropped. The server action writes with the service role, so no functionality was lost. |
+| 3 | `/auth/confirm` accepted a `next` value of `/\host`, which the URL parser normalises to `//host` — an off-site redirect after a valid recovery link. | **Medium** | `safeNext` rejects backslashes, control characters, non-`/admin` paths, and re-checks the resolved origin. |
+| 4 | CSV export of event registrations wrote attacker-controlled names into spreadsheet cells unescaped, allowing formula injection in Excel/Sheets. | **Medium** | Leading `= + - @`, tab and CR are neutralised; control characters removed. |
+| 5 | Uploads trusted the browser-supplied `File.type`; any file could be stored in a public bucket under an image extension, and SVG uploads accepted script and event handlers. | **Medium** | `readVerifiedUpload` checks magic bytes for JPEG/PNG/WebP/AVIF/PDF and rejects active SVG content before storage. |
+| 6 | Structured data was rendered with `JSON.stringify` into an inline script; a stored title containing `</script>` could break out of the element. | **Medium** | `jsonLdScript` escapes `<`, `>`, `&`, U+2028/U+2029 in all seven JSON-LD blocks. |
+| 7 | Admin sign-in had no throttle, leaving the shared staff password open to unlimited guessing. | **Medium** | 8 attempts per address+account and 40 per address per 15 minutes, on both the Supabase and local paths. |
+| 8 | `/api/chat` treated a missing `Origin` as same-origin, so scripts and bots could spend the assistant budget. | **Low** | Strict same-origin: Origin, then `Sec-Fetch-Site`, then Referer; no proof means 403. |
+| 9 | The password-reset link was built from the request's `Host` header (host-header injection into an emailed token). | **Low** | Uses `NEXT_PUBLIC_SITE_URL`, else the canonical `site.url`; loopback only in development. |
+| 10 | Rate limiting keyed on the left-most `X-Forwarded-For`, a client-controlled header on hosts that do not rewrite it. | **Low** | Platform headers (`x-vercel-forwarded-for`, `cf-connecting-ip`, `x-real-ip`) first; unknown addresses fail closed into one shared bucket. |
+| 11 | Password-reset requests were unthrottled (mail-bombing a staff address). | **Low** | 5 requests per address per 15 minutes. |
+| 12 | The cron endpoint compared its bearer token with `!==`, leaking length and prefix by timing. | **Low** | Constant-time comparison. |
+| 13 | `next` 15.5.28 and its bundled `postcss` had advisories. | **Low** | Upgraded to 15.5.29. `zod` 3.x has a memory-exhaustion advisory; every schema in this project bounds its arrays and strings, so it is not reachable here, and the v4 upgrade is deferred as a breaking change. |
+
+Reviewed and found sound: no unguarded admin mutation (all 23 content actions, 17 event actions, 4 case actions and
+6 policy actions re-check the staff session), every admin page guarded, RLS enabled on all 13 tables, service-role
+key server-only, signed HttpOnly session cookie with `SameSite=Strict`, security headers and `noindex` on `/admin`,
+no secrets in the repository or client bundle, and no `innerHTML`/`eval` sinks outside the escaped JSON-LD blocks.
+
+Not changed, and worth knowing: the CSP still allows inline script (removing it needs nonce plumbing); rate-limit
+state is per instance; and uploads are validated but not virus-scanned.

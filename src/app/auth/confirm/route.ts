@@ -13,11 +13,29 @@ import type { EmailOtpType } from "@supabase/supabase-js";
 
 const OTP_TYPES: EmailOtpType[] = ["recovery", "invite", "magiclink", "email", "email_change"];
 
-function safeNext(candidate: string | null): string {
-  if (!candidate || !candidate.startsWith("/") || candidate.startsWith("//")) {
-    return "/admin/reset-password";
+const FALLBACK = "/admin/reset-password";
+
+/**
+ * Only a path under /admin on this exact origin is accepted. Anything that
+ * could leave the site — a scheme, a protocol-relative "//host", a backslash
+ * (URL parsers treat "\\" as "/", so "/\\host" parses as "//host") or a
+ * control character — falls back to the reset page.
+ */
+function safeNext(candidate: string | null, origin: string): string {
+  if (!candidate) return FALLBACK;
+  if (!candidate.startsWith("/") || candidate.startsWith("//")) return FALLBACK;
+  if (/[\\\u0000-\u001f\u007f]/.test(candidate)) return FALLBACK;
+
+  try {
+    const resolved = new URL(candidate, origin);
+    if (resolved.origin !== origin) return FALLBACK;
+    if (resolved.pathname !== "/admin" && !resolved.pathname.startsWith("/admin/")) {
+      return FALLBACK;
+    }
+    return `${resolved.pathname}${resolved.search}`;
+  } catch {
+    return FALLBACK;
   }
-  return candidate;
 }
 
 export async function GET(request: NextRequest) {
@@ -25,7 +43,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
-  const next = safeNext(searchParams.get("next"));
+  const next = safeNext(searchParams.get("next"), origin);
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
