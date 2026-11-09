@@ -1,29 +1,20 @@
 import { NextResponse } from "next/server";
-import { answerQuestion, assistantConfigured, type ChatMessage } from "@/lib/assistant";
+import { answerFromSite, answerQuestion, assistantConfigured, type ChatMessage } from "@/lib/assistant";
+import { clientKeyFromHeaders, rateLimit } from "@/lib/security";
 
 export const runtime = "nodejs";
 
 /**
  * Assistant endpoint. Same-origin only: the widget posts here from the site, and
  * no other origin is allowed to spend the Society's provider credits.
+ *
+ * When a provider key is configured the model answers from the same verified
+ * context. Without one — or if the provider fails — the route answers from the
+ * published FAQ and contact details instead of turning visitors away.
  */
 
 const WINDOW_MS = 60 * 60 * 1000;
 const LIMIT = 30;
-const buckets = new Map<string, { count: number; resetAt: number }>();
-
-function overLimit(key: string): boolean {
-  const now = Date.now();
-  const bucket = buckets.get(key);
-
-  if (!bucket || bucket.resetAt < now) {
-    buckets.set(key, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-
-  bucket.count += 1;
-  return bucket.count > LIMIT;
-}
 
 /**
  * Strict same-origin check. A missing Origin used to be accepted, which let
@@ -64,25 +55,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, message: "Requests must come from this website." }, { status: 403 });
   }
 
-  const forwarded = request.headers.get("x-forwarded-for");
-  const key = forwarded?.split(",")[0]?.trim() || "local";
+  const key = clientKeyFromHeaders(request.headers);
 
-  if (overLimit(key)) {
+  if (!rateLimit(key, LIMIT, WINDOW_MS)) {
     return NextResponse.json(
       { ok: false, message: "You have asked a lot of questions. Please try again later, or contact the Secretariat." },
       { status: 429 },
-    );
-  }
-
-  if (!assistantConfigured()) {
-    return NextResponse.json(
-      {
-        ok: false,
-        configured: false,
-        message:
-          "The assistant is not connected yet. Please call 0909 679 7982 or email info@cbncoopng.com and the Secretariat will help.",
-      },
-      { status: 503 },
     );
   }
 
@@ -110,11 +88,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, message: "Ask a question to begin." }, { status: 400 });
   }
 
+  if (assistantConfigured()) {
+    try {
+      const reply = await answerQuestion(messages);
+      return NextResponse.json({ ok: true, reply, configured: true });
+    } catch (error) {
+      console.error(
+        "Assistant provider failed, answering from published content",
+        error instanceof Error ? error.message : "unknown",
+      );
+    }
+  }
+
   try {
-    const reply = await answerQuestion(messages);
-    return NextResponse.json({ ok: true, reply });
+    const answer = await answerFromSite(messages);
+    return NextResponse.json({ ok: true, reply: answer.reply, configured: false });
   } catch (error) {
-    console.error("Assistant request failed", error instanceof Error ? error.message : "unknown");
+    console.error("Assistant fallback failed", error instanceof Error ? error.message : "unknown");
     return NextResponse.json(
       {
         ok: false,
