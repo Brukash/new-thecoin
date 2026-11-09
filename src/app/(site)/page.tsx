@@ -165,14 +165,14 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="hero-media relative min-h-[300px] overflow-hidden lg:min-h-[560px]">
+          <div className="hero-media relative min-h-[300px] overflow-hidden lg:aspect-[16/10] lg:min-h-0 lg:self-center">
             <Image
-              src="/images/site/people-3.jpg"
-              alt="Officers and members of the Society photographed at the Secretariat"
+              src="/images/site/staff-1.jpg"
+              alt="Staff of the Society photographed in the Secretariat office"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 48vw"
-              className="object-cover object-[50%_35%]"
+              className="object-cover object-center"
             />
             <div
               className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent lg:bg-gradient-to-r lg:from-ink lg:via-ink/20 lg:to-transparent"
