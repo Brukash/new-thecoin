@@ -11,7 +11,8 @@
     "cms:seed": "node --experimental-strip-types --env-file=.env.local scripts/seed-supabase.ts",
     "cms:seed:partners": "node --experimental-strip-types --env-file=.env.local scripts/seed-partners.ts",
     "cms:seed:events": "node --experimental-strip-types --env-file=.env.local scripts/seed-events.ts",
-    "cms:crop:leadership": "node --experimental-strip-types scripts/crop-leadership.ts"
+    "cms:crop:leadership": "node --experimental-strip-types scripts/crop-leadership.ts",
+    "images:check": "node scripts/check-images.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
