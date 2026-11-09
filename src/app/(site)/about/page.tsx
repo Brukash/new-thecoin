@@ -57,8 +57,8 @@ export default function AboutPage() {
         title="A member-owned institution, accountable to its members."
         intro="CBN Coop is a multipurpose cooperative society serving the Central Bank of Nigeria community. Its business is member welfare: savings discipline, affordable credit, investment series and property that members can actually own."
         crumbs={[{ label: "About" }]}
-        image="/images/site/people-5.jpg"
-        imageAlt="A group photograph taken at the Society's Secretariat."
+        image="/images/site/staff-1.jpg"
+        imageAlt="Staff of the Society photographed in the Secretariat office."
       />
 
       {/* Profile + narrative */}
