@@ -167,12 +167,12 @@ export default async function HomePage() {
 
           <div className="hero-media relative min-h-[300px] overflow-hidden lg:min-h-[560px]">
             <Image
-              src="/images/hero/head-office.jpg"
-              alt="Sam Olabanji House, the CBN Staff Multipurpose Cooperative Society Secretariat"
+              src="/images/site/people-3.jpg"
+              alt="Officers and members of the Society photographed at the Secretariat"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 48vw"
-              className="object-cover"
+              className="object-cover object-[50%_35%]"
             />
             <div
               className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent lg:bg-gradient-to-r lg:from-ink lg:via-ink/20 lg:to-transparent"
