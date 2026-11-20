@@ -122,6 +122,13 @@
     max-width: 100%;
     height: auto;
   }
+
+  /* An email address or telephone number is a single unbreakable token; it
+     must break rather than push its column wider than the page. */
+  a[href^="mailto:"],
+  a[href^="tel:"] {
+    overflow-wrap: anywhere;
+  }
 }
 
 @layer components {
@@ -149,7 +156,12 @@
    * nowrap button, a wide table) widens its column past the phone screen and
    * pushes the text off the edge. Let the columns shrink instead.
    */
-  .shell.grid > * {
+  /* Grid and flex children default to min-width:auto, so a single long token
+     (an email address, a reference code) can widen its whole column past the
+     viewport. Every child inside a shell can shrink instead; explicitly
+     `shrink-0` elements are unaffected. */
+  .shell.grid > *,
+  .shell :where(.grid, .flex) > * {
     min-width: 0;
   }
 

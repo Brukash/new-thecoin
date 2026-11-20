@@ -155,13 +155,13 @@ export default function AboutPage() {
         <div className="shell grid gap-10 md:grid-cols-2 md:gap-16">
           <Reveal>
             <p className="eyebrow eyebrow-invert">Our vision</p>
-            <p className="mt-5 font-serif text-2xl leading-relaxed text-white md:text-[1.75rem]">
+            <p className="mt-5 max-w-[46ch] font-serif text-[1.25rem] leading-relaxed text-pretty text-white md:text-[1.5rem]">
               {site.vision}
             </p>
           </Reveal>
           <Reveal delay={100}>
             <p className="eyebrow eyebrow-invert">Our mission</p>
-            <p className="mt-5 font-serif text-2xl leading-relaxed text-white md:text-[1.75rem]">
+            <p className="mt-5 max-w-[46ch] font-serif text-[1.25rem] leading-relaxed text-pretty text-white md:text-[1.5rem]">
               {site.mission}
             </p>
           </Reveal>

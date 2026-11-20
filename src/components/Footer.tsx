@@ -131,7 +131,7 @@ export function Footer() {
             <ul className="mt-4 space-y-4 text-sm">
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
-                <span className="leading-relaxed">
+                <span className="min-w-0 leading-relaxed">
                   {site.contact.addressLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -141,7 +141,7 @@ export function Footer() {
               </li>
               <li className="flex gap-3">
                 <Phone className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
-                <span>
+                <span className="min-w-0">
                   {site.contact.phones.map((phone) => (
                     <a
                       key={phone.value}
@@ -155,7 +155,7 @@ export function Footer() {
               </li>
               <li className="flex gap-3">
                 <Mail className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
-                <span>
+                <span className="min-w-0">
                   {site.contact.emails.map((email) => (
                     <a
                       key={email.value}
