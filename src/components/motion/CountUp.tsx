@@ -62,6 +62,10 @@ export function CountUp({
       return;
     }
 
+    // The statistics strip sits just below the hero, so a small peek at the
+    // bottom of the viewport would otherwise start the count while the visitor
+    // is still reading the headline — and finish it before they arrive. The
+    // bottom margin makes the figure count once it is properly in view.
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
@@ -69,7 +73,7 @@ export function CountUp({
           observer.disconnect();
         }
       },
-      { threshold: 0.4 },
+      { threshold: 0.6, rootMargin: "0px 0px -14% 0px" },
     );
 
     observer.observe(node);

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import type { HeroPhoto } from "@/content/hero-photos";
+import { HeroParallax } from "@/components/motion/HeroParallax";
 
 /**
  * Home hero photography.
@@ -61,31 +62,35 @@ export function HeroCarousel({
       onTouchStart={() => setPaused(true)}
       onTouchEnd={() => setPaused(false)}
     >
-      {photos.map((photo, position) => {
-        const active = position === index;
-        return (
-          <div
-            key={photo.src}
-            aria-hidden={!active}
-            className={`hero-frame absolute inset-0 ${active ? "is-active" : ""}`}
-          >
-            <Image
-              src={photo.src}
-              alt={active ? photo.alt : ""}
-              fill
-              priority={position === 0}
-              loading={position === 0 ? "eager" : "lazy"}
-              sizes="(max-width: 1024px) 100vw, 48vw"
-              className="object-cover object-center"
-            />
-          </div>
-        );
-      })}
+      {/* Only the photographs drift on scroll. The selector below stays
+          anchored to the frame, so it cannot ride out of the clipped area. */}
+      <HeroParallax>
+        {photos.map((photo, position) => {
+          const active = position === index;
+          return (
+            <div
+              key={photo.src}
+              aria-hidden={!active}
+              className={`hero-frame absolute inset-0 ${active ? "is-active" : ""}`}
+            >
+              <Image
+                src={photo.src}
+                alt={active ? photo.alt : ""}
+                fill
+                priority={position === 0}
+                loading={position === 0 ? "eager" : "lazy"}
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+            </div>
+          );
+        })}
+      </HeroParallax>
 
       {/* The selector sits over photographs of very different brightness, so it
           carries a soft scrim rather than relying on white-on-white contrast. */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-ink/50 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink/65 via-ink/20 to-transparent"
         aria-hidden
       />
 
@@ -108,10 +113,16 @@ export function HeroCarousel({
                 aria-current={active}
                 data-running={active && running}
                 data-paused={active && paused && !taken}
-                className={`hero-dot relative h-1.5 w-7 overflow-hidden transition-colors duration-300 ${
-                  active ? "bg-white/25" : "bg-white/40 hover:bg-white/70"
-                }`}
-              />
+                className="hero-dot group flex h-7 w-7 items-center justify-center"
+              >
+                {/* The bar stays the size it should look; the button around it
+                    is 28px square so it can be hit with a thumb. */}
+                <span
+                  className={`relative block h-1.5 w-7 overflow-hidden transition-colors duration-300 ${
+                    active ? "bg-white/30" : "bg-white/60 group-hover:bg-white/85"
+                  }`}
+                />
+              </button>
             );
           })}
         </div>

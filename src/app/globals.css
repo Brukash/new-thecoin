@@ -663,7 +663,7 @@
 
   /* The active dot fills over the length of the interval, so the next move is
      legible before it happens. */
-  .hero-dot::after {
+  .hero-dot > span::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -674,11 +674,11 @@
 
   /* Only fills while the carousel is actually advancing, so a stopped
      carousel never shows a progress bar that suggests it is still moving. */
-  .hero-dot[aria-current="true"][data-running="true"]::after {
+  .hero-dot[aria-current="true"][data-running="true"] > span::after {
     animation: dot-progress var(--hero-dot-duration, 7000ms) linear both;
   }
 
-  .hero-dot[data-paused="true"]::after {
+  .hero-dot[data-paused="true"] > span::after {
     animation-play-state: paused;
   }
 
@@ -822,7 +822,7 @@
 
   /* The dot and the countdown carry state, so they keep their end state rather
      than simply stopping mid-animation. */
-  .hero-dot[aria-current="true"]::after {
+  .hero-dot[aria-current="true"] > span::after {
     animation: none !important;
     transform: scaleX(1);
   }

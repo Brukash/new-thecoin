@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { HeroCarousel } from "@/components/HeroCarousel";
-import { HeroParallax } from "@/components/motion/HeroParallax";
 import { CountUp } from "@/components/motion/CountUp";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ArticleCard } from "@/components/ArticleCard";
@@ -184,9 +183,7 @@ export default async function HomePage() {
           </div>
 
           <div className="hero-media relative min-h-[300px] overflow-hidden lg:aspect-[16/10] lg:min-h-0 lg:self-center">
-            <HeroParallax>
-              <HeroCarousel photos={heroPhotos} />
-            </HeroParallax>
+            <HeroCarousel photos={heroPhotos} />
             <div
               className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent lg:bg-gradient-to-r lg:from-ink lg:via-ink/20 lg:to-transparent"
               aria-hidden
