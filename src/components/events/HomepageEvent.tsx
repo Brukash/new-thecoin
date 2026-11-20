@@ -4,6 +4,7 @@ import { ArrowRight, CalendarDays, Clock, MapPin } from "lucide-react";
 import type { SocietyEvent } from "@/lib/events/types";
 import { formatEventDate, formatEventTime } from "@/lib/events/format";
 import { EventCountdown } from "./EventCountdown";
+import { Reveal } from "@/components/Reveal";
 
 /**
  * Homepage promotion for the featured event.
@@ -34,7 +35,7 @@ export function HomepageEvent({ event }: { event: SocietyEvent }) {
           event.startsAt ? "lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-16" : ""
         }`}
       >
-        <div>
+        <Reveal>
           <p className="eyebrow eyebrow-invert">Featured event</p>
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -87,10 +88,14 @@ export function HomepageEvent({ event }: { event: SocietyEvent }) {
               All events
             </Link>
           </div>
-        </div>
+        </Reveal>
 
         {event.startsAt ? (
-          <div className="border border-white/15 bg-ink/60 p-6 backdrop-blur-sm">
+          <Reveal
+            variant="scale"
+            delay={120}
+            className="border border-white/15 bg-ink/60 p-6 backdrop-blur-sm"
+          >
             <p className="text-[11px] uppercase tracking-[0.18em] text-gold-200">Begins in</p>
             <div className="mt-4">
               <EventCountdown startsAt={event.startsAt} endsAt={event.endsAt} variant="invert" />
@@ -98,7 +103,7 @@ export function HomepageEvent({ event }: { event: SocietyEvent }) {
             <p className="mt-4 text-[12px] leading-relaxed text-white/50">
               West Africa Time (WAT). Registration details are on the event page.
             </p>
-          </div>
+          </Reveal>
         ) : null}
       </div>
     </section>

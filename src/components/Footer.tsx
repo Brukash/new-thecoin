@@ -4,6 +4,7 @@ import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react
 import { site } from "@/content/site";
 import { services } from "@/content/services";
 import { NewsletterForm } from "./NewsletterForm";
+import { Reveal } from "@/components/Reveal";
 
 /** Lucide ships no WhatsApp mark, so it is drawn here at the same optical weight. */
 export function WhatsAppIcon({ className }: { className?: string }) {
@@ -45,7 +46,7 @@ export function Footer() {
         {/* Newsletter */}
         <div className="border-b border-white/10">
           <div className="shell grid gap-6 py-10 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-12">
-            <div>
+            <Reveal>
               <p className="eyebrow eyebrow-invert">Stay informed</p>
               <h2 className="mt-3 font-serif text-2xl text-white md:text-[1.75rem]">
                 Society notices, delivered to your inbox.
@@ -54,13 +55,13 @@ export function Footer() {
                 Monthly updates on announcements, investment series, project milestones and member
                 services.
               </p>
-            </div>
+            </Reveal>
             <NewsletterForm />
           </div>
         </div>
 
         <div className="shell grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
-          <div>              <Image
+          <Reveal>              <Image
                 src="/images/logo-reversed.png"
                 alt={site.name}
                 width={828}
@@ -81,20 +82,20 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={channel.label}
-                    className="inline-flex size-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-gold hover:text-gold-200"
+                    className="inline-flex size-9 items-center justify-center border border-white/15 text-white/70 transition-[transform,color,border-color] duration-300 hover:scale-105 hover:border-gold hover:text-gold-200"
                   >
                     <Icon className="size-4" />
                   </a>
                 );
               })}
             </div>
-          </div>
+          </Reveal>
 
-          <nav aria-label="Services">
+          <Reveal as="nav" label="Services" delay={80} className="text-white/70">
             <h3 className="font-sans text-[12px] font-semibold uppercase tracking-[0.18em] text-gold-200">
               Services
             </h3>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <ul className="footer-links mt-4 space-y-2.5 text-sm">
               {services.map((service) => (
                 <li key={service.slug}>
                   <Link
@@ -106,13 +107,13 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </nav>
+          </Reveal>
 
-          <nav aria-label="Quick links">
+          <Reveal as="nav" label="Quick links" delay={140} className="text-white/70">
             <h3 className="font-sans text-[12px] font-semibold uppercase tracking-[0.18em] text-gold-200">
               The Society
             </h3>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <ul className="footer-links mt-4 space-y-2.5 text-sm">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="transition-colors hover:text-white">
@@ -121,9 +122,9 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </nav>
+          </Reveal>
 
-          <div>
+          <Reveal delay={200} className="text-white/70">
             <h3 className="font-sans text-[12px] font-semibold uppercase tracking-[0.18em] text-gold-200">
               Contact
             </h3>
@@ -167,7 +168,7 @@ export function Footer() {
                 </span>
               </li>
             </ul>
-          </div>
+          </Reveal>
         </div>
 
         <div className="border-t border-white/10">

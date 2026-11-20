@@ -1,22 +1,33 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+
+type Variant = "up" | "fade" | "scale" | "left" | "right";
 
 /**
- * Restrained scroll reveal. Adds `is-visible` once, then disconnects.
- * Motion is disabled entirely by the prefers-reduced-motion rule in
- * globals.css, so this stays purely progressive.
+ * The site's single scroll-reveal primitive.
+ *
+ * Elements hold a small offset and zero opacity until they enter the viewport,
+ * then settle once and stop observing. Variants only change the starting
+ * offset — duration, easing and distance live in globals.css so every section
+ * moves as one system. With reduced motion, or without IntersectionObserver,
+ * content is simply visible.
  */
 export function Reveal({
   children,
   delay = 0,
   className = "",
   as: Tag = "div",
+  variant = "up",
+  label,
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: "div" | "section" | "li" | "article";
+  as?: "div" | "section" | "li" | "article" | "figure" | "header" | "nav";
+  variant?: Variant;
+  /** Accessible name, for the tags where one is required (nav, section). */
+  label?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -46,12 +57,15 @@ export function Reveal({
     return () => observer.disconnect();
   }, []);
 
+  const variantClass = variant === "up" ? "" : `reveal-${variant}`;
+
   return (
     <Tag
       // @ts-expect-error - the ref target varies with the chosen tag
       ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={`reveal ${variantClass} ${visible ? "is-visible" : ""} ${className}`}
+      aria-label={label}
+      style={delay ? ({ "--reveal-delay": `${delay}ms` } as CSSProperties) : undefined}
     >
       {children}
     </Tag>

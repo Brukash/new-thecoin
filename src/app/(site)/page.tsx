@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { HeroCarousel } from "@/components/HeroCarousel";
+import { HeroParallax } from "@/components/motion/HeroParallax";
+import { CountUp } from "@/components/motion/CountUp";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ArticleCard } from "@/components/ArticleCard";
 import { EnquiryForm } from "@/components/EnquiryForm";
@@ -113,44 +115,59 @@ export default async function HomePage() {
 
         <div className="relative grid lg:grid-cols-[1.05fr_1fr]">
           <div className="flex flex-col justify-center px-5 py-14 sm:px-8 md:px-12 lg:py-20 xl:pl-[max(3rem,calc((100vw-78rem)/2+3rem))]">
-            <div className="animate-[fadeIn_0.7s_ease-out]">
-              <p className="eyebrow eyebrow-invert">Member-owned cooperative{`\u00A0`}· Abuja</p>
-
-              <h1
-                className="display rise mt-6 text-[2rem] leading-[1.05] text-white sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.75rem]"
-                style={{ animationDelay: "90ms" }}
+            <div>
+              <p
+                className="eyebrow eyebrow-invert rise"
+                style={{ animationDelay: "40ms" }}
               >
-                A cooperative built
-                <br />
-                for the long term.
+                Member-owned cooperative{`\u00A0`}· Abuja
+              </p>
+
+              {/* Two lines, revealed in sequence, so the headline arrives rather
+                  than simply appearing. The wording is unchanged. */}
+              <h1 className="display mt-6 text-[2rem] leading-[1.05] text-white sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.75rem]">
+                <span className="rise block" style={{ animationDelay: "130ms" }}>
+                  A cooperative built
+                </span>
+                <span className="rise block" style={{ animationDelay: "240ms" }}>
+                  for the long term.
+                </span>
               </h1>
 
               <p
                 className="rise mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
-                style={{ animationDelay: "180ms" }}
+                style={{ animationDelay: "360ms" }}
               >
                 The CBN Staff Multipurpose Cooperative Society serves serving staff, retirees and
                 staff on secondment with disciplined savings, member credit, investment funds and
                 home ownership.
               </p>
 
-              <div className="rise mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "260ms" }}>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={site.registration.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary"
+                  className="btn btn-primary rise"
+                  style={{ animationDelay: "470ms" }}
                 >
                   Become a member
                   <ArrowRight className="size-4" aria-hidden />
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
-                <Link href="/projects" className="btn btn-outline-invert">
+                <Link
+                  href="/projects"
+                  className="btn btn-outline-invert rise"
+                  style={{ animationDelay: "550ms" }}
+                >
                   Explore property projects
                 </Link>
               </div>
 
-              <ul className="rise mt-10 grid gap-2.5 text-sm text-white/60 sm:grid-cols-2" style={{ animationDelay: "340ms" }}>
+              <ul
+                className="rise mt-10 grid gap-2.5 text-sm text-white/60 sm:grid-cols-2"
+                style={{ animationDelay: "640ms" }}
+              >
                 {[
                   "Savings, credit & investment",
                   "Home ownership schemes",
@@ -167,12 +184,14 @@ export default async function HomePage() {
           </div>
 
           <div className="hero-media relative min-h-[300px] overflow-hidden lg:aspect-[16/10] lg:min-h-0 lg:self-center">
-            <HeroCarousel photos={heroPhotos} />
+            <HeroParallax>
+              <HeroCarousel photos={heroPhotos} />
+            </HeroParallax>
             <div
               className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent lg:bg-gradient-to-r lg:from-ink lg:via-ink/20 lg:to-transparent"
               aria-hidden
             />
-            <div className="absolute bottom-5 left-5 right-5 hidden border border-white/15 bg-ink/60 p-4 backdrop-blur-sm lg:block">
+            <div className="hero-caption absolute bottom-5 left-5 right-5 hidden border border-white/15 bg-ink/60 p-4 backdrop-blur-sm lg:block">
               <p className="text-[11px] uppercase tracking-[0.2em] text-gold-200">Since inception</p>
               <p className="mt-1.5 font-serif text-lg text-white">
                 Serving CBN staff and retirees through the cooperative model.
@@ -191,7 +210,10 @@ export default async function HomePage() {
               delay={index * 70}
               className={`group px-2 md:px-6 ${index !== 0 ? "md:border-l md:border-line" : ""}`}
             >
-              <p className="font-serif text-3xl text-navy md:text-4xl">{fact.value}</p>
+              <CountUp
+                value={fact.value}
+                className="block font-serif text-3xl text-navy md:text-4xl"
+              />
               <span
                 className="mt-3 block h-px w-8 bg-gold transition-all duration-500 group-hover:w-16"
                 aria-hidden
@@ -209,7 +231,7 @@ export default async function HomePage() {
       {/* ------------------------------------------------------------ about */}
       <section className="bg-white py-16 md:py-24">
         <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-4">
+          <Reveal className="lg:col-span-4">
             <p className="eyebrow">The Society</p>
             <h2 className="display mt-5 text-[2rem] leading-tight text-navy md:text-[2.75rem]">
               Owned by the members it serves.
@@ -217,21 +239,25 @@ export default async function HomePage() {
             <Link href="/about" className="link-underline mt-8">
               About the cooperative <ArrowUpRight className="size-3.5" aria-hidden />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="lg:col-span-8">
-            <p className="text-[17px] leading-[1.75] text-charcoal md:text-[1.0625rem]">
-              CBN Coop improves the financial well-being of its members. It turns regular savings
-              into member credit, opens investment series with defined tenors, and negotiates
-              property that members could not access alone.
-            </p>
-            <p className="mt-5 text-[17px] leading-[1.75] text-slate md:text-[1.0625rem]">
-              A Management Committee elected from the membership administers the Society, and the
-              Annual General Meeting holds it to account. The Bye-Laws are published, and members
-              receive a report on the year's activity at each AGM.
-            </p>
+            <Reveal delay={80}>
+              <p className="text-[17px] leading-[1.75] text-charcoal md:text-[1.0625rem]">
+                CBN Coop improves the financial well-being of its members. It turns regular savings
+                into member credit, opens investment series with defined tenors, and negotiates
+                property that members could not access alone.
+              </p>
+            </Reveal>
+            <Reveal delay={150}>
+              <p className="mt-5 text-[17px] leading-[1.75] text-slate md:text-[1.0625rem]">
+                A Management Committee elected from the membership administers the Society, and the
+                Annual General Meeting holds it to account. The Bye-Laws are published, and members
+                receive a report on the year's activity at each AGM.
+              </p>
+            </Reveal>
 
-            <div className="mt-10 grid gap-6 border-t border-line pt-8 sm:grid-cols-2">
+            <Reveal className="mt-10 grid gap-6 border-t border-line pt-8 sm:grid-cols-2" delay={90}>
               <div>
                 <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold-600">
                   Our vision
@@ -244,7 +270,7 @@ export default async function HomePage() {
                 </p>
                 <p className="mt-3 font-serif text-lg leading-relaxed text-navy">{site.mission}</p>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -252,7 +278,7 @@ export default async function HomePage() {
       {/* --------------------------------------------------------- services */}
       <section className="bg-bone py-16 md:py-24">
         <div className="shell">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <p className="eyebrow">What we do</p>
               <h2 className="display mt-5 max-w-xl text-[2rem] leading-tight text-navy md:text-[2.75rem]">
@@ -262,17 +288,17 @@ export default async function HomePage() {
             <Link href="/services" className="link-underline shrink-0">
               All services <ArrowRight className="size-3.5" aria-hidden />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
               <Reveal key={service.slug} delay={index * 50} as="article">
                 <Link
                   href={`/services/${service.slug}`}
-                  className="group flex h-full flex-col bg-white p-7 transition-colors hover:bg-navy"
+                  className="group flex h-full flex-col bg-white p-7 transition-[background-color,box-shadow] duration-300 hover:z-10 hover:bg-navy hover:shadow-[0_26px_50px_-30px_rgba(8,16,31,0.5)]"
                 >
                   <div className="flex items-start justify-between">
-                    <span className="font-sans text-[12px] tracking-widest text-gold-600 transition-colors group-hover:text-gold">
+                    <span className="font-sans text-[12px] tracking-widest text-gold-600 transition-[color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:text-gold">
                       {service.index}
                     </span>
                     <ArrowUpRight
@@ -318,7 +344,7 @@ export default async function HomePage() {
       {/* --------------------------------------------------------- projects */}
       <section className="bg-white py-16 md:py-24">
         <div className="shell">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <p className="eyebrow">Property & investment</p>
               <h2 className="display mt-5 max-w-xl text-[2rem] leading-tight text-navy md:text-[2.75rem]">
@@ -328,7 +354,7 @@ export default async function HomePage() {
             <Link href="/projects" className="link-underline shrink-0">
               All projects <ArrowRight className="size-3.5" aria-hidden />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
@@ -349,12 +375,12 @@ export default async function HomePage() {
       {/* ----------------------------------------------------------- pillars */}
       <section className="border-y border-line bg-mist/60 py-16 md:py-24">
         <div className="shell">
-          <div className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <p className="eyebrow">Why CBN Coop</p>
             <h2 className="display mt-5 text-[2rem] leading-tight text-navy md:text-[2.75rem]">
               How the Society is run.
             </h2>
-          </div>
+          </Reveal>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {pillars.map((pillar, index) => (
@@ -390,29 +416,30 @@ export default async function HomePage() {
           </div>
 
           <div className="grid gap-px bg-white/10">
-            {digital.map((portal) => (
-              <a
-                key={portal.href}
-                href={portal.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-5 bg-ink p-6 transition-colors hover:bg-navy-700"
-              >
-                <span className="flex size-11 shrink-0 items-center justify-center border border-gold/30 text-gold">
-                  <portal.icon className="size-5" aria-hidden />
-                </span>
-                <span className="flex-1">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-white/60">
-                    {portal.label}
+            {digital.map((portal, index) => (
+              <Reveal key={portal.href} delay={index * 90} className="bg-ink">
+                <a
+                  href={portal.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-full items-center gap-5 bg-ink p-6 transition-[background-color,box-shadow] duration-300 hover:z-10 hover:bg-navy-700 hover:shadow-[0_26px_50px_-30px_rgba(0,0,0,0.85)]"
+                >
+                  <span className="flex size-11 shrink-0 items-center justify-center border border-gold/30 text-gold transition-transform duration-300 group-hover:scale-105">
+                    <portal.icon className="size-5" aria-hidden />
                   </span>
-                  <span className="mt-1 block font-serif text-xl text-white">{portal.name}</span>
-                  <span className="mt-1 block text-xs text-white/50">{portal.description}</span>
-                </span>
-                <ArrowUpRight
-                  className="size-4 text-white/40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold"
-                  aria-hidden
-                />
-              </a>
+                  <span className="flex-1">
+                    <span className="block text-[11px] uppercase tracking-[0.18em] text-white/60">
+                      {portal.label}
+                    </span>
+                    <span className="mt-1 block font-serif text-xl text-white">{portal.name}</span>
+                    <span className="mt-1 block text-xs text-white/50">{portal.description}</span>
+                  </span>
+                  <ArrowUpRight
+                    className="size-4 text-white/40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold"
+                    aria-hidden
+                  />
+                </a>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -421,7 +448,7 @@ export default async function HomePage() {
       {/* -------------------------------------------------------------- news */}
       <section className="bg-white py-16 md:py-24">
         <div className="shell">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <p className="eyebrow">Notice board</p>
               <h2 className="display mt-5 max-w-xl text-[2rem] leading-tight text-navy md:text-[2.75rem]">
@@ -431,7 +458,7 @@ export default async function HomePage() {
             <Link href="/news" className="link-underline shrink-0">
               All news <ArrowRight className="size-3.5" aria-hidden />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {featured && (
@@ -453,7 +480,7 @@ export default async function HomePage() {
       {/* ---------------------------------------------------------- partners */}
       <section className="border-t border-line bg-bone py-14">
         <div className="shell">
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <Reveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div>
               <p className="eyebrow">Institutional partners</p>
               <h2 className="mt-4 font-serif text-2xl text-navy md:text-[1.75rem]">
@@ -463,7 +490,7 @@ export default async function HomePage() {
             <Link href="/partners" className="link-underline shrink-0">
               Our partners <ArrowRight className="size-3.5" aria-hidden />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="marquee mt-9 border-y border-line py-5">
             <ul className="marquee-track items-center">
@@ -484,7 +511,7 @@ export default async function HomePage() {
       {/* --------------------------------------------------------- enquiry */}
       <section id="enquiry" className="bg-white py-16 md:py-24">
         <div className="shell grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-          <div>
+          <Reveal>
             <p className="eyebrow">Membership enquiry</p>
             <h2 className="display mt-5 text-[2rem] leading-tight text-navy md:text-[2.75rem]">
               Start a conversation with the Secretariat.
@@ -520,9 +547,11 @@ export default async function HomePage() {
                 Sign in to Coopman <ArrowUpRight className="size-4" aria-hidden />
               </a>
             </div>
-          </div>
+          </Reveal>
 
-          <EnquiryForm defaultType="membership" />
+          <Reveal delay={120}>
+            <EnquiryForm defaultType="membership" />
+          </Reveal>
         </div>
       </section>
     </>

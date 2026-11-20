@@ -64,7 +64,7 @@ export function PageHero({
 
       <div className="shell relative py-14 md:py-20">
         {crumbs && (
-          <nav aria-label="Breadcrumb" className="mb-8">
+          <nav aria-label="Breadcrumb" className="rise mb-8" style={{ animationDelay: "40ms" }}>
             <ol className="flex flex-wrap items-center gap-1.5 text-[12px] uppercase tracking-[0.14em] text-white/50">
               <li>
                 <Link href="/" className="transition-colors hover:text-gold-200">
@@ -89,12 +89,20 @@ export function PageHero({
           </nav>
         )}
 
-        <p className="eyebrow eyebrow-invert">{eyebrow}</p>
-        <h1 className="display mt-5 max-w-3xl text-[1.9rem] text-white sm:text-[2.25rem] md:text-[3.25rem]">
+        <p className="eyebrow eyebrow-invert rise" style={{ animationDelay: "120ms" }}>
+          {eyebrow}
+        </p>
+        <h1
+          className="display rise mt-5 max-w-3xl text-[1.9rem] text-white sm:text-[2.25rem] md:text-[3.25rem]"
+          style={{ animationDelay: "210ms" }}
+        >
           {title}
         </h1>
         {intro && (
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+          <p
+            className="rise mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
+            style={{ animationDelay: "300ms" }}
+          >
             {intro}
           </p>
         )}

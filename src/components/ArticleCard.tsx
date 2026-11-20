@@ -20,7 +20,7 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
             alt=""
             fill
             sizes={featured ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 33vw"}
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
           />
         )}
       </Link>
@@ -50,7 +50,7 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
 
         <Link
           href={`/news/${article.slug}`}
-          className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-navy"
+          className="relative mt-5 inline-flex w-fit items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-navy after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 hover:after:scale-x-100"
         >
           Read
           <span className="sr-only">: {article.title}</span>

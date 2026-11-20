@@ -103,7 +103,11 @@ export function EventCountdown({
               variant === "invert" ? "text-white" : "text-navy"
             }`}
           >
-            {String(part.value).padStart(2, "0")}
+            {/* Keyed on the value so a change rolls the figure in rather than
+                swapping it in place. The number itself is never delayed. */}
+            <span key={part.value} className="countdown-value">
+              {String(part.value).padStart(2, "0")}
+            </span>
           </p>
           <p
             className={`mt-1 whitespace-nowrap text-[10px] uppercase tracking-[0.14em] ${

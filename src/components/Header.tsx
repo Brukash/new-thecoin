@@ -85,7 +85,12 @@ export function Header() {
           It sits outside <header>: wrapping it and the nav in one <header> would
           bound the sticky nav to the wrapper's height and stop it sticking. So the
           bar carries its own named landmark to keep its content discoverable. */}
-      <div role="region" aria-label="Contact and member portals" className="bg-ink text-white/70">
+      <div
+        role="region"
+        aria-label="Contact and member portals"
+        className="rise bg-ink text-white/70"
+        style={{ animationDelay: "60ms" }}
+      >
         <div className="shell flex h-9 items-center justify-between gap-4 text-[11px] tracking-wide sm:h-10 sm:gap-6 sm:text-[12px]">
           <div className="flex items-center gap-5">
             <a
@@ -111,7 +116,7 @@ export function Header() {
                 href={portal.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`shrink-0 whitespace-nowrap transition-colors hover:text-gold-200 ${
+                className={`relative shrink-0 whitespace-nowrap transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-gold/70 after:transition-transform after:duration-300 hover:text-gold-200 hover:after:scale-x-100 ${
                   index === 2 ? "hidden sm:inline" : ""
                 }`}
               >

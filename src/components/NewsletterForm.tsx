@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
@@ -63,7 +63,9 @@ export function NewsletterForm() {
               <Check className="size-4" /> Subscribed
             </>
           ) : state === "loading" ? (
-            "Submitting…"
+            <>
+              <Loader2 className="size-4 animate-spin" aria-hidden /> Subscribing
+            </>
           ) : (
             <>
               Subscribe <ArrowRight className="size-4" />
@@ -73,7 +75,9 @@ export function NewsletterForm() {
       </div>
       <p
         aria-live="polite"
-        className={`mt-2 min-h-5 text-xs ${state === "error" ? "text-red-300" : "text-white/50"}`}
+        className={`mt-2 min-h-5 text-xs transition-colors duration-300 ${
+          state === "error" ? "text-red-300" : state === "done" ? "text-gold-200" : "text-white/50"
+        }`}
       >
         {message}
       </p>

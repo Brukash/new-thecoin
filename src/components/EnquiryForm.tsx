@@ -12,6 +12,10 @@ const options: { value: EnquiryType; label: string }[] = [
   { value: "general", label: "General enquiry" },
 ];
 
+/** Shared control styling: the gold accent arrives on focus, not on hover. */
+const fieldClass =
+  "h-11 w-full border border-line bg-white px-3 text-sm text-charcoal transition-[border-color,box-shadow] duration-200 focus:border-gold-600 focus:shadow-[0_0_0_3px_rgba(185,147,81,0.18)] focus:outline-none";
+
 /**
  * Enquiry form. Posts to /api/enquiry which validates server-side, applies
  * rate limiting and a honeypot, then stores the enquiry. No third-party
@@ -63,7 +67,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
 
   if (state === "done") {
     return (
-      <div className="card p-8 text-center" role="status">
+      <div className="card rise p-8 text-center" role="status">
         <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-gold-50 text-gold-600">
           <Check className="size-6" aria-hidden />
         </span>
@@ -95,7 +99,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
             name="name"
             required
             autoComplete="name"
-            className="h-11 w-full border border-line bg-white px-3 text-sm text-charcoal focus:border-gold-600 focus:outline-none"
+            className={fieldClass}
           />
         </div>
 
@@ -109,7 +113,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
             type="email"
             required
             autoComplete="email"
-            className="h-11 w-full border border-line bg-white px-3 text-sm text-charcoal focus:border-gold-600 focus:outline-none"
+            className={fieldClass}
           />
         </div>
 
@@ -122,7 +126,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
             name="phone"
             type="tel"
             autoComplete="tel"
-            className="h-11 w-full border border-line bg-white px-3 text-sm text-charcoal focus:border-gold-600 focus:outline-none"
+            className={fieldClass}
           />
         </div>
 
@@ -133,7 +137,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
           <input
             id="staffId"
             name="staffId"
-            className="h-11 w-full border border-line bg-white px-3 text-sm text-charcoal focus:border-gold-600 focus:outline-none"
+            className={fieldClass}
           />
         </div>
 
@@ -145,7 +149,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
             id="type"
             name="type"
             defaultValue={defaultType}
-            className="h-11 w-full border border-line bg-white px-3 text-sm text-charcoal focus:border-gold-600 focus:outline-none"
+            className={fieldClass}
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
@@ -164,7 +168,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
             name="message"
             required
             rows={5}
-            className="w-full border border-line bg-white px-3 py-2.5 text-sm text-charcoal focus:border-gold-600 focus:outline-none"
+            className="w-full border border-line bg-white px-3 py-2.5 text-sm text-charcoal transition-[border-color,box-shadow] duration-200 focus:border-gold-600 focus:shadow-[0_0_0_3px_rgba(185,147,81,0.18)] focus:outline-none"
           />
         </div>
 
@@ -192,7 +196,7 @@ export function EnquiryForm({ defaultType = "general" }: { defaultType?: Enquiry
             "Send enquiry"
           )}
         </button>
-        <p aria-live="polite" className="min-h-5 text-xs text-red-600">
+        <p aria-live="polite" className="min-h-5 text-xs text-red-600 transition-opacity duration-300">
           {state === "error" ? message : ""}
         </p>
       </div>

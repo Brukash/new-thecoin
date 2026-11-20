@@ -1,15 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import type { HeroPhoto } from "@/content/hero-photos";
 
 /**
  * Home hero photography.
  *
- * Cross-fades between the Society's own photographs. It pauses while the
- * pointer or keyboard focus is inside it, and does not advance at all when the
- * visitor asks for reduced motion — in that case the selector still works.
+ * Cross-fades between the Society's own photographs with a slight settling
+ * scale, so a change reads as a dissolve and never as a cut. The active
+ * indicator fills over the length of the interval, which makes the next move
+ * legible before it happens. It pauses while the pointer or keyboard focus is
+ * inside it, stops for the visit once a visitor picks a photograph themselves,
+ * and does not advance at all under reduced motion — in that case the selector
+ * still works.
  */
 export function HeroCarousel({
   photos,
@@ -20,6 +24,7 @@ export function HeroCarousel({
 }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [taken, setTaken] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -30,14 +35,16 @@ export function HeroCarousel({
     return () => query.removeEventListener("change", onChange);
   }, []);
 
+  const running = !paused && !taken && !reducedMotion;
+
   useEffect(() => {
-    if (photos.length < 2 || paused || reducedMotion) return;
+    if (photos.length < 2 || !running) return;
     const timer = window.setInterval(
       () => setIndex((current) => (current + 1) % photos.length),
       intervalMs,
     );
     return () => window.clearInterval(timer);
-  }, [photos.length, paused, reducedMotion, intervalMs]);
+  }, [photos.length, running, intervalMs]);
 
   if (photos.length === 0) return null;
 
@@ -51,6 +58,8 @@ export function HeroCarousel({
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+      onTouchEnd={() => setPaused(false)}
     >
       {photos.map((photo, position) => {
         const active = position === index;
@@ -58,9 +67,7 @@ export function HeroCarousel({
           <div
             key={photo.src}
             aria-hidden={!active}
-            className={`absolute inset-0 transition-opacity duration-[1200ms] ease-out ${
-              active ? "opacity-100" : "opacity-0"
-            }`}
+            className={`hero-frame absolute inset-0 ${active ? "is-active" : ""}`}
           >
             <Image
               src={photo.src}
@@ -75,20 +82,38 @@ export function HeroCarousel({
         );
       })}
 
+      {/* The selector sits over photographs of very different brightness, so it
+          carries a soft scrim rather than relying on white-on-white contrast. */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-ink/50 to-transparent"
+        aria-hidden
+      />
+
       {photos.length > 1 ? (
-        <div className="pointer-events-auto absolute right-4 top-4 flex gap-2">
-          {photos.map((photo, position) => (
-            <button
-              key={photo.src}
-              type="button"
-              onClick={() => setIndex(position)}
-              aria-label={`Show photograph ${position + 1} of ${photos.length}`}
-              aria-current={position === index}
-              className={`h-1.5 w-7 transition-colors duration-300 ${
-                position === index ? "bg-gold" : "bg-white/40 hover:bg-white/70"
-              }`}
-            />
-          ))}
+        <div
+          className="pointer-events-auto absolute right-4 top-4 flex gap-2"
+          style={{ "--hero-dot-duration": `${intervalMs}ms` } as CSSProperties}
+        >
+          {photos.map((photo, position) => {
+            const active = position === index;
+            return (
+              <button
+                key={photo.src}
+                type="button"
+                onClick={() => {
+                  setIndex(position);
+                  setTaken(true);
+                }}
+                aria-label={`Show photograph ${position + 1} of ${photos.length}`}
+                aria-current={active}
+                data-running={active && running}
+                data-paused={active && paused && !taken}
+                className={`hero-dot relative h-1.5 w-7 overflow-hidden transition-colors duration-300 ${
+                  active ? "bg-white/25" : "bg-white/40 hover:bg-white/70"
+                }`}
+              />
+            );
+          })}
         </div>
       ) : null}
     </div>

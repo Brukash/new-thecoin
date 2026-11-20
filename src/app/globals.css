@@ -35,8 +35,19 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  /* Motion */
+  /* Motion — one timing family for the whole site.
+     Micro-interactions 150–250ms, card transitions 250–450ms, section
+     entrances 450–800ms, hero sequences 600–1200ms, drifting cycles 4–8s. */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --motion-fast: 180ms;
+  --motion-base: 280ms;
+  --motion-card: 380ms;
+  --motion-section: 640ms;
+  --motion-hero: 880ms;
+  --motion-stagger: 70ms;
 }
 
 @layer base {
@@ -169,6 +180,18 @@
     height: 1px;
     background-color: currentColor;
     opacity: 0.7;
+    transform-origin: left center;
+    transition: transform 620ms var(--ease-out-soft) 120ms;
+  }
+
+  /* Inside a scroll reveal, the gold rule draws itself in with the heading
+     rather than arriving already drawn. */
+  .reveal .eyebrow::before {
+    transform: scaleX(0);
+  }
+
+  .reveal.is-visible .eyebrow::before {
+    transform: scaleX(1);
   }
 
   .eyebrow-invert {
@@ -448,15 +471,42 @@
 }
 
 @layer utilities {
+  /* One scroll-reveal primitive for the whole site. Variants only change the
+     starting offset, so every section shares the same duration and easing. */
   .reveal {
+    --reveal-x: 0px;
+    --reveal-y: 14px;
+    --reveal-scale: 1;
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 700ms var(--ease-out-soft), transform 700ms var(--ease-out-soft);
+    transform: translate3d(var(--reveal-x), var(--reveal-y), 0) scale(var(--reveal-scale));
+    transition:
+      opacity var(--motion-section) var(--ease-out-soft),
+      transform var(--motion-section) var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
   }
 
   .reveal.is-visible {
     opacity: 1;
-    transform: none;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .reveal-fade {
+    --reveal-y: 0px;
+  }
+
+  .reveal-scale {
+    --reveal-y: 10px;
+    --reveal-scale: 0.985;
+  }
+
+  .reveal-left {
+    --reveal-x: -16px;
+    --reveal-y: 0px;
+  }
+
+  .reveal-right {
+    --reveal-x: 16px;
+    --reveal-y: 0px;
   }
 
   .text-balance {
@@ -489,10 +539,10 @@
 
 @keyframes hero-drift {
   from {
-    transform: scale(1.02);
+    transform: scale(1.015);
   }
   to {
-    transform: scale(1.09);
+    transform: scale(1.055);
   }
 }
 
@@ -505,16 +555,142 @@
   }
 }
 
+@keyframes hero-media-in {
+  from {
+    opacity: 0;
+    transform: scale(1.018);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes countdown-tick {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chat-launcher-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 @layer components {
+  /* ---- hero ------------------------------------------------------------ */
   .rise {
-    animation: rise 720ms var(--ease-out-soft) both;
+    animation: rise var(--motion-hero) var(--ease-out-soft) both;
+  }
+
+  /* The photograph fades into place as the heading sequence plays, then holds
+     a very slow drift so the frame is never completely static. */
+  .hero-media {
+    animation: hero-media-in 1000ms var(--ease-out-soft) both;
+    animation-delay: 240ms;
   }
 
   .hero-media img {
-    animation: hero-drift 26s var(--ease-out-soft) both;
+    animation: hero-drift 30s var(--ease-in-out-soft) infinite alternate;
   }
 
-  /* Continuous partner strip; pauses on hover and focus. */
+  .hero-caption {
+    animation: rise 760ms var(--ease-out-soft) both;
+    animation-delay: 720ms;
+  }
+
+  /* Carousel frames: the outgoing photograph dissolves beneath the incoming
+     one and settles a hair smaller, so the change reads as a crossfade and
+     never as a cut. */
+  .hero-frame {
+    opacity: 0;
+    transform: scale(1.035);
+    transition:
+      opacity 1200ms var(--ease-out-soft),
+      transform 1800ms var(--ease-out-soft);
+  }
+
+  .hero-frame.is-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* The active dot fills over the length of the interval, so the next move is
+     legible before it happens. */
+  .hero-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  /* Only fills while the carousel is actually advancing, so a stopped
+     carousel never shows a progress bar that suggests it is still moving. */
+  .hero-dot[aria-current="true"][data-running="true"]::after {
+    animation: dot-progress var(--hero-dot-duration, 7000ms) linear both;
+  }
+
+  .hero-dot[data-paused="true"]::after {
+    animation-play-state: paused;
+  }
+
+  /* ---- countdown ------------------------------------------------------- */
+  .countdown-value {
+    display: inline-block;
+    animation: countdown-tick 320ms var(--ease-out-soft);
+  }
+
+  /* ---- partner marquee ------------------------------------------------- */
+  /* Continuous strip; the duplicate half makes the loop seamless, and it
+     pauses the moment a visitor shows interest in a mark. */
   .marquee {
     overflow: hidden;
     mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
@@ -524,7 +700,8 @@
   .marquee-track {
     display: flex;
     width: max-content;
-    animation: marquee 38s linear infinite;
+    animation: marquee 46s linear infinite;
+    will-change: transform;
   }
 
   .marquee:hover .marquee-track,
@@ -532,12 +709,90 @@
     animation-play-state: paused;
   }
 
+  .marquee li img {
+    transition:
+      transform 420ms var(--ease-out-soft),
+      filter 420ms var(--ease-out-soft);
+  }
+
+  .marquee li:hover img {
+    transform: scale(1.045);
+    filter: brightness(1.06);
+  }
+
+  /* ---- floating assistant ---------------------------------------------- */
+  .chat-launcher {
+    animation: chat-launcher-in 560ms var(--ease-out-soft) both;
+    transition:
+      transform var(--motion-fast) var(--ease-out-soft),
+      background-color var(--motion-fast) var(--ease-out-soft);
+  }
+
+  .chat-launcher:hover {
+    transform: scale(1.045);
+  }
+
+  .chat-launcher:active {
+    transform: scale(0.97);
+  }
+
+  /* Two slow rings a moment after load, then silence. */
+  .chat-launcher::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1px solid var(--color-gold);
+    opacity: 0;
+    pointer-events: none;
+    animation: pulse-ring 2400ms var(--ease-out-soft) 1400ms 2;
+  }
+
+  .chat-panel {
+    transform-origin: bottom left;
+    transition:
+      opacity var(--motion-base) var(--ease-out-soft),
+      transform var(--motion-card) var(--ease-out-soft),
+      visibility var(--motion-card);
+  }
+
+  .chat-panel[data-open="false"] {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* ---- links ----------------------------------------------------------- */
   .link-underline svg {
     transition: transform 220ms var(--ease-out-soft);
   }
 
   .link-underline:hover svg {
     transform: translateX(2px);
+  }
+
+  /* Footer links: a gold rule that draws in from the left on hover. */
+  .footer-links a {
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 300ms var(--ease-out-soft);
+  }
+
+  .footer-links a:hover::after {
+    transform: scaleX(1);
   }
 }
 
@@ -547,10 +802,34 @@
   }
 
   .rise,
-  .hero-media img {
+  .hero-media,
+  .hero-media img,
+  .hero-caption,
+  .chat-launcher {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .hero-frame,
+  .chat-panel {
+    transition: none !important;
+  }
+
+  .hero-frame {
+    transform: none !important;
+  }
+
+  /* The dot and the countdown carry state, so they keep their end state rather
+     than simply stopping mid-animation. */
+  .hero-dot[aria-current="true"]::after {
+    animation: none !important;
+    transform: scaleX(1);
+  }
+
+  .chat-launcher::before,
+  .countdown-value {
+    animation: none !important;
   }
 
   .marquee-track {

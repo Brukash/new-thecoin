@@ -24,7 +24,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <img
             src={project.image}
             alt={project.imageAlt ?? ""}
-            className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
             loading="lazy"
           />
         ) : (

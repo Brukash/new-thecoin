@@ -18,6 +18,12 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Skip to main content
       </a>
 
+      {/* Revealed sections start hidden only because script will reveal them.
+          Without scripting there is nothing to reveal them, so they are shown. */}
+      <noscript>
+        <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
+      </noscript>
+
       <Header />
       <main id="main">{children}</main>
       <Footer />
